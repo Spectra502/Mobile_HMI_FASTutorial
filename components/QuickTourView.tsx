@@ -1,20 +1,21 @@
+// components/QuickTourView.tsx
+import { Ionicons } from '@expo/vector-icons';
 import React, { useRef, useState } from 'react';
 import {
-  View,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
+  View,
   useWindowDimensions,
 } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 
 import { TourChapter, allChapters } from '@/constants/types';
 //import QuickTourPageActivate   from './QuickTourPageActivate';
-import QuickTourPageACC        from './QuickTourPageACC';
+import QuickTourPageACC from './QuickTourPageACC';
 // …import other pages…
-import StepProgressBar         from './StepProgressBar';
+import StepProgressBar from './StepProgressBar';
 
 interface Props {
   initialChapter: TourChapter;
@@ -71,6 +72,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
       >
         <View key="0"><QuickTourPageActivate /></View>
         <View key="1"><QuickTourPageACC /></View>
+        <View key="2">QuickTourPageNewFeature</View>
         {/* …other pages in same order as allChapters */}
       </PagerView>
 

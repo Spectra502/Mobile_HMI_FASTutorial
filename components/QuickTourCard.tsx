@@ -1,7 +1,9 @@
+// components/QuickTourCard.tsx
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function QuickTourCard({ onPress }: { onPress(): void }) {
+  
   return (
     <View style={styles.card}>
       <Text style={styles.title}>Tutorial</Text>

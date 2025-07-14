@@ -1,10 +1,10 @@
 // components/HomeSection.tsx
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { TourChapter } from '../constants/types';
+import { useProfile } from '../context/ProfileContext';
+import AssistantButton from './AssistantButton';
 import CustomProgressBar from './CustomProgressBar';
-import AssistantButton   from './AssistantButton';
-import { TourChapter }    from '../constants/types';
-import { useProfile }     from '../context/ProfileContext';
 
 export default function HomeSection({
   onSeeAll,

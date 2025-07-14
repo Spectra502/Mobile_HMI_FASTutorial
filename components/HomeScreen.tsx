@@ -1,21 +1,22 @@
+// components/HomeScreen.tsx
+import { TourChapter } from '@/constants/types';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   //SafeAreaView,
   ScrollView,
   StyleSheet,
-  View,
-  Text,            // ← make sure Text is imported
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeToolbar   from './HomeToolbar';
-import QuickTourCard from './QuickTourCard';
-import HomeSection   from './HomeSection';
-import SearchOverlay from './SearchOverlay'; // see step 7
-import { TourChapter } from '@/constants/types'; //added
-import { useRouter } from 'expo-router';
+import { useProfile } from '../context/ProfileContext';
 import { useHomeViewModel } from '../hooks/useHomeViewModel';
-import { useProfile }      from '../context/ProfileContext';
+import HomeSection from './HomeSection';
+import HomeToolbar from './HomeToolbar';
+import QuickTourCard from './QuickTourCard';
+import SearchOverlay from './SearchOverlay';
 
 export default function HomeScreen() {
   const { showQuickTour, setShowQuickTour, currentCar } = useHomeViewModel();

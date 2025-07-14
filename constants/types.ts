@@ -20,6 +20,7 @@ export enum TourChapter {
   Notbrems         = 'notbremse',
   Deaktivierung    = 'deaktivierung',
   Risiken          = 'risiken',
+  NewFeature      = 'NewFeature',
 }
 
 // 3. Export the ordered array of chapters
@@ -34,4 +35,5 @@ export const allChapters: TourChapter[] = [
   TourChapter.Notbrems,
   TourChapter.Deaktivierung,
   TourChapter.Risiken,
+  TourChapter.NewFeature
 ];

@@ -1,12 +1,11 @@
 // app/(tabs)/_layout.tsx
-import React from 'react';
-import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import React from 'react';
 
 const ICON_MAP = {
   index:   'home-outline',
   quiz:    'help-circle-outline',
-  explore: 'compass-outline',
   profile: 'person-outline',
 } as const;
 
@@ -30,7 +29,6 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="index"   options={{ title: 'Home'    }} />
       <Tabs.Screen name="quiz"    options={{ title: 'Quiz'    }} />
-      <Tabs.Screen name="explore" options={{ title: 'Explore' }} />
       <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
     </Tabs>
   );

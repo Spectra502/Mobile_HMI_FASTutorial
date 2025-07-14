@@ -1,11 +1,11 @@
 // app/quick-tour/[chapter].tsx
-import React from 'react';
-import { useSearchParams, useRouter } from 'expo-router';
 import QuickTourView from '@/components/QuickTourView';
 import { TourChapter } from '@/constants/types';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React from 'react';
 
 export default function QuickTourRoute() {
-  const { chapter, showOverlay } = useSearchParams<{ chapter: string; showOverlay?: string }>();
+  const { chapter, showOverlay } = useLocalSearchParams<{ chapter: string; showOverlay?: string }>();
   const router = useRouter();
   const showOv = showOverlay !== 'false'; // default true
 

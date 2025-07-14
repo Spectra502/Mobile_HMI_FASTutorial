@@ -70,9 +70,8 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
         onPageSelected={e => setIndex(e.nativeEvent.position)}
         ref={pagerRef}
       >
-        <View key="0"><QuickTourPageActivate /></View>
+        <View key="0">QuickTourPageNewFeature</View>
         <View key="1"><QuickTourPageACC /></View>
-        <View key="2">QuickTourPageNewFeature</View>
         {/* …other pages in same order as allChapters */}
       </PagerView>
 

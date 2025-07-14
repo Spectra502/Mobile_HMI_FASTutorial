@@ -1,8 +1,21 @@
 // components/QuickTourCard.tsx
+import { TourChapter } from '@/constants/types';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function QuickTourCard({ onPress }: { onPress(): void }) {
+export default function QuickTourCard() {
+  const router = useRouter();
+
+  function onPress() {
+    router.push({
+      pathname: '/quick-tour/[chapter]',
+      params: {
+        chapter: TourChapter.ACC, // or whichever chapter you’d like to start
+        showOverlay: 'true',
+      },
+    });
+  }
   
   return (
     <View style={styles.card}>

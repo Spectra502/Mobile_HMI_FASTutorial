@@ -14,17 +14,14 @@ interface Props {
 export default function AssistantButton({ chapter, style, onPress, disabled }: Props) {
   // pick icon & title based on chapter + style
   const titleMap = {
-    newFeature: 'New Feature',
-    activation: 'Aktivierung',
-    trafficSign: 'Verkehrszeichenassistent',
-    acc: 'Abstandsregeltempomat',
-    trafficLight: 'Ampelerkennung',
-    spurwechsel: 'Spurführungsassistent',
-    notbremse: 'Notbremsassistent',
-    deaktivierung: 'Deaktivierung',
-    risiken: 'Risiken und Verantwortung',
-    
-    
+    ActivateDA: 'Aktivierung', 
+    Verkehrszeichen: 'Verkehrszeichen',
+    ACC: 'Abstand',
+    LKA: 'Ampelerkennung',
+    Spurwechsel: 'Spurführung',
+    Notbremse: 'Notbremsung',
+    Deaktivierung: 'Deaktivierung',
+    Risiken: 'Risiken/Verantwortung',   
   };
 
   return (

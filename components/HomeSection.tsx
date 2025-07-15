@@ -15,7 +15,7 @@ export default function HomeSection({
 }) {
   const [showAll, setShowAll] = useState(false);
   const profile = useProfile();
-  const chapters: TourChapter[] = ['activation','trafficSign','acc','trafficLight'];
+  const chapters: TourChapter[] = ['ActivateDA', 'Verkehrszeichen', 'ACC', 'LKA', 'Spurwechsel', 'Notbremse', 'Deaktivierung', 'Risiken'];
   const total    = chapters.length;
   const done     = profile.finishedChapters.length;
   const progress = total > 0 ? done / total : 0;

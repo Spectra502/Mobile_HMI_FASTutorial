@@ -59,6 +59,8 @@ project-root/
 ├── hooks/                         ← Custom hooks for view-model logic
 │   └── useHomeViewModel.ts       ← Port of Swift’s HomeViewModel
 │
+├── assets/                       ←Media files
+│
 ├── constants/                     ← Shared constants, colors, types
 │   ├── colors.ts
 │   ├── spacing.ts

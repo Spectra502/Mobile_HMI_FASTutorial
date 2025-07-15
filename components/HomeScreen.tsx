@@ -1,5 +1,4 @@
 // components/HomeScreen.tsx
-import { TourChapter } from '@/constants/types';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
@@ -7,8 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useProfile } from '../context/ProfileContext';
@@ -52,30 +50,7 @@ export default function HomeScreen() {
               // store selected chapter in state if you need it
             }}
           />
-
-
-          <TouchableOpacity
-            style={{
-              marginTop: 20,
-              padding: 12,
-              backgroundColor: '#007aff',
-              borderRadius: 8,
-              alignSelf: 'center',
-            }}
-            onPress={() =>
-              router.push({
-                pathname: '/quick-tour/[chapter]',
-                params: {
-                  chapter: TourChapter.ActivateDA,
-                  showOverlay: 'true',
-                },
-              })
-            }
-          >
-            <Text style={{ color: '#fff' }}>🚀 Launch Quick Tour</Text>
-          </TouchableOpacity>
-
-
+        
           {/* you can add an invisible anchor after to scroll-to-bottom */}
         </ScrollView>
 

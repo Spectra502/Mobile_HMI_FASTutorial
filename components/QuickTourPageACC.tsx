@@ -1,9 +1,13 @@
+import { TourChapter } from '@/constants/types';
+import { useProfile } from '@/context/ProfileContext';
 import React, { useEffect } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from './PlaceholderImage';
 import TextWithSidebar from './TextWithSidebar';
-import { useProfile }  from '@/context/ProfileContext';
-import { TourChapter } from '@/constants/types';
+
+import accGIF1 from '@/assets/GIFs/1-1.gif';
+import accGIF2 from '@/assets/GIFs/1-2.gif';
+import accGIF3 from '@/assets/GIFs/1-3.gif';
 
 export default function QuickTourPageACC() {
   const profile = useProfile();
@@ -19,7 +23,7 @@ export default function QuickTourPageACC() {
         ist der Abstandsassistent aktiviert.
       </TextWithSidebar>
 
-      <PlaceholderImage />
+      <PlaceholderImage source={accGIF1}/>
 
       <View style={styles.divider} />
 
@@ -28,7 +32,7 @@ export default function QuickTourPageACC() {
         Es bremst oder beschleunigt, falls nötig.
       </TextWithSidebar>
 
-      <PlaceholderImage />
+      <PlaceholderImage source={accGIF2}/>
 
       <View style={styles.divider} />
 
@@ -37,7 +41,7 @@ export default function QuickTourPageACC() {
         individuell anzupassen.
       </TextWithSidebar>
 
-      <PlaceholderImage />
+      <PlaceholderImage source={accGIF3}/>
     </ScrollView>
   );
 }

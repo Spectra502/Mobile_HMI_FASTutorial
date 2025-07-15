@@ -1,7 +1,6 @@
 export interface CarModel {
   id: string;
   fullTitle: string;
-  // …any other fields from your Swift CarModel
 }
 
 export type SearchResult =
@@ -10,30 +9,24 @@ export type SearchResult =
 
 
 export enum TourChapter {
-  ActivateDA       = 'activation',    // match your URL/route or whichever case you're using
-  Verkehrszeichen  = 'trafficSign',
-  ACC              = 'acc',
-  //Stauassistent    = 'trafficLight',
-  Ampelerkennung   = 'trafficLight',  // adjust the string keys to your routing/naming
-  LKA              = 'lka',
-  Spurwechsel      = 'spurwechsel',
-  Notbrems         = 'notbremse',
-  Deaktivierung    = 'deaktivierung',
-  Risiken          = 'risiken',
-  NewFeature      = 'NewFeature',
+  ActivateDA       = 'Aktivierung',    // match your URL/route or whichever case you're using
+  Verkehrszeichen  = 'Verkehrszeichen',
+  ACC              = 'Abstand',
+  LKA              = 'Ampelerkennung',
+  Spurwechsel      = 'Spurführung',
+  Notbremse         = 'Notbremsung',
+  Deaktivierung    = 'Deaktivierung',
+  Risiken          = 'Risiken/Verantwortung',
 }
 
 // 3. Export the ordered array of chapters
 export const allChapters: TourChapter[] = [
   TourChapter.ActivateDA,
   TourChapter.Verkehrszeichen,
-  TourChapter.ACC,
-  //TourChapter.Stauassistent,
-  TourChapter.Ampelerkennung,
   TourChapter.LKA,
+  TourChapter.ACC,
   TourChapter.Spurwechsel,
-  TourChapter.Notbrems,
+  TourChapter.Notbremse,
   TourChapter.Deaktivierung,
   TourChapter.Risiken,
-  TourChapter.NewFeature
 ];

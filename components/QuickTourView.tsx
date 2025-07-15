@@ -12,10 +12,16 @@ import PagerView from 'react-native-pager-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TourChapter, allChapters } from '@/constants/types';
-//import QuickTourPageActivate   from './QuickTourPageActivate';
-import QuickTourPageACC from './QuickTourPageACC';
-// …import other pages…
 import StepProgressBar from './StepProgressBar';
+
+import QuickTourPageACC from './QuickTourPageACC';
+import QuickTourPageDA from './QuickTourPageActivateDA';
+import QuickTourPageAmpelerkennung from './QuickTourPageAmpelerkennung';
+import QuickTourPageDeactivateDA from './QuickTourPageDeactivateDA';
+import QuickTourPageLKA from './QuickTourPageLKA';
+import QuickTourPageSpurwechsel from './QuickTourPageSpurwechsel';
+import QuickTourPageStauassistent from './QuickTourPageStauassistent';
+import QuickTourPageVerkehrszeichen from './QuickTourPageVerkehrszeichen';
 
 interface Props {
   initialChapter: TourChapter;
@@ -70,8 +76,14 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
         onPageSelected={e => setIndex(e.nativeEvent.position)}
         ref={pagerRef}
       >
-        <View key="0">QuickTourPageNewFeature</View>
         <View key="1"><QuickTourPageACC /></View>
+        <View key="2"><QuickTourPageDA/></View>
+        <View key="3"><QuickTourPageAmpelerkennung/></View>
+        <View key="4"><QuickTourPageDeactivateDA/></View>
+        <View key="5"><QuickTourPageLKA/></View>
+        <View key="6"><QuickTourPageSpurwechsel/></View>
+        <View key="7"><QuickTourPageStauassistent/></View>
+        <View key="8"><QuickTourPageVerkehrszeichen/></View>
         {/* …other pages in same order as allChapters */}
       </PagerView>
 

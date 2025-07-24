@@ -15,13 +15,13 @@ export default function AssistantButton({ chapter, style, onPress, disabled }: P
   // pick icon & title based on chapter + style
   const titleMap = {
     ActivateDA: 'Aktivierung', 
-    Verkehrszeichen: 'Verkehrszeichen',
-    ACC: 'Abstand',
+    Verkehrszeichen: 'Verkehrszeichenassistent',
+    ACC: 'Abstandsregeltempomat',
     LKA: 'Ampelerkennung',
-    Spurwechsel: 'Spurführung',
-    Notbremse: 'Notbremsung',
+    Spurwechsel: 'Spurführungsassistent',
+    Notbremse: 'Notbremssassistent',
     Deaktivierung: 'Deaktivierung',
-    Risiken: 'Risiken/Verantwortung',   
+    Risiken: 'Risiken und Verantwortung',   
   };
 
   return (

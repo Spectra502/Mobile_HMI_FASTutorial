@@ -1,8 +1,7 @@
 // components/FahrpunkteScreen.tsx
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Spacer } from 'react-native';
-import { useProfile }    from '@/context/ProfileContext';
-import GaugeProgress     from './GaugeProgress'; // from your earlier port
+import { StyleSheet, Text, View } from 'react-native';
+import GaugeProgress from './GaugeProgress'; // from your earlier port
 
 export default function FahrpunkteScreen() {
   const [value] = useState(80);

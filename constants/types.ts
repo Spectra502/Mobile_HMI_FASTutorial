@@ -9,7 +9,7 @@ export type SearchResult =
 
 
 export enum TourChapter {
-  ActivateDA       = 'Aktivierung',    // match your URL/route or whichever case you're using
+  ActivateDA       = 'Aktivierung', 
   Verkehrszeichen  = 'Verkehrszeichen',
   ACC              = 'Abstand',
   LKA              = 'Ampelerkennung',

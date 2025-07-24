@@ -1,25 +1,27 @@
 // components/QuizScreen.tsx
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter }         from 'expo-router';
 
-import FahrpunkteScreen from './FahrpunkteScreen';
+import { allChapters } from '@/constants/types';
+import { useProfile } from '@/context/ProfileContext';
+import { useQuizService } from '@/context/QuizServiceContext';
+import AssistantButton from './AssistantButton';
 import CustomProgressBar from './CustomProgressBar';
-import AssistantButton   from './AssistantButton';
-import { TourChapter, allChapters } from '@/constants/types';
-import { useProfile }    from '@/context/ProfileContext';
+import FahrpunkteScreen from './FahrpunkteScreen';
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();
   const profile = useProfile();
   const router  = useRouter();
+  const quiz    = useQuizService();
 
   // mimic the SwiftUI tab selection
   const [selectedTab, setSelectedTab] = useState<'test' | 'fahrpunkte'>('test');
@@ -54,8 +56,8 @@ export default function QuizScreen() {
           <View style={styles.progressWrapper}>
             <CustomProgressBar
               progress={
-                profile.totalCorrectAnswers() /
-                Math.max(1, profile.totalQuestions())
+                quiz.totalCorrectAnswers() /
+                Math.max(1, quiz.totalQuestions())
               }
             />
             <TouchableOpacity

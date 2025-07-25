@@ -1,8 +1,9 @@
 // context/QuizServiceContext.tsx
+import { QuizQuestion, sampleQuestions } from '@/constants/quiz'
 import { TourChapter } from '@/constants/types'
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
-
+/*
 export type QuizQuestion = {
   id: string
   chapter: TourChapter
@@ -11,7 +12,7 @@ export type QuizQuestion = {
   correctAnswerIndex: number
   userAnswerIndex?: number
 }
-
+*/
 export interface QuizService {
   questions: QuizQuestion[]
   totalQuestions: (chapter?: TourChapter) => number
@@ -30,6 +31,10 @@ export function QuizServiceProvider({ children }: { children: ReactNode }) {
 
   // Example stub data loader
   // useEffect(() => { fetchQuestions().then(setQuestions) }, [])
+  useEffect(() => {
+    // in future you might fetch from a server here
+    setQuestions(sampleQuestions)
+  }, [])
 
   const totalQuestions = (chapter?: TourChapter) =>
     chapter

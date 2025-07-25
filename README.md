@@ -27,46 +27,53 @@ You can start developing by editing the files inside the **app** directory. This
 
 ## 1. Folder & File Structure
 project-root/
-├── app/                           ← File-based routing “source of truth”
-│   ├── _layout.tsx                ← Global layout (fonts, theme, root Stack)
-│   └── (tabs)/                    ← A route-group for bottom tabs (doesn’t appear in URL)
-│       ├── _layout.tsx            ← Tabs layout (Home, Quiz, Profile)
-│       ├── index.tsx              ← Home route
-│       ├── quiz.tsx               ← Quiz route
-│       └── profile.tsx            ← Profile route
+├── app/
+│   ├── _layout.tsx                  ← RootLayout: wraps in Profile & QuizService providers, theme, Stack navigator
+│   └── (tabs)/                      ← Bottom-tabs group
+│       ├── _layout.tsx              ← TabsLayout: Home, Quiz, Profile
+│       ├── index.tsx                ← HomeScreen route
+│       ├── quiz.tsx                 ← QuizScreen route
+│       └── profile.tsx              ← ProfileScreen route
 │
-├── components/                    ← All reusable UI components & screens
-│   ├── HomeScreen.tsx             ← Full-page Home wrapper
-│   ├── HomeToolbar.tsx            ← Top search/bookmark bar
-│   ├── QuickTourCard.tsx          ← Pink “Tutorial starten” card
-│   ├── HomeSection.tsx            ← Tutorial list + progress bar
-│   ├── QuickTourView.tsx          ← Paged Quick-Tour carousel + nav + actions
-│   ├── QuickTourPage*.tsx         ← One file per chapter page (ACC, ActivateDA, etc.)
-│   ├── StepProgressBar.tsx        ← Top progress indicator for Quick-Tour
-│   ├── TextWithSidebar.tsx        ← Helper for sidebar-style annotated text
-│   ├── PlaceholderImage.tsx       ← Stub for animated GIFs in tour pages
-│   ├── QuizScreen.tsx             ← Wrapper for “Test” vs “Fahrpunkte” tabs
-│   ├── FahrpunkteScreen.tsx       ← “Fahrpunkte” score & events view
-│   ├── QuestionScreen.tsx         ← Dynamic quiz question modal
-│   ├── CustomProgressBar.tsx      ← Linear progress bar (Home tutorial)
-│   ├── GaugeProgress.tsx          ← Circular progress (Fahrpunkte)
-│   └── AssistantButton.tsx        ← Row button for each chapter (tutorial or quiz)
+├── app/quick-tour/
+│   └── [chapter].tsx                ← QuickTourRoute: uses `useLocalSearchParams` → QuickTourView
 │
-├── context/                       ← React Contexts for global stores
-│   ├── ProfileContext.tsx        ← Port of Swift’s ProfileStore
-│   └── QuizServiceContext.tsx    ← Port of Swift’s QuizService
+├── app/quiz/
+│   └── [chapter].tsx                ← QuizRoute: uses `useLocalSearchParams` → QuestionScreen
 │
-├── hooks/                         ← Custom hooks for view-model logic
-│   └── useHomeViewModel.ts       ← Port of Swift’s HomeViewModel
+├── components/                      ← Reusable UI components & screens
+│   ├── HomeScreen.tsx               ← Home wrapper; renders toolbar, QuickTourCard, HomeSection, launch buttons
+│   ├── HomeToolbar.tsx              ← Top search/bookmark bar
+│   ├── SearchOverlay.tsx            ← Full-screen search modal
+│   ├── HomeSection.tsx              ← Tutorial list + progress bar
+│   ├── QuickTourCard.tsx            ← “Tutorial starten” card (handles its own `router.push`)
+│   ├── QuickTourView.tsx            ← PagerView carousel + nav + actions
+│   ├── QuickTourPage*.tsx           ← One file per tour page (order must match `allChapters`)
+│   ├── StepProgressBar.tsx          ← Top-of-screen step indicator
+│   ├── TextWithSidebar.tsx          ← Sidebar-style annotated text helper
+│   ├── PlaceholderImage.tsx         ← Stub for GIFs/illustrations
+│   ├── QuizScreen.tsx               ← Test vs. Fahrpunkte tabs, launch logic
+│   ├── FahrpunkteScreen.tsx         ← Circular-gauge “Fahrpunkte” view
+│   ├── QuestionScreen.tsx           ← PagerView question modal + feedback overlay
+│   ├── CustomProgressBar.tsx        ← Linear bar for tutorial progress
+│   ├── GaugeProgress.tsx            ← Circular progress for Fahrpunkte
+│   └── AssistantButton.tsx          ← Chapter button (tutorial & quiz variants)
 │
-├── assets/                       ←Media files
+├── context/
+│   ├── ProfileContext.tsx           ← Port of your Swift `ProfileStore`
+│   └── QuizServiceContext.tsx       ← Port of Swift `QuizService` (questions, answers, correctness)
 │
-├── constants/                     ← Shared constants, colors, types
+├── hooks/
+│   └── useHomeViewModel.ts          ← Port of Swift `HomeViewModel` (currentCar, quick-tour flag)
+│
+├── constants/
 │   ├── colors.ts
 │   ├── spacing.ts
-│   └── types.ts                  ← CarModel, `enum TourChapter`, `allChapters[]`
+│   └── types.ts                     ← `enum TourChapter`, `allChapters: TourChapter[]`, CarModel, etc.
 │
-└── app.json / tsconfig.json      ← Expo config, path aliases (`@/` → project-root)
+├── assets/                          ← Images, fonts, media
+├── app.json / tsconfig.json         ← Expo config, path aliases (`@/` → `project-root`)
+└── README.md                        ← ← this file
 
 
 ## 2. File-Based Routing
@@ -119,78 +126,89 @@ Modals (SwiftUI’s fullScreenCover) are implemented by registering the dynamic 
 ## 4. Context & State Management
 
 ProfileContext.tsx
+Tracks finished chapters, bookmarks, profile code
 
-Holds user’s finished chapters, bookmarks, and profile code
-
-Provides useProfile() hook to check .isChapterFinished(), .markChapterFinished(), etc.
+Hook: useProfile() → .isChapterFinished(ch), .markChapterFinished(ch), .areAllChaptersFinished(), etc.
 
 QuizServiceContext.tsx
+Manages QuizQuestion[] and methods:
 
-Manages quiz questions, user answers, correctness checks
+.totalQuestions(ch?)
 
-Provides useQuizService() for fetching questions, setting answers, computing progress
+.question(ch, index)
+
+.setUserAnswer(id, idx)
+
+.isAnsweredCorrectly(id)
+
+.totalCorrectAnswers()
+
+.incorrectlyAnsweredQuestions()
+
+Hook: useQuizService()
 
 useHomeViewModel.ts
+Mirrors Swift's HomeViewModel
 
-Simple hook mirroring HomeViewModel.swift
-
-Exposes currentCar and showQuickTour state
+Exposes currentCar and (formerly) a show-tour flag (now handled via navigation)
 
 ## 5. UI Components & Styling
 
-Theming & Safe Area
+Theming
+ThemeProvider from React Navigation for light/dark themes
 
-We use ThemeProvider from React Navigation for light/dark themes
-
-react-native-safe-area-context’s SafeAreaView or useSafeAreaInsets() ensures content sits below notches/status-bar
+Safe Area
+react-native-safe-area-context's SafeAreaView / useSafeAreaInsets()
 
 Shared Constants
+colors.ts, spacing.ts, types.ts
 
-colors.ts and spacing.ts let you update your palette or paddings in one place
+Quick-Tour
 
-types.ts defines enum TourChapter (one value per Swift TourChapter) and allChapters[] in the same order as pages
+<QuickTourCard /> (self-navigating)
 
-Reusable Widgets
+<QuickTourView /> (PagerView + nav + progress)
 
-AssistantButton: chapter rows used in tutorial & quiz
+QuickTourPage*.tsx per chapter
 
-CustomProgressBar & GaugeProgress: match your SwiftUI progress styles
+<StepProgressBar />
 
-StepProgressBar: top indicator for Quick-Tour steps
+Quiz
 
-TextWithSidebar & PlaceholderImage: helpers to style tour content
+<QuizScreen /> (Test vs. Fahrpunkte tabs)
+
+<CustomProgressBar /> (linear)
+
+<FahrpunkteScreen /> (circular gauge)
+
+<QuestionScreen /> (PagerView + “Bestätigen” + feedback overlay)
+
+Helpers
+<AssistantButton />, <TextWithSidebar />, <PlaceholderImage />, etc.
 
 ##  6. How It All Runs
 
-App launch
+App Launch
+app/_layout.tsx loads fonts, wraps in providers, sets theme, instantiates <Stack>.
 
-app/_layout.tsx loads fonts, theme, wraps in contexts, instantiates root <Stack>
+Tabs Mount
+(tabs) loads app/(tabs)/_layout.tsx, rendering Home, Quiz, Profile tabs.
 
-Tabs mount
+Home Tab
+<HomeScreen /> shows toolbar, car title, <QuickTourCard />, tutorial list, and a manual launch button.
 
-The first screen (tabs) loads app/(tabs)/_layout.tsx, rendering bottom tabs
+Quiz Tab
+<QuizScreen /> toggles between:
 
-Home tab
+Test: linear progress + “Starten” launches quiz modal.
 
-app/(tabs)/index.tsx → <HomeScreen />:
+Fahrpunkte: circular gauge & events.
 
-Renders toolbar, header, QuickTourCard, HomeSection, and test buttons
+Profile Tab
+<ProfileScreen /> lists bookmarks, deep-links into Quick-Tour.
 
-Uses useRouter() to navigate into tour or quiz modals
+Quick-Tour Modal
+/quick-tour/[chapter]?showOverlay=true → <QuickTourView />: swipeable pages, nav, step bar, back/next.
 
-Quiz tab
-
-<QuizScreen /> toggles between Test and Fahrpunkte views, with chapter buttons that open <QuestionScreen /> as a modal route
-
-Profile tab
-
-<ProfileScreen /> shows user info and bookmarked chapters, pushes into QuickTour when a row is tapped
-
-QuickTour modal
-
-/quick-tour/[chapter] route → <QuickTourView />: swipeable pages (PagerView), custom nav bar, step indicator, previous/next buttons
-
-Question modal
-
-/quiz/[chapter]?onlyChapter= → <QuestionScreen />: paged quiz questions with feedback overlays
-
+Quiz Modal
+/quiz/[chapter]?onlyChapter=true|false → <QuestionScreen />: swipeable questions, confirm button, feedback overlay, then finish alert.

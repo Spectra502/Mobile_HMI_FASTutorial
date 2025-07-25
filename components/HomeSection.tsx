@@ -35,7 +35,6 @@ export default function HomeSection({
       </View>
 
       <CustomProgressBar progress={progress} />
-      <Text style={styles.percent}>{Math.round(progress*100)}%</Text>
 
       {toDisplay.map((ch) => (
         <AssistantButton
@@ -50,9 +49,8 @@ export default function HomeSection({
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#F5F5F5', padding: 16, borderRadius: 15, marginBottom: 16 },
+  container: { backgroundColor: '#e7e7e7ff', padding: 16, borderRadius: 15, marginBottom: 16 },
   header:    { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   title:     { fontSize: 17, fontWeight: 'bold' },
   seeAll:    { fontSize: 13, fontWeight: '600' },
-  percent:   { position: 'absolute', right: 24, top: 34, fontWeight: '600' },
 });

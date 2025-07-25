@@ -21,10 +21,18 @@ export default function QuizScreen() {
   const insets = useSafeAreaInsets();
   const profile = useProfile();
   const router  = useRouter();
-  const quiz    = useQuizService();
+  //const quiz    = useQuizService();
+  const quiz = useQuizService();
+  const totalQ = quiz.totalQuestions();
+  const correct = quiz.totalCorrectAnswers();
 
   // mimic the SwiftUI tab selection
   const [selectedTab, setSelectedTab] = useState<'test' | 'fahrpunkte'>('test');
+
+  console.log('allChapters:', allChapters)
+  console.log('totalQuestions:', quiz.totalQuestions())
+  console.log('totalCorrectAnswers:', quiz.totalCorrectAnswers())
+
 
   return (
     <View style={[styles.fill, { paddingTop: insets.top }]}>
@@ -51,13 +59,17 @@ export default function QuizScreen() {
       </View>
 
       {selectedTab === 'test' ? (
-        <ScrollView contentContainerStyle={styles.content}>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1, padding: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
           {/* Progress Section */}
           <View style={styles.progressWrapper}>
             <CustomProgressBar
               progress={
-                quiz.totalCorrectAnswers() /
-                Math.max(1, quiz.totalQuestions())
+                correct/
+                Math.max(1, totalQ)
               }
             />
             <TouchableOpacity
@@ -80,6 +92,10 @@ export default function QuizScreen() {
               <Text style={styles.startText}>Starten ▶</Text>
             </TouchableOpacity>
           </View>
+          
+          <Text style={styles.sectionHeader}>
+            Beantworten nach Kapiteln
+          </Text>
 
           {/* Chapter-by-chapter */}
           <View style={styles.section}>
@@ -106,6 +122,8 @@ export default function QuizScreen() {
   );
 }
 
+
+
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: '#fff' },
   tabSelector: {
@@ -118,6 +136,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
+  sectionHeader: {
+  fontSize: 16,
+  fontWeight: '600',
+  color: '#333',
+  marginHorizontal: 20,
+  marginBottom: 12,
+},
   tabSelected: {
     backgroundColor: '#fff',
     borderBottomWidth: 2,
@@ -143,3 +168,4 @@ const styles = StyleSheet.create({
   startText: { color: '#fff', fontWeight: '600' },
   section: { marginTop: 24 },
 });
+

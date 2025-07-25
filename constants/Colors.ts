@@ -5,6 +5,8 @@
 
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
+const success = '#4CAF50';
+const border = '#E0E0E0'; // Neutral gray for borders
 
 export const Colors = {
   light: {
@@ -23,4 +25,6 @@ export const Colors = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },
+   success,
+  border,
 };

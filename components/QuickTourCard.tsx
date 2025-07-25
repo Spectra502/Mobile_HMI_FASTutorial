@@ -32,7 +32,7 @@ export default function QuickTourCard() {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFECEE',
+    backgroundColor: '#e7e7e7ff',
     borderRadius: 15,
     padding: 17,
     marginBottom: 15,

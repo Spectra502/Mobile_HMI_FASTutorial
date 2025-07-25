@@ -14,6 +14,9 @@ interface Props {
 export default function QuestionScreen({ chapter, onlyChapter }: Props) {
   const router = useRouter()
   const quiz = useQuizService()
+  const allQs = onlyChapter
+  ? questions.filter(q => q.chapter === chapter)
+  : questions.filter(q => q.userAnswerIndex == null || !quiz.isAnsweredCorrectly(q.id))
 
   // Build your question list
   const all = onlyChapter

@@ -5,14 +5,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TourChapter } from '../constants/types';
 import { useProfile } from '../context/ProfileContext';
 
-import ACCIcon from '@/assets/Assistants/acc.imageset/Adaptiver Geschwindigkeitsassistent.svg';
 import ActivateIcon from '@/assets/Assistants/activate.imageset/Aktivierung.svg';
 import AmpelIcon from '@/assets/Assistants/ampel.imageset/Ampelerkennung.svg';
 import NotbremseIcon from '@/assets/Assistants/brake.imageset/brake.svg';
 import DeactivateIcon from '@/assets/Assistants/deactivate.imageset/Deaktivierung.svg';
-import SpurwechselIcon from '@/assets/Assistants/lane.imageset/Spurführungsassistent.svg';
 import RisikenIcon from '@/assets/Assistants/risk.imageset/Risiken und Verantwortung.svg';
 
+/*
 const iconMap: Record<TourChapter, React.FC<any>> = {
   ActivateDA: ActivateIcon,
   ACC: ACCIcon,
@@ -21,6 +20,29 @@ const iconMap: Record<TourChapter, React.FC<any>> = {
   Deaktivierung: DeactivateIcon,
   Spurwechsel: SpurwechselIcon,
   Notbremse: NotbremseIcon,
+};
+*/
+
+const iconMap: Record<TourChapter, React.FC<any>> = {
+  [TourChapter.ActivateDA]: ActivateIcon,
+  [TourChapter.Verkehrszeichen]: ActivateIcon, 
+  [TourChapter.ACC]: ActivateIcon,
+  [TourChapter.LKA]: AmpelIcon,
+  [TourChapter.Spurwechsel]: ActivateIcon,
+  [TourChapter.Notbremse]: NotbremseIcon,
+  [TourChapter.Deaktivierung]: DeactivateIcon,
+  [TourChapter.Risiken]: RisikenIcon,
+};
+
+const titleMap: Record<TourChapter, string> = {
+  [TourChapter.ActivateDA]: 'Aktivierung',
+  [TourChapter.Verkehrszeichen]: 'Verkehrszeichenassistent',
+  [TourChapter.ACC]: 'Abstandsregeltempomat',
+  [TourChapter.LKA]: 'Ampelerkennung',
+  [TourChapter.Spurwechsel]: 'Spurführungsassistent',
+  [TourChapter.Notbremse]: 'Notbremssassistent',
+  [TourChapter.Deaktivierung]: 'Deaktivierung',
+  [TourChapter.Risiken]: 'Risiken und Verantwortung',
 };
 
 interface Props {
@@ -31,18 +53,18 @@ interface Props {
 }
 
 export default function AssistantButton({ chapter, style, onPress, disabled }: Props) {
-
-  const Icon = iconMap[chapter];
-
-  console.log('ActivateIcon is', ActivateIcon);
-  console.log('iconMap keys:', Object.keys(iconMap));
-  console.log('Rendering chapter:', chapter, 'Icon=', Icon);
+  //console.log('ActivateIcon is', ActivateIcon);
+  //console.log('iconMap keys:', Object.keys(iconMap));
+  //console.log('Rendering chapter:', chapter, 'Icon=', Icon);
   
   const profile = useProfile();
   const done = profile.isChapterFinished(chapter);
-  
+
+  const Icon = iconMap[chapter];
+  const title = titleMap[chapter];
+
   // pick icon & title based on chapter + style
-  const titleMap = {
+  /*const titleMap = {
     ActivateDA: 'Aktivierung', 
     Verkehrszeichen: 'Verkehrszeichenassistent',
     ACC: 'Abstandsregeltempomat',
@@ -52,10 +74,17 @@ export default function AssistantButton({ chapter, style, onPress, disabled }: P
     Deaktivierung: 'Deaktivierung',
     Risiken: 'Risiken und Verantwortung',   
   };
+  */
+
+  console.log('AssistantButton render:', chapter);
+  const handlePress = () => {
+    console.log('Pressed chapter:', chapter);
+    onPress();
+  };
 
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled} style={s.btn}>
+    <TouchableOpacity onPress={handlePress} disabled={disabled} style={s.btn}>
       
       <View style={s.iconContainer}>
         {Icon ? (

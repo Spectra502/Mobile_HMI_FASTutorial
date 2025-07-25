@@ -19,7 +19,7 @@ export enum TourChapter {
   Risiken          = 'Risiken/Verantwortung',
 }
 
-// 3. Export the ordered array of chapters
+//Export the ordered array of chapters
 export const allChapters: TourChapter[] = [
   TourChapter.ActivateDA,
   TourChapter.Verkehrszeichen,

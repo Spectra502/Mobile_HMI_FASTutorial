@@ -1,10 +1,12 @@
 // components/HomeSection.tsx
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { TourChapter } from '../constants/types';
+import { TourChapter, allChapters } from '../constants/types';
 import { useProfile } from '../context/ProfileContext';
 import AssistantButton from './AssistantButton';
 import CustomProgressBar from './CustomProgressBar';
+
 
 export default function HomeSection({
   onSeeAll,
@@ -13,14 +15,19 @@ export default function HomeSection({
   onSeeAll(): void;
   onChapter(ch: TourChapter): void;
 }) {
+  const router = useRouter();
   const [showAll, setShowAll] = useState(false);
   const profile = useProfile();
-  const chapters: TourChapter[] = ['ActivateDA', 'Verkehrszeichen', 'ACC', 'LKA', 'Spurwechsel', 'Notbremse', 'Deaktivierung', 'Risiken'];
-  const total    = chapters.length;
+  //const chapters: TourChapter[] = ['ActivateDA', 'Verkehrszeichen', 'Abstand', 'LKA', 'Spurwechsel', 'Notbremse', 'Deaktivierung', 'Risiken'];
+  //const total    = chapters.length;
+  const total    = allChapters.length;
   const done     = profile.finishedChapters.length;
   const progress = total > 0 ? done / total : 0;
 
-  const toDisplay = showAll ? chapters : chapters.slice(0, 3);
+  //const toDisplay = showAll ? chapters : chapters.slice(0, 3);
+  const toDisplay = showAll
+    ? allChapters
+    : allChapters.slice(0, 3);
 
   return (
     <View style={styles.container}>
@@ -41,7 +48,15 @@ export default function HomeSection({
           key={ch}
           chapter={ch}
           style="tutorial"
-          onPress={() => onChapter(ch)}
+          onPress={() => {
+            console.log('Jumping to chapter', ch);
+            router.push({
+              pathname: '/quick-tour/[chapter]',
+              params: { chapter: ch, showOverlay: 'true' },
+            });
+          }
+
+          }
         />
       ))}
     </View>

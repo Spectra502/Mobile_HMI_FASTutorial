@@ -1,19 +1,29 @@
 // app/quiz/[chapter].tsx
-import QuestionScreen from '@/components/QuestionScreen'
-import { TourChapter } from '@/constants/types'
-import { useLocalSearchParams } from 'expo-router'
-import React from 'react'
+import QuestionScreen from '@/components/QuestionScreen';
+import { TourChapter } from '@/constants/types';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React from 'react';
 
-export default function QuizRoute() {
+export default function QuizChapterModal() {
   const { chapter, onlyChapter } = useLocalSearchParams<{
-    chapter: string
-    onlyChapter?: string
-  }>()
+    chapter: string;
+    onlyChapter?: string;
+  }>();
+  const router = useRouter();
+
+  if (!chapter) {
+    // malformed URL? just close
+    router.back();
+    return null;
+  }
+
+  const onlySingle = onlyChapter === 'true';
 
   return (
     <QuestionScreen
       chapter={chapter as TourChapter}
-      onlyChapter={onlyChapter === 'true'}
+      onlyChapter={onlySingle}
+      onDone={() => router.back()}
     />
-  )
+  );
 }

@@ -29,9 +29,9 @@ export default function QuizScreen() {
   // mimic the SwiftUI tab selection
   const [selectedTab, setSelectedTab] = useState<'test' | 'fahrpunkte'>('test');
 
-  console.log('allChapters:', allChapters)
-  console.log('totalQuestions:', quiz.totalQuestions())
-  console.log('totalCorrectAnswers:', quiz.totalCorrectAnswers())
+  //console.log('allChapters:', allChapters)
+  //console.log('totalQuestions:', quiz.totalQuestions())
+  //console.log('totalCorrectAnswers:', quiz.totalCorrectAnswers())
 
 
   return (
@@ -80,10 +80,10 @@ export default function QuizScreen() {
               style={styles.startButton}
               onPress={() => {
                 // onlyChapter quiz – start at first chapter
-                if (!profile.areAllChaptersFinished()) {
+                /*if (!profile.areAllChaptersFinished()) {
                   // show alert instead?
                   return;
-                }
+                }*/
                 router.push({
                   pathname: '/quiz/[chapter]',
                   params: {

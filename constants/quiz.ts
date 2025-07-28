@@ -16,7 +16,7 @@ export const sampleQuestions: QuizQuestion[] = [
     chapter: TourChapter.ActivateDA,
     questionText: 'Wie viele Räder hat ein durchschnittliches Auto?',
     possibleAnswers: ['Vier', 'Eins', 'Drei', 'Zwei'],
-    correctAnswerIndex: 0,
+    correctAnswerIndex: 3,
   },
   {
     id: 'Test2',

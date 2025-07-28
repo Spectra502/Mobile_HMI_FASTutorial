@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { TourChapter } from '../constants/types';
+import { TourChapter, allChapters } from '../constants/types';
 
 interface ProfileStore {
   finishedChapters: TourChapter[];
@@ -16,10 +16,24 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
 
   const store: ProfileStore = {
     finishedChapters: finished,
-    isChapterFinished: (ch) => finished.includes(ch),
+
+    isChapterFinished: (ch) => 
+      // only true if it’s really in our canonical list
+      finished.includes(ch) && allChapters.includes(ch),
+
     markChapterFinished: (ch) =>
-      setFinished((fs) => fs.includes(ch) ? fs : [...fs, ch]),
-    areAllChaptersFinished: () => finished.length === /* total count */ 4,
+      setFinished((prev) => {
+        // guard against duplicates
+        if (!allChapters.includes(ch) || prev.includes(ch)) {
+          return prev;
+        }
+        return [...prev, ch];
+      }),
+
+    areAllChaptersFinished: () => 
+      // compare against the real number of chapters
+      finished.filter((ch) => allChapters.includes(ch)).length ===
+      allChapters.length,
   };
 
   return <ctx.Provider value={store}>{children}</ctx.Provider>;

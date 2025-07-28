@@ -21,7 +21,10 @@ export default function HomeSection({
   //const chapters: TourChapter[] = ['ActivateDA', 'Verkehrszeichen', 'Abstand', 'LKA', 'Spurwechsel', 'Notbremse', 'Deaktivierung', 'Risiken'];
   //const total    = chapters.length;
   const total    = allChapters.length;
-  const done     = profile.finishedChapters.length;
+  //const done     = profile.finishedChapters.length;
+  // only count each chapter once, and only those in allChapters
+  const done = Array.from(new Set(profile.finishedChapters))
+    .filter((ch) => allChapters.includes(ch)).length;
   const progress = total > 0 ? done / total : 0;
 
   //const toDisplay = showAll ? chapters : chapters.slice(0, 3);
@@ -49,7 +52,7 @@ export default function HomeSection({
           chapter={ch}
           style="tutorial"
           onPress={() => {
-            console.log('Jumping to chapter', ch);
+            //console.log('Jumping to chapter', ch);
             router.push({
               pathname: '/quick-tour/[chapter]',
               params: { chapter: ch, showOverlay: 'true' },

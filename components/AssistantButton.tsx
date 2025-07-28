@@ -10,22 +10,12 @@ import AmpelIcon from '@/assets/Assistants/ampel.imageset/Ampelerkennung.svg';
 import NotbremseIcon from '@/assets/Assistants/brake.imageset/brake.svg';
 import DeactivateIcon from '@/assets/Assistants/deactivate.imageset/Deaktivierung.svg';
 import RisikenIcon from '@/assets/Assistants/risk.imageset/Risiken und Verantwortung.svg';
+import VerkehrIcon from '@/assets/Assistants/sign.imageset/verkehrszeichenassistent.svg';
 
-/*
-const iconMap: Record<TourChapter, React.FC<any>> = {
-  ActivateDA: ActivateIcon,
-  ACC: ACCIcon,
-  LKA: AmpelIcon,
-  Risiken: RisikenIcon,
-  Deaktivierung: DeactivateIcon,
-  Spurwechsel: SpurwechselIcon,
-  Notbremse: NotbremseIcon,
-};
-*/
 
 const iconMap: Record<TourChapter, React.FC<any>> = {
   [TourChapter.ActivateDA]: ActivateIcon,
-  [TourChapter.Verkehrszeichen]: ActivateIcon, 
+  [TourChapter.Verkehrszeichen]: VerkehrIcon, 
   [TourChapter.ACC]: ActivateIcon,
   [TourChapter.LKA]: AmpelIcon,
   [TourChapter.Spurwechsel]: ActivateIcon,
@@ -63,22 +53,10 @@ export default function AssistantButton({ chapter, style, onPress, disabled }: P
   const Icon = iconMap[chapter];
   const title = titleMap[chapter];
 
-  // pick icon & title based on chapter + style
-  /*const titleMap = {
-    ActivateDA: 'Aktivierung', 
-    Verkehrszeichen: 'Verkehrszeichenassistent',
-    ACC: 'Abstandsregeltempomat',
-    LKA: 'Ampelerkennung',
-    Spurwechsel: 'Spurführungsassistent',
-    Notbremse: 'Notbremssassistent',
-    Deaktivierung: 'Deaktivierung',
-    Risiken: 'Risiken und Verantwortung',   
-  };
-  */
 
-  console.log('AssistantButton render:', chapter);
+  //console.log('AssistantButton render:', chapter);
   const handlePress = () => {
-    console.log('Pressed chapter:', chapter);
+    //console.log('Pressed chapter:', chapter);
     onPress();
   };
 

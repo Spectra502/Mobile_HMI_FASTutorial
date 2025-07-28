@@ -25,7 +25,7 @@ export default function CustomProgressBar({ progress }: Props) {
 
 const styles = StyleSheet.create({
   track: {
-    height: 24,              // match your design
+    height: 26,              // match your design
     flexDirection: 'row',
     borderRadius: 12,
     overflow: 'hidden',

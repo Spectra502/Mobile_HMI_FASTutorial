@@ -64,8 +64,12 @@ export default function QuizScreen() {
           contentContainerStyle={{ flexGrow: 1, padding: 20 }}
           showsVerticalScrollIndicator={false}
         >
+          
           {/* Progress Section */}
           <View style={styles.progressWrapper}>
+            <Text style={styles.desc}>
+              Füllen Sie 24 Fragen aus und testen Sie Ihr Wissen mit diesem Quiz!
+            </Text>
             <CustomProgressBar
               progress={
                 correct/
@@ -167,5 +171,6 @@ const styles = StyleSheet.create({
   },
   startText: { color: '#fff', fontWeight: '600' },
   section: { marginTop: 24 },
+  desc:  { fontSize: 14, marginVertical: 12 },
 });
 

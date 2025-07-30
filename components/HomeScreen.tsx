@@ -28,8 +28,10 @@ export default function HomeScreen() {
       <HomeToolbar
         value={searchText}
         onChange={setSearchText}
+        
         onFocus={() => setSearchActive(true)}
-        onBlur={()  => { setSearchActive(false); setSearchText(''); }}
+        // we’ll only close via the overlay’s × button
+        onBlur={() => {}}
       />
 
       <View style={styles.content}>
@@ -58,9 +60,24 @@ export default function HomeScreen() {
         {searchActive && (
           <SearchOverlay
             query={searchText}
-            onSelectTutorial={(ch) => {/*…*/}}
-            onSelectQuiz={(ch) => {/*…*/}}
-            onClose={() => setSearchActive(false)}
+            onSelectTutorial={(ch) => {
+               setSearchActive(false);
+               router.push({
+                 pathname: '/quick-tour/[chapter]',
+                 params: { chapter: ch, showOverlay: 'true' },
+               });
+             }}
+            onSelectQuiz={(ch) => {
+               setSearchActive(false);
+               router.push({
+                 pathname: '/quiz/[chapter]',
+                 params: { chapter: ch, onlyChapter: 'true' },
+               });
+             }}
+            onClose={() => {
+               setSearchActive(false);
+               setSearchText('');
+             }}
           />
         )}
       </View>

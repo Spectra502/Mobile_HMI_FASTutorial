@@ -56,9 +56,11 @@ export default function QuestionScreen() {
       setQuizDone(true);
     }
   }
-
+  
+// MARK: - Header
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
+      
       {/* 1) Header */}
       <Text style={styles.header}>{chapter}</Text>
 

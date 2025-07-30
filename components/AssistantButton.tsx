@@ -84,14 +84,14 @@ export default function AssistantButton({
           {done ? (
             <MaterialIcons name="check" size={16} color="#fff" />
           ) : (
-            <MaterialIcons name="autorenew" size={16} color={colors.light.border} />
+            <MaterialIcons name="check" size={16} color={colors.light.border} />
           )}
         </View>
       ) : (
         // for quiz‐style you might show a number badge or different icon
         <View style={[s.statusCircle, done ? s.statusDone : s.statusTodo]}>
           <MaterialIcons
-            name={done ? 'check' : 'help-outline'}
+            name={done ? 'check' : 'check'}
             size={16}
             color={done ? '#fff' : colors.light.border}
           />

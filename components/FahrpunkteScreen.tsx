@@ -1,32 +1,131 @@
 // components/FahrpunkteScreen.tsx
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import GaugeProgress from './GaugeProgress'; // from your earlier port
+
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import GaugeProgress from './GaugeProgress';
 
 export default function FahrpunkteScreen() {
-  const [value] = useState(80);
-  const total   = 100;
+  const insets = useSafeAreaInsets();
+  const value = 80;
+  const total = 100;
+  const fraction = value / total;
 
   return (
-    <View style={styles.fill}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.container,
+        { paddingTop: insets.top, paddingBottom: insets.bottom + 20 }
+      ]}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* 1) Gauge */}
       <GaugeProgress
-        fraction={value/total}
+        fraction={fraction}
         label={`${value}/${total}`}
+        size={240}
+        strokeWidth={16}
       />
-      <View style={styles.header}>
-        <Text style={styles.title}>Punktzahl-Faktor</Text>
-        <Text style={styles.subtitle}>
+
+      {/* 2) "GUT" + subtitle */}
+      <View style={styles.status}>
+        <Text style={styles.statusTitle}>GUT</Text>
+        <Text style={styles.statusSub}>Assistenzkilometer</Text>
+        <Text style={styles.statusSub}>0 km</Text>
+      </View>
+
+      {/* 3) Section header */}
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>Punktzahl-Faktor</Text>
+        <Text style={styles.sectionSub}>
           Faktoren, die Ihre Punktzahl beeinflussen
         </Text>
       </View>
-      {/* insert your FahrpunkteEventView port here */}
-    </View>
+
+      {/* 4) Example event row */}
+      <View style={styles.eventRow}>
+        <View style={styles.eventIconPlaceholder}>
+          {/* Ideally use an actual icon */}
+          <Text style={{ fontSize: 20 }}>👤</Text>
+        </View>
+        <View style={styles.eventText}>
+          <Text style={styles.eventTitle}>Bonusprogramm:</Text>
+          <Text style={styles.eventSub}>Profil erstellt</Text>
+        </View>
+        <Text style={styles.eventPoints}>+{value}</Text>
+        <Text style={styles.eventDate}>24.06.2025</Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  fill:     { flex: 1, backgroundColor: '#fff' },
-  header:   { padding: 20, backgroundColor: 'rgba(255,255,255,0.8)' },
-  title:    { fontWeight: '600', fontSize: 16 },
-  subtitle: { fontSize: 12, color: '#666' },
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  status: {
+    alignItems: 'center',
+    marginTop: -20, // pull up closer to gauge
+    marginBottom: 20,
+  },
+  statusTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#000',
+  },
+  statusSub: {
+    fontSize: 14,
+    color: '#4CAF50',
+  },
+  sectionHeader: {
+    width: '100%',
+    backgroundColor: '#F5F5F5',
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    marginBottom: 12,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  sectionSub: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 4,
+  },
+  eventRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  eventIconPlaceholder: {
+    width: 32,
+    alignItems: 'center',
+  },
+  eventText: {
+    flex: 1,
+    paddingHorizontal: 12,
+  },
+  eventTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  eventSub: {
+    fontSize: 12,
+    color: '#666',
+  },
+  eventPoints: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#4CAF50',
+    width: 48,
+    textAlign: 'right',
+  },
+  eventDate: {
+    fontSize: 12,
+    color: '#999',
+    marginLeft: 8,
+  },
 });

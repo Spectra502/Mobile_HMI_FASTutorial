@@ -48,8 +48,8 @@ export default function GaugeProgress({
 }: Props) {
   const radius = (size - strokeWidth) / 2;
   const center = size / 2;
-  const startAngle = 165;
-  const sweepAngle = 210;
+  const startAngle = -90;
+  const sweepAngle = 180;
   const endAngle = startAngle + sweepAngle;
   const filledAngle = startAngle + sweepAngle * Math.min(Math.max(fraction, 0), 1);
 
@@ -57,8 +57,8 @@ export default function GaugeProgress({
   const foregroundPath = describeArc(center, center, radius, startAngle, filledAngle);
 
   return (
-    <View style={{ width: size, alignItems: 'center', marginVertical: 20 }}>
-      <Svg width={size} height={size / 2}>
+    <View style={{ width: size, alignItems: 'center', marginVertical: 0 }}>
+      <Svg width={size} height={190}>
         {/* Background track */}
         <Path
           d={backgroundPath}
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
   },
   mainLabel: {
     fontSize: 32,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 });

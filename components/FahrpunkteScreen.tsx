@@ -72,11 +72,11 @@ const styles = StyleSheet.create({
   statusTitle: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#000',
+    color: '#4CAF50',
   },
   statusSub: {
     fontSize: 14,
-    color: '#4CAF50',
+    color: 'black',
   },
   sectionHeader: {
     width: '100%',

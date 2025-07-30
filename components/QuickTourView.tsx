@@ -25,6 +25,40 @@ import QuickTourPageSpurwechsel from './QuickTourPageSpurwechsel';
 import QuickTourPageStauassistent from './QuickTourPageStauassistent';
 import QuickTourPageVerkehrszeichen from './QuickTourPageVerkehrszeichen';
 
+function CenteredDialog({ visible, onClose, onTest }) {
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
+      <View style={dlgStyles.backdrop}>
+        <View style={dlgStyles.card}>
+          <Text style={dlgStyles.title}>
+            Sie haben alle Inhalte des Tutorials gesehen!
+          </Text>
+          <Text style={dlgStyles.body}>
+            Testen Sie nun das teilautomatisierte Fahren für mehr Sicherheit
+            und Komfort! Gerne können Sie Ihr Wissen zuvor nochmal testen. Viel Spaß!
+          </Text>
+
+          <View style={dlgStyles.actions}>
+            <TouchableOpacity style={dlgStyles.primaryBtn} onPress={onTest}>
+              <Text style={dlgStyles.primaryText}>Wissen testen</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={dlgStyles.secondaryBtn} onPress={onClose}>
+              <Text style={dlgStyles.secondaryText}>Weiter</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+
+
 interface Props {
   initialChapter: TourChapter;
   showOverlay: boolean;
@@ -40,7 +74,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
   const [index, setIndex] = useState(startIndex);
 
   // state for the “finished” popup
-  const [doneModalVisible, setDoneModalVisible] = useState(false);
+  const [doneVisible, setDoneVisible] = useState(false);
 
   function goNext() {
     if (index < allChapters.length - 1) {
@@ -48,7 +82,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
     } else {
       //onDone();
       // instead of closing immediately, show our menu
-      setDoneModalVisible(true);
+      setDoneVisible(true);
     }
   }
   function goBack() {
@@ -113,52 +147,15 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
       )}
 
       {/*  COMPLETION POPUP */}
-      <Modal
-        visible={doneModalVisible}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setDoneModalVisible(false)}
-      >
-        <View style={modalStyles.backdrop}>
-          <View style={modalStyles.card}>
-            <Text style={modalStyles.title}>
-              Sie haben alle Inhalte des Tutorials gesehen!
-            </Text>
-            <Text style={modalStyles.body}>
-              Testen Sie nun das teilautomatisierte Fahren für mehr
-              Sicherheit und Komfort! Gerne können Sie Ihr Wissen zuvor
-              nochmal testen. Viel Spaß!
-            </Text>
-            <View style={modalStyles.actions}>
-              {/* Wissen testen → close tour, then open quiz */}
-              <TouchableOpacity
-                style={modalStyles.primaryBtn}
-                onPress={() => {
-                  setDoneModalVisible(false);
-                  onDone();  // pop the tour modal
-                  router.push({
-                    pathname: '/quiz',
-                    params: { chapter: allChapters[0], onlyChapter: 'false' },
-                  });
-                }}
-              >
-                <Text style={modalStyles.primaryText}>Wissen testen</Text>
-              </TouchableOpacity>
-              {/* Weiter → just close */}
-              <TouchableOpacity
-                style={modalStyles.secondaryBtn}
-                onPress={() => {
-                  setDoneModalVisible(false);
-                  onDone();
-                }}
-              >
-                <Text style={modalStyles.secondaryText}>Weiter</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {/*  ———————————————————————————————————————— */}
+      <CenteredDialog
+        visible={doneVisible}
+        onClose={() => { setDoneVisible(false); onDone(); }}
+        onTest={() => {
+          setDoneVisible(false);
+          onDone();
+          router.push({ pathname: '/quiz', params: { chapter: allChapters[0], onlyChapter: 'false' } });
+        }}
+      />
 
     </View>
   );
@@ -239,6 +236,62 @@ const modalStyles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
+  },
+  secondaryText: {
+    color: '#007aff',
+    fontWeight: '600',
+  },
+});
+
+const dlgStyles = StyleSheet.create({
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    elevation: 8,            // Android shadow
+    shadowColor: '#000',     // iOS shadow
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  body: {
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  primaryBtn: {
+    backgroundColor: '#007aff',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+  },
+  primaryText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  secondaryBtn: {
+    borderColor: '#007aff',
+    borderWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 6,
   },
   secondaryText: {
     color: '#007aff',

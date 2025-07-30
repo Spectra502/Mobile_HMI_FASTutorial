@@ -12,27 +12,6 @@ export interface QuizQuestion {
 
 export const sampleQuestions: QuizQuestion[] = [
   {
-    id: 'Test1',
-    chapter: TourChapter.ActivateDA,
-    questionText: 'Wie viele Räder hat ein durchschnittliches Auto?',
-    possibleAnswers: ['Vier', 'Eins', 'Drei', 'Zwei'],
-    correctAnswerIndex: 3,
-  },
-  {
-    id: 'Test2',
-    chapter: TourChapter.ActivateDA,
-    questionText: 'Wofür steht ESP?',
-    possibleAnswers: [
-      'Elektronisches Stabilitätsprogramm',
-      'Eulersches Schwingungsprogramm',
-      'Erweitertes Schonungsprogramm',
-      'Elektronische Schwerpunktsteuerung',
-    ],
-    correctAnswerIndex: 0,
-  },
-  // …and now all your chapter‐specific questions:
-  // for .ActivateDA
-  {
     id: 'DAQ1',
     chapter: TourChapter.ActivateDA,
     questionText:
@@ -64,7 +43,7 @@ export const sampleQuestions: QuizQuestion[] = [
   // for .verkehrszeichen
   {
     id: 'VQ1',
-    chapter: TourChapter.verkehrszeichen,
+    chapter: TourChapter.LKA,
     questionText:
       'Das Fahrzeug erkennt Tempolimits und andere Verkehrszeichen.',
     possibleAnswers: ['Richtig', 'Falsch'],
@@ -72,7 +51,7 @@ export const sampleQuestions: QuizQuestion[] = [
   },
   {
     id: 'VQ2',
-    chapter: TourChapter.verkehrszeichen,
+    chapter: TourChapter.LKA,
     questionText:
       'Welche Taste nutzen Sie als Fahrer*in, um eine erkannte Geschwindigkeit zu übernehmen?',
     possibleAnswers: [
@@ -85,7 +64,7 @@ export const sampleQuestions: QuizQuestion[] = [
   },
   {
     id: 'VQ3',
-    chapter: TourChapter.verkehrszeichen,
+    chapter: TourChapter.LKA,
     questionText:
       'Können Sie als Fahrer*in die Geschwindigkeit nach der Übernahme manuell anpassen?',
     possibleAnswers: ['Ja', 'Nein'],

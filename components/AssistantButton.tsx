@@ -1,10 +1,18 @@
 // components/AssistantButton.tsx
 
+import colors from '@/constants/Colors';
+import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { TourChapter } from '../constants/types';
 import { useProfile } from '../context/ProfileContext';
 
+// your SVG imports…
 import ActivateIcon from '@/assets/Assistants/activate.imageset/Aktivierung.svg';
 import AmpelIcon from '@/assets/Assistants/ampel.imageset/Ampelerkennung.svg';
 import NotbremseIcon from '@/assets/Assistants/brake.imageset/brake.svg';
@@ -14,10 +22,9 @@ import VerkehrIcon from '@/assets/Assistants/sign.imageset/Verkehrszeichenassist
 import SpurIcon from '@/assets/Assistants/switchLane.imageset/Spurführungsassistent.svg';
 import TrafficIcon from '@/assets/Assistants/traffic.imageset/Adaptiver Geschwindigkeitsassistent.svg';
 
-
 const iconMap: Record<TourChapter, React.FC<any>> = {
   [TourChapter.ActivateDA]: ActivateIcon,
-  [TourChapter.Verkehrszeichen]: VerkehrIcon, 
+  [TourChapter.Verkehrszeichen]: VerkehrIcon,
   [TourChapter.ACC]: TrafficIcon,
   [TourChapter.LKA]: AmpelIcon,
   [TourChapter.Spurwechsel]: SpurIcon,
@@ -44,63 +51,100 @@ interface Props {
   onPress(): void;
 }
 
-export default function AssistantButton({ chapter, style, onPress, disabled }: Props) {
-  //console.log('ActivateIcon is', ActivateIcon);
-  //console.log('iconMap keys:', Object.keys(iconMap));
-  //console.log('Rendering chapter:', chapter, 'Icon=', Icon);
-  
+export default function AssistantButton({
+  chapter,
+  style,
+  onPress,
+  disabled,
+}: Props) {
   const profile = useProfile();
   const done = profile.isChapterFinished(chapter);
 
-  const Icon = iconMap[chapter];
-  const title = titleMap[chapter];
-
-
-  //console.log('AssistantButton render:', chapter);
-  const handlePress = () => {
-    //console.log('Pressed chapter:', chapter);
-    onPress();
-  };
-
+  const IconLeft = iconMap[chapter];
+  const title    = titleMap[chapter];
 
   return (
-    <TouchableOpacity onPress={handlePress} disabled={disabled} style={s.btn}>
-      
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      style={s.card}
+      activeOpacity={0.7}
+    >
+      {/* Left SVG */}
       <View style={s.iconContainer}>
-        {Icon ? (
-          <Icon width={24} height={24} />
-        ) : (
-          <Text style={s.fallback}>?</Text>
-        )}
+        <IconLeft width={24} height={24} />
       </View>
-      <Text style={s.text}>{titleMap[chapter]}</Text>
-      {style === 'tutorial' ? <Text>✓</Text> : null}
+
+      {/* Title */}
+      <Text style={s.title}>{title}</Text>
+
+      {/* Right‐hand status */}
+      {style === 'tutorial' ? (
+        <View style={[s.statusCircle, done ? s.statusDone : s.statusTodo]}>
+          {done ? (
+            <MaterialIcons name="check" size={16} color="#fff" />
+          ) : (
+            <MaterialIcons name="autorenew" size={16} color={colors.light.border} />
+          )}
+        </View>
+      ) : (
+        // for quiz‐style you might show a number badge or different icon
+        <View style={[s.statusCircle, done ? s.statusDone : s.statusTodo]}>
+          <MaterialIcons
+            name={done ? 'check' : 'help-outline'}
+            size={16}
+            color={done ? '#fff' : colors.light.border}
+          />
+        </View>
+      )}
     </TouchableOpacity>
   );
 }
 
 const s = StyleSheet.create({
-  btn: {
+  card: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginBottom: 12,
     padding: 16,
-    borderRadius: 8,
+
+    // iOS shadow
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    marginBottom: 8,
-  },
-  text: { fontSize: 16, flex: 1, marginLeft: 20 },
-  fallback: {
-    fontSize: 18,
-    color: '#999',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+
+    // Android elevation
+    elevation: 3,
   },
   iconContainer: {
     width: 24,
     height: 24,
+    marginRight: 16,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  title: {
+    flex: 1,
+    fontSize: 16,
+    color: colors.light.textPrimary,
+  },
+  statusCircle: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  statusDone: {
+    backgroundColor: colors.light.success,
+    borderColor: colors.light.success,
+  },
+  statusTodo: {
+    backgroundColor: 'transparent',
+    borderColor: colors.light.border,
   },
 });

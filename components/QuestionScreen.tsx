@@ -2,13 +2,12 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  Alert,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  useWindowDimensions,
+  useWindowDimensions
 } from 'react-native';
 import PagerView from 'react-native-pager-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -32,6 +31,8 @@ export default function QuestionScreen() {
   const chapter = chapParam as TourChapter;
   const justThisChapter = onlyChapter === 'true';
 
+  const [quizDone, setQuizDone] = useState(false);
+
   const all = justThisChapter
     ? quiz.questions.filter((q) => q.chapter === chapter)
     : quiz.questions; // or unanswered only
@@ -52,11 +53,7 @@ export default function QuestionScreen() {
     if (current < all.length - 1) {
       setCurrent(current + 1);
     } else {
-      Alert.alert(
-        justThisChapter ? 'Kapitel abgeschlossen' : 'Quiz abgeschlossen',
-        'Gut gemacht!',
-        [{ text: 'OK', onPress: () => router.back() }]
-      );
+      setQuizDone(true);
     }
   }
 
@@ -154,7 +151,32 @@ export default function QuestionScreen() {
           </TouchableOpacity>
         </View>
       )}
+
+      {/* QUIZ FINISHED DIALOG */}
+      {quizDone && (
+        <View style={styles.doneBackdrop}>
+          <View style={styles.doneCard}>
+            <Text style={styles.doneTitle}>
+              {justThisChapter ? 'Kapitel abgeschlossen' : 'Quiz abgeschlossen'}
+            </Text>
+            <Text style={styles.doneBody}>Gut gemacht!</Text>
+            <TouchableOpacity
+              style={styles.doneButton}
+              onPress={() => {
+                setQuizDone(false);
+                router.back();
+              }}
+            >
+              <Text style={styles.doneButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}    
+
     </View>
+
+    
+    
   );
 }
 
@@ -269,5 +291,48 @@ const styles = StyleSheet.create({
   overlayButton: {
     fontSize: 18,
     color: 'white',
+  },
+  doneBackdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  doneCard: {
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    padding: 20,
+    alignItems: 'center',
+    // iOS shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    // Android elevation
+    elevation: 5,
+  },
+  doneTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  doneBody: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  doneButton: {
+    backgroundColor: '#007aff',
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 24,
+  },
+  doneButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });

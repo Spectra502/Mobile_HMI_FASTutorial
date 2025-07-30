@@ -1,7 +1,9 @@
 // components/QuickTourView.tsx
 import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import {
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -37,11 +39,16 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
   const startIndex = allChapters.indexOf(initialChapter);
   const [index, setIndex] = useState(startIndex);
 
+  // state for the “finished” popup
+  const [doneModalVisible, setDoneModalVisible] = useState(false);
+
   function goNext() {
     if (index < allChapters.length - 1) {
       pagerRef.current?.setPage(index + 1);
     } else {
-      onDone();
+      //onDone();
+      // instead of closing immediately, show our menu
+      setDoneModalVisible(true);
     }
   }
   function goBack() {
@@ -76,14 +83,14 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
         onPageSelected={e => setIndex(e.nativeEvent.position)}
         ref={pagerRef}
       >
-        <View key="1"><QuickTourPageACC /></View>
-        <View key="2"><QuickTourPageDA/></View>
-        <View key="3"><QuickTourPageAmpelerkennung/></View>
+        <View key="1"><QuickTourPageDA/></View>
+        <View key="2"><QuickTourPageVerkehrszeichen/></View>
+        <View key="3"><QuickTourPageACC/></View>
         <View key="4"><QuickTourPageDeactivateDA/></View>
         <View key="5"><QuickTourPageLKA/></View>
         <View key="6"><QuickTourPageSpurwechsel/></View>
         <View key="7"><QuickTourPageStauassistent/></View>
-        <View key="8"><QuickTourPageVerkehrszeichen/></View>
+        <View key="8"><QuickTourPageAmpelerkennung/></View>
         {/* …other pages in same order as allChapters */}
       </PagerView>
 
@@ -104,6 +111,55 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
           </TouchableOpacity>
         </View>
       )}
+
+      {/*  COMPLETION POPUP */}
+      <Modal
+        visible={doneModalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setDoneModalVisible(false)}
+      >
+        <View style={modalStyles.backdrop}>
+          <View style={modalStyles.card}>
+            <Text style={modalStyles.title}>
+              Sie haben alle Inhalte des Tutorials gesehen!
+            </Text>
+            <Text style={modalStyles.body}>
+              Testen Sie nun das teilautomatisierte Fahren für mehr
+              Sicherheit und Komfort! Gerne können Sie Ihr Wissen zuvor
+              nochmal testen. Viel Spaß!
+            </Text>
+            <View style={modalStyles.actions}>
+              {/* Wissen testen → close tour, then open quiz */}
+              <TouchableOpacity
+                style={modalStyles.primaryBtn}
+                onPress={() => {
+                  setDoneModalVisible(false);
+                  onDone();  // pop the tour modal
+                  router.push({
+                    pathname: '/quiz',
+                    params: { chapter: allChapters[0], onlyChapter: 'false' },
+                  });
+                }}
+              >
+                <Text style={modalStyles.primaryText}>Wissen testen</Text>
+              </TouchableOpacity>
+              {/* Weiter → just close */}
+              <TouchableOpacity
+                style={modalStyles.secondaryBtn}
+                onPress={() => {
+                  setDoneModalVisible(false);
+                  onDone();
+                }}
+              >
+                <Text style={modalStyles.secondaryText}>Weiter</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+      {/*  ———————————————————————————————————————— */}
+
     </View>
   );
 }
@@ -137,4 +193,55 @@ const styles = StyleSheet.create({
   actionText: { fontSize: 17, fontWeight: '600', color: '#fff' },
   nextText: {},
   disabled: { opacity: 0.5 },
+});
+
+const modalStyles = StyleSheet.create({
+  backdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'flex-end',
+  },
+  card: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  body: {
+    fontSize: 14,
+    marginBottom: 24,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  primaryBtn: {
+    backgroundColor: '#007aff',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  primaryText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  secondaryBtn: {
+    borderWidth: 1,
+    borderColor: '#007aff',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  secondaryText: {
+    color: '#007aff',
+    fontWeight: '600',
+  },
 });

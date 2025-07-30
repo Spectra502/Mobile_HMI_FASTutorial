@@ -92,7 +92,7 @@ const s = StyleSheet.create({
     shadowRadius: 4,
     marginBottom: 8,
   },
-  text: { fontSize: 16 },
+  text: { fontSize: 16, flex: 1, marginLeft: 20 },
   fallback: {
     fontSize: 18,
     color: '#999',

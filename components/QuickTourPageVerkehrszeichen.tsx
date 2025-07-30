@@ -20,7 +20,7 @@ export default function QuickTourPageVerkehrszeichen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>
-        Das Fahrzeug erkennt Verkehrszeichen und Tempolimits.
+        Das Fahrzeug erkennt Tempolimits.
       </TextWithSidebar>
 
       <PlaceholderImage source={vzGIF1} />
@@ -28,7 +28,8 @@ export default function QuickTourPageVerkehrszeichen() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Das erkannte Verkehrszeichen wird im Display angezeigt.
+        Das erkannte Tempolimit wird im Display angezeigt. Bei einem neuen Tempolimit wird die erkannte Geschwindigkeit
+        automatisch übernommen.
       </TextWithSidebar>
 
       <PlaceholderImage source={vzGIF2} />
@@ -36,7 +37,7 @@ export default function QuickTourPageVerkehrszeichen() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Drücken Sie die <Text style={styles.highlight}>Set-Taste</Text> bei einem Tempolimit,
+        Drücken Sie den <Text style={styles.highlight}>Hebel</Text> bei einem Tempolimit,
         um die erkannte Geschwindigkeit zu übernehmen.{'\n'}Das Fahrzeug passt sich dann der
         Geschwindigkeit an.
       </TextWithSidebar>

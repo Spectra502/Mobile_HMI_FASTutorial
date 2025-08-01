@@ -1,19 +1,32 @@
 // components/SearchOverlay.tsx
-import React from 'react';
+import React from 'react'
 import {
-  FlatList,
+  SectionList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { TourChapter } from '../constants/types';
+} from 'react-native'
+import { TourChapter } from '../constants/types'
+import AssistantButton from './AssistantButton'
 
 interface Props {
-  query: string;
-  onSelectTutorial(chapter: TourChapter): void;
-  onSelectQuiz(chapter: TourChapter): void;
-  onClose(): void;
+  query: string
+  onSelectTutorial(chapter: TourChapter): void
+  onSelectQuiz(chapter: TourChapter): void
+  onClose(): void
+}
+
+const ALL_CHAPTERS = Object.values(TourChapter)
+const TITLE_MAP: Record<TourChapter, string> = {
+  [TourChapter.ActivateDA]:      'Aktivierung',
+  [TourChapter.Verkehrszeichen]: 'Verkehrszeichenassistent',
+  [TourChapter.ACC]:             'Abstandsregeltempomat',
+  [TourChapter.LKA]:             'Ampelerkennung',
+  [TourChapter.Spurwechsel]:     'Spurführungsassistent',
+  [TourChapter.Notbremse]:       'Notbremsung',
+  [TourChapter.Deaktivierung]:   'Deaktivierung',
+  [TourChapter.Risiken]:         'Risiken und Verantwortung',
 }
 
 export default function SearchOverlay({
@@ -22,10 +35,16 @@ export default function SearchOverlay({
   onSelectQuiz,
   onClose,
 }: Props) {
-  // 1) Filter your chapters by title match:
-  const items = ALL_CHAPTERS.filter((ch) =>
-    TITLE_MAP[ch].toLowerCase().includes(query.toLowerCase())
-  );
+  // Only filter once the user has actually typed
+  const trimmed = query.trim().toLowerCase()
+  const matches = trimmed.length > 0
+    ? ALL_CHAPTERS.filter(ch => TITLE_MAP[ch].toLowerCase().includes(trimmed))
+    : []
+
+  const sections = [
+    { title: 'Tutorial', data: matches },
+    { title: 'Quiz',     data: matches },
+  ]
 
   return (
     <View style={styles.overlay}>
@@ -34,73 +53,54 @@ export default function SearchOverlay({
       </TouchableOpacity>
 
       <Text style={styles.title}>Suchergebnisse</Text>
-      <Text style={styles.subtitle}>"{query}"</Text>
+      {/* you can even hide the subtitle if query is empty */}
+      { trimmed.length > 0 && (
+        <Text style={styles.subtitle}>"{query}"</Text>
+      )}
 
-      <FlatList
-        data={items}
-        keyExtractor={(ch) => ch}
-        style={styles.list}
-        renderItem={({ item: chapter }) => (
-          <View style={styles.row}>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => onSelectTutorial(chapter)}
-            >
-              <Text style={styles.rowText}>
-                Tutorial: {TITLE_MAP[chapter]}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={() => onSelectQuiz(chapter)}
-            >
-              <Text style={[styles.rowText, styles.quizText]}>
-                Quiz: {TITLE_MAP[chapter]}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        ListEmptyComponent={
-          <Text style={styles.empty}>Keine Ergebnisse gefunden</Text>
-        }
-      />
+      { trimmed.length > 0 && (
+        <SectionList
+          sections={sections}
+          keyExtractor={item => item}
+          renderSectionHeader={({ section }) => (
+            <Text style={styles.sectionHeader}>{section.title}</Text>
+          )}
+          renderItem={({ item: chapter, section }) => (
+            <AssistantButton
+              chapter={chapter}
+              style={section.title === 'Tutorial' ? 'tutorial' : 'quiz'}
+              onPress={() => {
+                if (section.title === 'Tutorial') onSelectTutorial(chapter)
+                else                               onSelectQuiz(chapter)
+              }}
+            />
+          )}
+          ListEmptyComponent={
+            <Text style={styles.empty}>Keine Übereinstimmungen gefunden.</Text>
+          }
+        />
+      )}
     </View>
-  );
+  )
 }
-
-const ALL_CHAPTERS = Object.values(TourChapter);
-const TITLE_MAP: Record<TourChapter, string> = {
-  [TourChapter.ActivateDA]:      'Aktivierung',
-  [TourChapter.Verkehrszeichen]: 'Verkehrszeichenassistent',
-  [TourChapter.ACC]:             'Abstandsregeltempomat',
-  [TourChapter.LKA]:             'Ampelerkennung',
-  [TourChapter.Spurwechsel]:     'Spurführungsassistent',
-  [TourChapter.Notbremse]:       'Notbremssassistent',
-  [TourChapter.Deaktivierung]:   'Deaktivierung',
-  [TourChapter.Risiken]:         'Risiken und Verantwortung',
-};
 
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(255,255,255,0.98)',
-    paddingTop: 60,
+    paddingTop: 65,
     paddingHorizontal: 16,
   },
   close: { position: 'absolute', top: 32, right: 16 },
-  closeText: { fontSize: 24 },
-  title: { fontSize: 18, fontWeight: '600' },
+  closeText: { fontSize: 35 },
+  title: { fontSize: 20, fontWeight: '600' },
   subtitle: { color: '#666', marginBottom: 12 },
-  list: { marginTop: 8 },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderColor: '#eee',
+  sectionHeader: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 16,
+    marginBottom: 8,
+    color: '#333',
   },
-  btn: { flex: 1 },
-  rowText: { fontSize: 16 },
-  quizText: { color: '#007aff' },
   empty: { textAlign: 'center', marginTop: 20, color: '#666' },
-});
+})

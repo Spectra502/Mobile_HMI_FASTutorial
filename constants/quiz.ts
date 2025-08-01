@@ -104,6 +104,7 @@ export const sampleQuestions: QuizQuestion[] = [
     ],
     correctAnswerIndex: 2,
   },
+  
   {
     id: 'SQ1',
     chapter: TourChapter.ACC,

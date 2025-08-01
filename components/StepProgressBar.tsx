@@ -21,6 +21,7 @@ export default function StepProgressBar({
   currentStep,
   style,
 }: Props) {
+  console.log('📊 StepProgressBar – currentStep', currentStep, '/', steps);
   // Animate between old and new currentStep
   const progressAnim = useRef(new Animated.Value(currentStep)).current;
   useEffect(() => {

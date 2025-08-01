@@ -53,7 +53,7 @@ export default function FahrpunkteScreen() {
           <Text style={styles.eventSub}>Profil erstellt</Text>
         </View>
         <Text style={styles.eventPoints}>+{value}</Text>
-        <Text style={styles.eventDate}>24.06.2025</Text>
+        {/* <Text style={styles.eventDate}>31.07.2025</Text> */}
       </View>
     </ScrollView>
   );
@@ -109,15 +109,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   eventTitle: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '600',
   },
   eventSub: {
-    fontSize: 12,
+    fontSize: 16,
     color: '#666',
   },
   eventPoints: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: '600',
     color: '#4CAF50',
     width: 48,

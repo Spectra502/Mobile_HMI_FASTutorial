@@ -1,7 +1,7 @@
 // components/QuickTourView.tsx
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
   StyleSheet,
@@ -14,6 +14,7 @@ import PagerView from 'react-native-pager-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TourChapter, allChapters } from '@/constants/types';
+import { useProfile } from '@/context/ProfileContext';
 import StepProgressBar from './StepProgressBar';
 
 import QuickTourPageACC from './QuickTourPageACC';
@@ -66,9 +67,11 @@ interface Props {
 }
 
 export default function QuickTourView({ initialChapter, showOverlay, onDone }: Props) {
+  console.log('🔢 QuickTourView render – index is', index);
   const insets = useSafeAreaInsets();
   const pagerRef = useRef<PagerView>(null);
   const { width } = useWindowDimensions();
+  const profile = useProfile();
 
   const startIndex = allChapters.indexOf(initialChapter);
   const [index, setIndex] = useState(startIndex);
@@ -76,9 +79,19 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
   // state for the “finished” popup
   const [doneVisible, setDoneVisible] = useState(false);
 
+  useEffect(() => {
+    profile.markChapterFinished(initialChapter);
+  }, [initialChapter]);
+
   function goNext() {
     if (index < allChapters.length - 1) {
-      pagerRef.current?.setPage(index + 1);
+      const next = index + 1;
+      // 1) update our own index
+      setIndex(next);
+      // 2) mark that chapter seen
+      profile.markChapterFinished(allChapters[next]);
+      // 3) tell PagerView to go there
+      pagerRef.current?.setPage(next);
     } else {
       //onDone();
       // instead of closing immediately, show our menu
@@ -86,7 +99,10 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
     }
   }
   function goBack() {
-    pagerRef.current?.setPage(Math.max(0, index - 1));
+    const prev = Math.max(0, index - 1);
+    setIndex(prev);
+    profile.markChapterFinished(allChapters[prev]);
+    pagerRef.current?.setPage(prev);
   }
 
   return (
@@ -114,7 +130,13 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
       <PagerView
         style={styles.pager}
         initialPage={startIndex}
-        onPageSelected={e => setIndex(e.nativeEvent.position)}
+        //onPageSelected={e => setIndex(e.nativeEvent.position)}
+        onPageSelected={e => {
+          const newIndex = e.nativeEvent.position;
+          setIndex(newIndex);
+          // mark this chapter as finished
+          profile.markChapterFinished(allChapters[newIndex]);
+        }}
         ref={pagerRef}
       >
         <View key="1"><QuickTourPageDA/></View>

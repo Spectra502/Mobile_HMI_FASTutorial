@@ -1,18 +1,17 @@
 // components/ProfileScreen.tsx
+import { TourChapter } from '@/constants/types';
+import { useProfile } from '@/context/ProfileContext';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
   ScrollView,
   StyleSheet,
-  TouchableOpacity,
-  Image as RNImage,
+  Text,
+  View
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useProfile }        from '@/context/ProfileContext';
-import AssistantButton       from './AssistantButton';
-import { TourChapter }       from '@/constants/types';
-import { useRouter }         from 'expo-router';
+import AssistantButton from './AssistantButton';
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
@@ -41,10 +40,7 @@ export default function ProfileScreen() {
 
       {/* Header */}
       <View style={styles.header}>
-        <RNImage
-          //source={require('../assets/person-circle.png')} // replace with your icon
-          style={styles.avatar}
-        />
+        <Ionicons name="person-circle" size={90} style={styles.avatar} />
         <Text style={styles.profileCode}>
           {profile.activeProfile?.profileCode ?? 'No active profile'}
         </Text>
@@ -53,10 +49,7 @@ export default function ProfileScreen() {
       {/* Saved Section */}
       <View style={styles.savedSection}>
         <View style={styles.savedHeader}>
-          <RNImage
-            //source={require('../assets/bookmark-filled.png')} 
-            style={styles.bookmarkIcon}
-          />
+          <Ionicons name="bookmark-outline" size={24} />
           <Text style={styles.savedTitle}>Gespeichert</Text>
         </View>
 
@@ -94,8 +87,8 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   avatar: {
-    width: 80,
-    height: 80,
+    width: 90,
+    height: 90,
     tintColor: '#007AFF',
     marginBottom: 8,
   },
@@ -120,9 +113,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#555',
+    marginLeft: 8,
   },
   emptyText: {
+    fontSize: 16,
     color: '#888',
-    fontStyle: 'italic',
+    marginTop: 10,
   },
 });

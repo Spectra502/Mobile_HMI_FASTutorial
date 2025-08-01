@@ -17,14 +17,14 @@ import { TourChapter, allChapters } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
 import StepProgressBar from './StepProgressBar';
 
-import QuickTourPageACC from './QuickTourPageACC';
-import QuickTourPageDA from './QuickTourPageActivateDA';
-import QuickTourPageAmpelerkennung from './QuickTourPageAmpelerkennung';
-import QuickTourPageDeactivateDA from './QuickTourPageDeactivateDA';
-import QuickTourPageLKA from './QuickTourPageLKA';
-import QuickTourPageSpurwechsel from './QuickTourPageSpurwechsel';
-import QuickTourPageStauassistent from './QuickTourPageStauassistent';
-import QuickTourPageVerkehrszeichen from './QuickTourPageVerkehrszeichen';
+import QuickTourPageACC from './pages/QuickTourPageACC';
+import QuickTourPageDA from './pages/QuickTourPageActivateDA';
+import QuickTourPageAmpelerkennung from './pages/QuickTourPageAmpelerkennung';
+import QuickTourPageDeactivateDA from './pages/QuickTourPageDeactivateDA';
+import QuickTourPageLKA from './pages/QuickTourPageLKA';
+import QuickTourPageSpurwechsel from './pages/QuickTourPageSpurwechsel';
+import QuickTourPageStauassistent from './pages/QuickTourPageStauassistent';
+import QuickTourPageVerkehrszeichen from './pages/QuickTourPageVerkehrszeichen';
 
 function CenteredDialog({ visible, onClose, onTest }) {
   return (

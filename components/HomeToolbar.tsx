@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // or your icon set
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 interface Props {
   value: string;
@@ -12,7 +13,12 @@ interface Props {
 export default function HomeToolbar({ value, onChange, onFocus, onBlur }: Props) {
   return (
     <View style={s.row}>
-      <TouchableOpacity style={s.bookmark}>
+      <TouchableOpacity style={s.bookmark}
+        onPress={() => {
+          const router = useRouter();
+          router.push('/profile');
+        }}
+      >
         <Ionicons name="bookmark-outline" size={24} />
       </TouchableOpacity>
 

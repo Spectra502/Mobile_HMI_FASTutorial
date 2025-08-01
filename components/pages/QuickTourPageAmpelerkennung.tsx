@@ -2,8 +2,8 @@ import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import PlaceholderImage from './PlaceholderImage';
-import TextWithSidebar from './TextWithSidebar';
+import PlaceholderImage from '../PlaceholderImage';
+import TextWithSidebar from '../TextWithSidebar';
 
 import ampGIF4 from '@/assets/GIFs/1-1.gif';
 import ampGIF1 from '@/assets/GIFs/5-1.gif';

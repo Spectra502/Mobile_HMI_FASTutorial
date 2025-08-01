@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   tabButton: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: 16,
     alignItems: 'center',
   },
   sectionHeader: {

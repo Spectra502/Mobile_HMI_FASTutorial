@@ -23,8 +23,8 @@ export enum TourChapter {
 export const allChapters: TourChapter[] = [
   TourChapter.ActivateDA,
   TourChapter.Verkehrszeichen,
-  TourChapter.LKA,
   TourChapter.ACC,
+  TourChapter.LKA,
   TourChapter.Spurwechsel,
   TourChapter.Notbremse,
   TourChapter.Deaktivierung,

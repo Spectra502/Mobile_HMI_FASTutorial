@@ -1,3 +1,4 @@
+/*
 import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
 import React, { useEffect } from 'react';
@@ -74,3 +75,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+*/

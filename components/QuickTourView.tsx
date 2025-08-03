@@ -17,13 +17,13 @@ import { TourChapter, allChapters } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
 import StepProgressBar from './StepProgressBar';
 
-import QuickTourPageACC from './pages/QuickTourPageACC';
-import QuickTourPageDA from './pages/QuickTourPageActivateDA';
-import QuickTourPageAmpelerkennung from './pages/QuickTourPageAmpelerkennung';
+import QuickTourPageAbstandsregeltempomat from './pages/QuickTourPageACC';
+import QuickTourPageAktivierung from './pages/QuickTourPageActivateDA';
 import QuickTourPageDeactivateDA from './pages/QuickTourPageDeactivateDA';
-import QuickTourPageLKA from './pages/QuickTourPageLKA';
+import QuickTourPageAmpelerkennung from './pages/QuickTourPageLKA';
+import QuickTourPageNotbremse from './pages/QuickTourPageNotbremse';
+import QuickTourPageRisiken from './pages/QuickTourPageRisiken';
 import QuickTourPageSpurwechsel from './pages/QuickTourPageSpurwechsel';
-import QuickTourPageStauassistent from './pages/QuickTourPageStauassistent';
 import QuickTourPageVerkehrszeichen from './pages/QuickTourPageVerkehrszeichen';
 
 function CenteredDialog({ visible, onClose, onTest }) {
@@ -148,14 +148,16 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
         }}
         ref={pagerRef}
       >
-        <View key="1"><QuickTourPageDA/></View>
+        <View key="1"><QuickTourPageAktivierung/></View>
         <View key="2"><QuickTourPageVerkehrszeichen/></View>
-        <View key="3"><QuickTourPageACC/></View>
-        <View key="4"><QuickTourPageDeactivateDA/></View>
-        <View key="5"><QuickTourPageLKA/></View>
-        <View key="6"><QuickTourPageSpurwechsel/></View>
-        <View key="7"><QuickTourPageStauassistent/></View>
-        <View key="8"><QuickTourPageAmpelerkennung/></View>
+        <View key="3"><QuickTourPageAbstandsregeltempomat/></View>
+        <View key="4"><QuickTourPageAmpelerkennung/></View>
+        <View key="5"><QuickTourPageSpurwechsel/></View>
+        <View key="6"><QuickTourPageNotbremse/></View>
+        <View key="7"><QuickTourPageDeactivateDA/></View>
+        <View key="8"><QuickTourPageRisiken/></View>
+        {/* Add more pages as needed */}
+        
         {/* …other pages in same order as allChapters */}
       </PagerView>
 

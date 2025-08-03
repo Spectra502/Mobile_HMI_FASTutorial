@@ -13,7 +13,7 @@ export default function QuickTourPageNotbremse() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.NOTBREMSE);
+    profile.markChapterFinished(TourChapter.Notbremse);
   }, []);
 
   return (

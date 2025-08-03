@@ -18,14 +18,12 @@ export default function HomeSection({
   const router = useRouter();
   const [showAll, setShowAll] = useState(false);
   const profile = useProfile();
-  //const chapters: TourChapter[] = ['ActivateDA', 'Verkehrszeichen', 'Abstand', 'LKA', 'Spurwechsel', 'Notbremse', 'Deaktivierung', 'Risiken'];
-  //const total    = chapters.length;
+  
   const total    = allChapters.length;
-  //const done     = profile.finishedChapters.length;
-  // only count each chapter once, and only those in allChapters
-  const done = Array.from(new Set(profile.finishedChapters))
-    .filter((ch) => allChapters.includes(ch)).length;
+  const done = allChapters.filter(ch => profile.isChapterFinished(ch)).length;
   const progress = total > 0 ? done / total : 0;
+
+  console.log('HomeSection: done', done, 'total', total, 'progress', progress);
 
   //const toDisplay = showAll ? chapters : chapters.slice(0, 3);
   const toDisplay = showAll
@@ -44,7 +42,7 @@ export default function HomeSection({
         </TouchableOpacity>
       </View>
 
-      <CustomProgressBar progress={progress} />
+      <CustomProgressBar progress={done/total} />
 
       {toDisplay.map((ch) => (
         <AssistantButton

@@ -16,7 +16,7 @@ export default function QuickTourPageDA() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.DRIVING_ASSIST);
+    profile.markChapterFinished(TourChapter.ActivateDA);
   }, []);
 
   return (

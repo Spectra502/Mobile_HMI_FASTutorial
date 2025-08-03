@@ -7,15 +7,14 @@ import TextWithSidebar from '../TextWithSidebar';
 
 import riskGIF2 from '@/assets/GIFs/10-2.gif';
 import riskGIF3 from '@/assets/GIFs/10-3.gif';
-import riskGIF4 from '@/assets/GIFs/10-4.gif';
-import riskIMG from '@/assets/GIFs/10-5.gif';
+import { default as riskGIF4, default as riskIMG } from '@/assets/GIFs/10-4.gif';
 import riskGIF1 from '@/assets/GIFs/6-2.gif';
 
 export default function QuickTourPageRisiken() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.RISIKEN);
+    profile.markChapterFinished(TourChapter.Risiken);
   }, []);
 
   return (

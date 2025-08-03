@@ -64,7 +64,13 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
     })();
   }, []);
 
-  
+  useEffect(() => {
+    if (loaded && !activeProfile) {
+      // create a quick “guest” profile
+      const guestCode = 'guest_' + uuidv4().slice(0, 6);
+      createProfile(guestCode).catch(console.warn);
+    }
+  }, [loaded, activeProfile]);
 
   // persist profiles whenever they change
   useEffect(() => {

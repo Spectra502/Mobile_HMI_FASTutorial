@@ -89,11 +89,11 @@ export default function AssistantButton({
         </View>
       ) : (
         // for quiz‐style you might show a number badge or different icon
-        <View style={[s.statusCircle, done ? s.statusDone : s.statusTodo]}>
+        <View style={[s.statusCircle, done ? s.statusQuizTodo : s.statusTodo]}>
           <MaterialIcons
             name={done ? 'check' : 'lock'}
             size={16}
-            color={done ? '#fff' : colors.light.border}
+            color={done ? colors.light.border : colors.light.border}
           />
         </View>
       )}
@@ -147,6 +147,10 @@ const s = StyleSheet.create({
   statusDone: {
     backgroundColor: colors.light.success,
     borderColor: colors.light.success,
+  },
+  statusQuizTodo: {
+    backgroundColor: 'transparent',
+    borderColor: colors.light.border,
   },
   statusTodo: {
     backgroundColor: 'transparent',

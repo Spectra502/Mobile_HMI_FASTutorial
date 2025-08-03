@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -68,6 +69,15 @@ export default function ProfileScreen() {
             Sie haben noch keine Seiten gespeichert.
           </Text>
         )}
+
+        {__DEV__ && (
+        <TouchableOpacity
+            style={styles.resetBtn}
+            onPress={() => profile.resetProfiles()}
+          >
+            <Text style={styles.resetText}>🗑️ Reset Profiles</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </ScrollView>
   );
@@ -121,4 +131,11 @@ const styles = StyleSheet.create({
     color: '#888',
     marginTop: 10,
   },
+  resetBtn: {
+    marginTop: 20,
+    padding: 12,
+    backgroundColor: '#f44336',
+    borderRadius: 6,
+  },
+  resetText: { color: 'white', textAlign: 'center' },
 });

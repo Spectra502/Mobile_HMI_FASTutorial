@@ -14,7 +14,7 @@ export default function QuickTourPageStauassistent() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.STAU);
+    profile.markChapterFinished(TourChapter.ACC);
   }, []);
 
   return (

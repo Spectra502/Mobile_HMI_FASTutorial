@@ -172,6 +172,13 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
     return null; // or a splash / ActivityIndicator
   }
 
+  const resetProfiles = async () => {
+    await AsyncStorage.removeItem(STORAGE_KEY)
+    await AsyncStorage.removeItem(CONTEXT_KEY)
+    setProfiles([])
+    setActiveProfile(null)
+  }
+
   return (
     <ProfileContext.Provider value={{
       profiles,
@@ -184,6 +191,7 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
       isChapterFinished,
       areAllChaptersFinished,
       markPopupAsSeen,
+      resetProfiles,
     }}>
       {children}
     </ProfileContext.Provider>

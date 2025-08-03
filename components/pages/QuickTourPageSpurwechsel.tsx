@@ -16,7 +16,7 @@ export default function QuickTourPageSpurwechsel() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.SPURWECHSEL);
+    profile.markChapterFinished(TourChapter.Spurwechsel);
   }, []);
 
   return (

@@ -14,7 +14,7 @@ export default function QuickTourPageVerkehrszeichen() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.STAU);
+    profile.markChapterFinished(TourChapter.Verkehrszeichen);
   }, []);
 
   return (

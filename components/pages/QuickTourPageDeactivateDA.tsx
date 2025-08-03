@@ -14,7 +14,7 @@ export default function QuickTourPageDeactivateDA() {
   const profile = useProfile();
 
   useEffect(() => {
-    profile.markChapterFinished(TourChapter.DEAKTIVIERUNG);
+    profile.markChapterFinished(TourChapter.Deaktivierung);
   }, []);
 
   return (

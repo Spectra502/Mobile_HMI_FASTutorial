@@ -18,9 +18,9 @@ import AmpelIcon from '@/assets/Assistants/ampel.imageset/Ampelerkennung.svg';
 import NotbremseIcon from '@/assets/Assistants/brake.imageset/brake.svg';
 import DeactivateIcon from '@/assets/Assistants/deactivate.imageset/Deaktivierung.svg';
 import RisikenIcon from '@/assets/Assistants/risk.imageset/Risiken und Verantwortung.svg';
-import VerkehrIcon from '@/assets/Assistants/sign.imageset/Verkehrszeichenassistent.svg';
-import SpurIcon from '@/assets/Assistants/switchLane.imageset/Spurführungsassistent.svg';
-import TrafficIcon from '@/assets/Assistants/traffic.imageset/Adaptiver Geschwindigkeitsassistent.svg';
+import VerkehrIcon from '@/assets/Assistants/sign.imageset/Verkehrszeichenassistent_fixed_v3.svg';
+import SpurIcon from '@/assets/Assistants/switchLane.imageset/Spurführungsassistent_fixed.svg';
+import TrafficIcon from '@/assets/Assistants/traffic.imageset/Abstandsregeltempomat_fixed.svg';
 
 const iconMap: Record<TourChapter, React.FC<any>> = {
   [TourChapter.ActivateDA]: ActivateIcon,

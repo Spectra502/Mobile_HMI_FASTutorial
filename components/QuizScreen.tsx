@@ -79,11 +79,6 @@ export default function QuizScreen() {
             <TouchableOpacity
               style={styles.startButton}
               onPress={() => {
-                // onlyChapter quiz – start at first chapter
-                /*if (!profile.areAllChaptersFinished()) {
-                  // show alert instead?
-                  return;
-                }*/
                 router.push({
                   pathname: '/quiz/[chapter]',
                   params: {

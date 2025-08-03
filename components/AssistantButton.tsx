@@ -12,7 +12,7 @@ import {
 import { TourChapter } from '../constants/types';
 import { useProfile } from '../context/ProfileContext';
 
-// your SVG imports…
+// SVG imports…
 import ActivateIcon from '@/assets/Assistants/activate.imageset/Aktivierung.svg';
 import AmpelIcon from '@/assets/Assistants/ampel.imageset/Ampelerkennung.svg';
 import NotbremseIcon from '@/assets/Assistants/brake.imageset/brake.svg';
@@ -91,7 +91,7 @@ export default function AssistantButton({
         // for quiz‐style you might show a number badge or different icon
         <View style={[s.statusCircle, done ? s.statusDone : s.statusTodo]}>
           <MaterialIcons
-            name={done ? 'check' : 'check'}
+            name={done ? 'check' : 'lock'}
             size={16}
             color={done ? '#fff' : colors.light.border}
           />
@@ -128,8 +128,13 @@ const s = StyleSheet.create({
   },
   title: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
     color: colors.light.textPrimary,
+  },
+  searchOverlay: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   statusCircle: {
     width: 28,

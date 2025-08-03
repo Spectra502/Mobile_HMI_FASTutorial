@@ -3,16 +3,6 @@ import { QuizQuestion, sampleQuestions } from '@/constants/quiz'
 import { TourChapter } from '@/constants/types'
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
-/*
-export type QuizQuestion = {
-  id: string
-  chapter: TourChapter
-  questionText: string
-  possibleAnswers: string[]
-  correctAnswerIndex: number
-  userAnswerIndex?: number
-}
-*/
 export interface QuizService {
   questions: QuizQuestion[]
   totalQuestions: (chapter?: TourChapter) => number

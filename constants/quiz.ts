@@ -11,12 +11,12 @@ export interface QuizQuestion {
 }
 
 export const sampleQuestions: QuizQuestion[] = [
-  // ─────────── Driving Assist (ActivateDA) ───────────
+  // ─────────── Aktivierung / Driving Assist (ActivateDA) ───────────
   {
     id: 'DAQ1',
     chapter: TourChapter.ActivateDA,
     questionText:
-      'Wie können Sie als Fahrer*in das teilautomatisierte Fahren (DRIVING ASSIST) aktivieren?',
+      'Wie können Sie als Fahrer*in das teilautomatisierte Fahren aktivieren?',
     possibleAnswers: [
       'Durch das Drücken des Bremspedals',
       'Durch das Drücken der Aktivierungstaste',
@@ -29,7 +29,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'DAQ2',
     chapter: TourChapter.ActivateDA,
     questionText:
-      'Leuchtet „DRIVING ASSIST READY“ in weiß, ist das teilautomatisierte Fahren verfügbar.',
+      'Leuchtet das Automationssymbol in weiß, ist das teilautomatisierte Fahren verfügbar.',
     possibleAnswers: ['Richtig', 'Falsch'],
     correctAnswerIndex: 0,
   },
@@ -37,7 +37,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'DAQ3',
     chapter: TourChapter.ActivateDA,
     questionText:
-      'In welcher Farbe leuchtet das Symbol „DRIVING ASSIST“ bei erfolgreicher Aktivierung des teilautomatisierten Fahrens?',
+      'In welcher Farbe leuchtet das Automationssymbol bei erfolgreicher Aktivierung des teilautomatisierten Fahrens?',
     possibleAnswers: ['Blau', 'Rot', 'Gelb', 'Grün'],
     correctAnswerIndex: 3,
   },
@@ -47,7 +47,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'VQ1',
     chapter: TourChapter.Verkehrszeichen,
     questionText:
-      'Das Fahrzeug erkennt Tempolimits und andere Verkehrszeichen.',
+      'Bei einem neuen Tempolimit wird die erkannte Geschwindigkeit automatisch übernommen.',
     possibleAnswers: ['Richtig', 'Falsch'],
     correctAnswerIndex: 0,
   },
@@ -55,12 +55,12 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'VQ2',
     chapter: TourChapter.Verkehrszeichen,
     questionText:
-      'Welche Taste nutzen Sie als Fahrer*in, um eine erkannte Geschwindigkeit zu übernehmen?',
+      'Wo wird Ihnen als Fahrer*in das erkannte Tempolimit angezeigt?',
     possibleAnswers: [
-      'Abstandstaste',
-      'Blinkerhebel',
-      'Set-Taste',
-      'Aktivierungstaste',
+      'Im Seitenspiegel',
+      'Im Display ',
+      'Auf dem Lenkrad',
+      'Im Rückspiegel',
     ],
     correctAnswerIndex: 2,
   },
@@ -68,12 +68,12 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'VQ3',
     chapter: TourChapter.Verkehrszeichen,
     questionText:
-      'Können Sie als Fahrer*in die Geschwindigkeit nach der Übernahme manuell anpassen?',
+      'Können Sie als Fahrer*in die Geschwindigkeit während der teilautomatisierten Fahrt (nach der Übernahme) manuell anpassen?',
     possibleAnswers: ['Ja', 'Nein'],
     correctAnswerIndex: 0,
   },
 
-  // ─────────── ACC & Stau-Assistent (ACC) ───────────
+  // ─────────── Abstandsregeltempomat ───────────
   
   {
     id: 'AQ1',
@@ -87,7 +87,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'AQ2',
     chapter: TourChapter.ACC,
     questionText:
-      'Für Sie als Fahrer*in ist es grundsätzlich nicht möglich, den Abstand zum Vorderfahrzeug individuell anzupassen.',
+      'Für Sie als Fahrer*in ist es nicht möglich, den Abstand zum Vorderfahrzeug individuell anzupassen.',
     possibleAnswers: ['Richtig', 'Falsch'],
     correctAnswerIndex: 1,
   },
@@ -95,46 +95,17 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'AQ3',
     chapter: TourChapter.ACC,
     questionText:
-      'Woran erkennen Sie als Fahrer*in, dass der ACC aktiviert ist?',
+      'Wie wird der eingestellte Abstand zum Vorderfahrzeug im Display symbolisch dargestellt?',
     possibleAnswers: [
-      'Am roten Symbol im Rückspiegel',
-      'Am Blinken des Lenkradlichts',
-      'Am grünen ACC-Symbol im Display',
-      'Am weißen ACC-Symbol im Display',
+      'Durch ein rotes Lenkrad',
+      'Durch Blinken des Automationssymbols',
+      'Durch Striche vor dem Fahrzeug',
+      'Durch ein weißes Dreieck',
     ],
     correctAnswerIndex: 2,
   },
-  
-  {
-    id: 'SQ1',
-    chapter: TourChapter.ACC,
-    questionText:
-      'Der Stauassistent wird automatisch bei Geschwindigkeiten unter 60 km/h aktiviert.',
-    possibleAnswers: ['Richtig', 'Falsch'],
-    correctAnswerIndex: 0,
-  },
-  {
-    id: 'SQ2',
-    chapter: TourChapter.ACC,
-    questionText: 'Wie fährt das Fahrzeug aus dem Stillstand wieder an?',
-    possibleAnswers: [
-      'Manuelles Anfahren durch den Fahrer',
-      'Automatisch oder durch Drücken der Set-Taste',
-      'Nur mit eingeschaltetem Blinker',
-      'Durch leichtes Antippen des Bremspedals',
-    ],
-    correctAnswerIndex: 0,
-  },
-  {
-    id: 'SQ3',
-    chapter: TourChapter.ACC,
-    questionText:
-      'Wenn der Stauassistent aktiv ist, können Sie als Fahrer*in den Blick von der Straße abwenden?',
-    possibleAnswers: ['Richtig', 'Falsch'],
-    correctAnswerIndex: 1,
-  },
 
-  // ─────────── Ampelerkennung (LKA enum) ───────────
+  // ─────────── Ampelerkennung ───────────
   {
     id: 'AMPQ1',
     chapter: TourChapter.LKA,
@@ -165,38 +136,8 @@ export const sampleQuestions: QuizQuestion[] = [
     correctAnswerIndex: 2,
   },
 
-  // ─────────── Spurhalte-Assistent (LKA) ───────────
-  {
-    id: 'LQ1',
-    chapter: TourChapter.LKA,
-    questionText:
-      'Welche Anzeige im Display bestätigt die Aktivierung des Spurhalteassistenten (LKA) im DRIVING ASSIST?',
-    possibleAnswers: [
-      'Ein rotes Lenkradsymbol',
-      'Das grüne LKA-Symbol',
-      'Die Geschwindigkeitsangabe',
-      'Ein weißes Ausrufezeichen',
-    ],
-    correctAnswerIndex: 1,
-  },
-  {
-    id: 'LQ2',
-    chapter: TourChapter.LKA,
-    questionText:
-      'Ist der Spurhalteassistent aktiv, hält das Fahrzeug die Spur selbstständig.',
-    possibleAnswers: ['Richtig', 'Falsch'],
-    correctAnswerIndex: 0,
-  },
-  {
-    id: 'LQ3',
-    chapter: TourChapter.LKA,
-    questionText:
-      'Können Sie als Fahrer*in das Lenkrad loslassen, wenn der Spurhalteassistent aktiv ist?',
-    possibleAnswers: ['Ja', 'Nein'],
-    correctAnswerIndex: 1,
-  },
 
-  // ─────────── Spurwechsel-Assistent ───────────
+  // ─────────── Spurführungsassistent ───────────
   {
     id: 'SWQ1',
     chapter: TourChapter.Spurwechsel,

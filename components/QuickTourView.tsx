@@ -67,14 +67,17 @@ interface Props {
 }
 
 export default function QuickTourView({ initialChapter, showOverlay, onDone }: Props) {
+  const startIndex = allChapters.indexOf(initialChapter);
+  const [index, setIndex] = useState(startIndex);
   console.log('🔢 QuickTourView render – index is', index);
   const insets = useSafeAreaInsets();
   const pagerRef = useRef<PagerView>(null);
   const { width } = useWindowDimensions();
   const profile = useProfile();
+  const currentChapter = allChapters[index]
 
-  const startIndex = allChapters.indexOf(initialChapter);
-  const [index, setIndex] = useState(startIndex);
+  
+  
 
   // state for the “finished” popup
   const [doneVisible, setDoneVisible] = useState(false);
@@ -109,9 +112,15 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
     <View style={styles.fill}>
       {/* Top nav + progress */}
       <View style={[styles.navbar, { paddingTop: insets.top }]}>
-        <TouchableOpacity onPress={() => {/* toggle bookmark logic */}}>
-          <Ionicons name="bookmark-outline" size={24} />
-        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => profile.toggleBookmark(currentChapter)}
+        >
+          <Ionicons
+            name={profile.isBookmarked(currentChapter) ? 'bookmark' : 'bookmark-outline'}
+            size={24}
+            color={profile.isBookmarked(currentChapter) ? '#007aff' : '#000'}
+         />
+       </TouchableOpacity>
         <Text style={styles.navTitle}>{allChapters[index]}</Text>
         <TouchableOpacity onPress={onDone}>
           <Ionicons name="close" size={24} />

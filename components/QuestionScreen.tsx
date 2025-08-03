@@ -166,7 +166,7 @@ export default function QuestionScreen() {
               style={styles.doneButton}
               onPress={() => {
                 setQuizDone(false);
-                router.back();
+                router.push('/quiz');
               }}
             >
               <Text style={styles.doneButtonText}>OK</Text>

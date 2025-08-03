@@ -18,6 +18,7 @@ export default function ProfileScreen() {
   const profile = useProfile();
   const router = useRouter();
   const [selectedChapter, setSelectedChapter] = useState<TourChapter | null>(null);
+  const bookmarks = profile.activeProfile?.bookmarkedChapters ?? []
 
   // when `selectedChapter` is set, navigate to QuickTour modal
   if (selectedChapter) {
@@ -40,7 +41,7 @@ export default function ProfileScreen() {
 
       {/* Header */}
       <View style={styles.header}>
-        <Ionicons name="person-circle" size={90} style={styles.avatar} />
+        <Ionicons name="person-circle" size={90} color="#007aff" />
         <Text style={styles.profileCode}>
           {profile.activeProfile?.profileCode ?? 'No active profile'}
         </Text>

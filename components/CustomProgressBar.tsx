@@ -25,7 +25,7 @@ export default function CustomProgressBar({ progress }: Props) {
 
 const styles = StyleSheet.create({
   track: {
-    height: 26,              // match your design
+    height: 26,              
     flexDirection: 'row',
     borderRadius: 12,
     overflow: 'hidden',
@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,      // or pull from spacing.ts
   },
   fill: {
-    backgroundColor: '#2196f3', // your primary color (swap for colors.primary)
+    backgroundColor: '#2196f3', // primary color 
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingHorizontal: 8,       // gives breathing room around the “%”
+    paddingHorizontal: 4,       // gives breathing room around the “%”
   },
   empty: {
     backgroundColor: 'transparent',

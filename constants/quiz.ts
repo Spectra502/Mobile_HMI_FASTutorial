@@ -73,7 +73,7 @@ export const sampleQuestions: QuizQuestion[] = [
     correctAnswerIndex: 0,
   },
 
-  // ─────────── Abstandsregeltempomat ───────────
+  // ─────────── Abstandsregeltempomat (ACC) ───────────
   
   {
     id: 'AQ1',
@@ -110,7 +110,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'AMPQ1',
     chapter: TourChapter.LKA,
     questionText:
-      'Das Fahrzeug erkennt Ampeln und zeigt diese im Display an.',
+      'Erkennt das Fahrzeug Ampeln, wenn das teilautomatisierte Fahren aktiv ist?',
     possibleAnswers: ['Richtig', 'Falsch'],
     correctAnswerIndex: 0,
   },
@@ -118,22 +118,17 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'AMPQ2',
     chapter: TourChapter.LKA,
     questionText:
-      'Bremst das Fahrzeug automatisch, wenn es eine rote Ampel erkannt hat und diese von Ihnen als Fahrer*in bestätigt wurde?',
-    possibleAnswers: ['Ja', 'Nein'],
+      'Das Fahrzeug bremst automatisch, wenn es eine rote Ampel erkannt hat.',
+    possibleAnswers: ['Richtig', 'Falsch'],
     correctAnswerIndex: 0,
   },
   {
     id: 'AMPQ3',
     chapter: TourChapter.LKA,
     questionText:
-      'Wie signalisiert das System, dass eine rote Ampel von Ihnen als Fahrer*in bestätigt wurde?',
-    possibleAnswers: [
-      'Durch ein akustisches Signal',
-      'Durch ein rotes Warnlicht',
-      'Durch einen grünen Haken im Display',
-      'Durch Vibrieren des Lenkrads',
-    ],
-    correctAnswerIndex: 2,
+      'Im Stillstand erkennt das Fahrzeug grüne Ampeln und fährt automatisch wieder los.',
+    possibleAnswers: ['Richtig', 'Falsch'],
+    correctAnswerIndex: 1,
   },
 
 
@@ -142,30 +137,25 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'SWQ1',
     chapter: TourChapter.Spurwechsel,
     questionText:
-      'Wie wird ein automatischer Spurwechsel durch Sie als Fahrer*in eingeleitet?',
-    possibleAnswers: [
-      'Durch das Betätigen des Bremspedals',
-      'Durch eine Sprachanweisung',
-      'Durch Antippen des Blinkers',
-      'Durch Erkennen von Fahrbahnmarkierungen',
-    ],
-    correctAnswerIndex: 2,
+      'Ist das teilautomatisierte Fahren aktiv, hält das Fahrzeug die Spur selbstständig.',
+    possibleAnswers: ['Richtig', 'Falsch'],
+    correctAnswerIndex: 0,
   },
   {
     id: 'SWQ2',
     chapter: TourChapter.Spurwechsel,
     questionText:
-      'Das Fahrzeug schlägt eigenständig einen Spurwechsel vor, auch wenn es die Verkehrssituation nicht zulässt.',
-    possibleAnswers: ['Richtig', 'Falsch'],
-    correctAnswerIndex: 1,
+      'Können Sie als Fahrer*in das Lenkrad loslassen, wenn das teilautomatisierte Fahren aktiv ist?',
+    possibleAnswers: ['Ja', 'Nein'],
+    correctAnswerIndex: 0,
   },
   {
     id: 'SWQ3',
     chapter: TourChapter.Spurwechsel,
     questionText:
-      'Müssen Sie als Fahrer*in einen vorgeschlagenen Spurwechsel durch das Fahrzeug immer bestätigen, bevor dieser ausgeführt wird?',
-    possibleAnswers: ['Ja', 'Nein'],
-    correctAnswerIndex: 0,
+      'Das Fahrzeug schlägt eigenständig Spurwechsel vor, auch wenn es die Verkehrssituation nicht zulässt.',
+    possibleAnswers: ['Richtig', 'Falsch'],
+    correctAnswerIndex: 1,
   },
 
   // ─────────── Notbremsassistent ───────────
@@ -198,7 +188,7 @@ export const sampleQuestions: QuizQuestion[] = [
     possibleAnswers: [
       'Der Fahrer wird dazu aufgefordert, selbst zu bremsen',
       'Das Fahrzeug bremst automatisch bis zum Stillstand',
-      'Der DRIVING ASSIST deaktiviert sich automatisch',
+      'Das Fahrzeug reagiert gar nicht.',
       'Der Fahrer erhält nur eine visuelle Warnung',
     ],
     correctAnswerIndex: 1,
@@ -208,7 +198,7 @@ export const sampleQuestions: QuizQuestion[] = [
   {
     id: 'DQ1',
     chapter: TourChapter.Deaktivierung,
-    questionText: 'Wie kann der DRIVING ASSIST deaktiviert werden?',
+    questionText: 'Wie kann das teilautomatisierte Fahren deaktiviert werden?',
     possibleAnswers: [
       'Durch langes Drücken der Set-Taste',
       'Durch kurzes Antippen des Blinkers',
@@ -221,7 +211,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'DQ2',
     chapter: TourChapter.Deaktivierung,
     questionText:
-      'Kann der DRIVING ASSIST durch manuelles Eingreifen (z.B. Lenken oder Bremsen) durch Sie als Fahrer*in deaktiviert werden?',
+      'Kann das teilautomatisierte Fahren durch manuelles Eingreifen (z.B. Lenken oder Bremsen) durch Sie als Fahrer*in deaktiviert werden?',
     possibleAnswers: ['Ja', 'Nein'],
     correctAnswerIndex: 0,
   },
@@ -229,11 +219,11 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'DQ3',
     chapter: TourChapter.Deaktivierung,
     questionText:
-      'Wie wird angezeigt, dass der DRIVING ASSIST deaktiviert wurde?',
+      'Wie wird angezeigt, dass das teilautomatisierte Fahren deaktiviert wurde?',
     possibleAnswers: [
       'Durch ein rotes Ausrufezeichen im Display',
-      'Durch ein akustisches Signal',
-      'Durch das Erlöschen der Lenkradlichter und des Symbols im Display',
+      'Durch ein akustisches Signal und eine Vibration im Lenkrad',
+      'Durch das Erlöschen der Lenkradlichter und das weiße Automationssymbol',
       'Durch eine Warnmeldung im Head-Up-Display',
     ],
     correctAnswerIndex: 2,
@@ -244,7 +234,7 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'RQ1',
     chapter: TourChapter.Risiken,
     questionText:
-      'Das teilautomatisierte Fahren durch den DRIVING ASSIST entbindet Sie als Fahrer*in von der Verantwortung, sodass Sie nicht mehr aufmerksam sein müssen.',
+      'Das teilautomatisierte Fahren entbindet Sie als Fahrer*in von der Verantwortung, sodass Sie nicht mehr aufmerksam sein müssen.',
     possibleAnswers: ['Richtig', 'Falsch'],
     correctAnswerIndex: 1,
   },
@@ -260,12 +250,12 @@ export const sampleQuestions: QuizQuestion[] = [
     id: 'RQ3',
     chapter: TourChapter.Risiken,
     questionText:
-      'Warum dürfen Sie sich als Fahrer*in nicht vollständig auf die Assistenzsysteme im DRIVING ASSIST verlassen?',
+      'Warum dürfen Sie sich als Fahrer*in nicht vollständig auf die Assistenzsysteme verlassen?',
     possibleAnswers: [
       'Weil die Systeme zu langsam reagieren',
       'Weil das teilautomatisierte Fahrzeug immer 10 km/h schneller fährt als erlaubt',
       'Weil die Systeme Fehler machen können, ohne Sie als Fahrer*in zu warnen',
-      'Weil der DRIVING ASSIST nur auf Autobahnen nutzbar ist',
+      'Weil das teilautomatisierte Fahren nur auf Autobahnen nutzbar ist',
     ],
     correctAnswerIndex: 2,
   },

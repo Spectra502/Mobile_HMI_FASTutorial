@@ -1,6 +1,5 @@
-import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
@@ -13,9 +12,9 @@ import decGIF4 from '@/assets/GIFs/9-4.gif';
 export default function QuickTourPageDeactivateDA() {
   const profile = useProfile();
 
-  useEffect(() => {
+  /*useEffect(() => {
     profile.markChapterFinished(TourChapter.Deaktivierung);
-  }, []);
+  }, []);*/
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

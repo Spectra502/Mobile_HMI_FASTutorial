@@ -1,6 +1,5 @@
-import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
@@ -15,9 +14,9 @@ import spIMG2 from '@/assets/TourPage/7-2-2.imageset/7-2-2.png';
 export default function QuickTourPageSpurwechsel() {
   const profile = useProfile();
 
-  useEffect(() => {
+  /*useEffect(() => {
     profile.markChapterFinished(TourChapter.Spurwechsel);
-  }, []);
+  }, []);*/
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

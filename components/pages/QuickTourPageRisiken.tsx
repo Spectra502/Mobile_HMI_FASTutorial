@@ -1,6 +1,5 @@
-import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
@@ -13,9 +12,9 @@ import riskGIF1 from '@/assets/GIFs/6-2.gif';
 export default function QuickTourPageRisiken() {
   const profile = useProfile();
 
-  useEffect(() => {
+  /*useEffect(() => {
     profile.markChapterFinished(TourChapter.Risiken);
-  }, []);
+  }, []);*/
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

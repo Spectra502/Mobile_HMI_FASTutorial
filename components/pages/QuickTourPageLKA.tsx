@@ -1,6 +1,5 @@
-import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
@@ -11,9 +10,9 @@ import lkaGIF1 from '@/assets/GIFs/6-1.gif';
 export default function QuickTourPageLKA() {
   const profile = useProfile();
 
-  useEffect(() => {
+  /*useEffect(() => {
     profile.markChapterFinished(TourChapter.LKA);
-  }, []);
+  }, []);*/
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

@@ -1,9 +1,9 @@
 // components/ProfileScreen.tsx
 import { useProfile } from '@/context/ProfileContext';
-import { useQuizService } from '@/context/QuizServiceContext'; // <-- add this
+import { useQuizService } from '@/context/QuizServiceContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react'; // ← add useState
 import {
   ScrollView,
   StyleSheet,
@@ -13,13 +13,17 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AssistantButton from './AssistantButton';
+import LoginOverlay from './LoginOverlay'; // ← import the overlay
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const profile = useProfile();
-  const quiz = useQuizService();                     // <-- use the hook
+  const quiz = useQuizService();
   const router = useRouter();
   const bookmarks = profile.activeProfile?.bookmarkedChapters ?? [];
+
+  // NEW: modal visibility for switching/creating/logging into a profile
+  const [switchVisible, setSwitchVisible] = useState(false);
 
   return (
     <ScrollView
@@ -66,12 +70,38 @@ export default function ProfileScreen() {
           </Text>
         )}
 
+        {/* NEW: Switch profile button (above reset) */}
+        {profile.profiles.length > 1 && (
+          <View style={{ marginTop: 12 }}>
+            <Text style={{ marginBottom: 8, color: '#666', fontWeight: '600' }}>
+              Profile wechseln
+            </Text>
+            {profile.profiles.map(p => (
+              <TouchableOpacity
+                key={p.id}
+                style={{ paddingVertical: 8 }}
+                onPress={() => profile.loadProfile(p.profileCode)}
+              >
+                <Text style={{ color: p.id === profile.activeProfile?.id ? '#007aff' : '#333' }}>
+                  {p.profileCode}{p.id === profile.activeProfile?.id ? ' (aktiv)' : ''}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+
+        <TouchableOpacity
+          style={styles.switchBtn}
+          onPress={() => setSwitchVisible(true)}
+        >
+          <Text style={styles.switchText}>Profil wechseln</Text>
+        </TouchableOpacity>
+
         {/* DEV-only Reset */}
         {__DEV__ && (
           <TouchableOpacity
             style={styles.resetBtn}
             onPress={async () => {
-              // both resets — profile & quiz answers
               if (typeof profile.resetProfiles === 'function') {
                 await profile.resetProfiles();
               }
@@ -82,6 +112,12 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         )}
       </View>
+
+      {/* NEW: LoginOverlay reused for switching/creating/login */}
+      <LoginOverlay
+        visible={switchVisible}
+        onDismiss={() => setSwitchVisible(false)}
+      />
     </ScrollView>
   );
 }
@@ -95,6 +131,22 @@ const styles = StyleSheet.create({
   savedHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
   savedTitle: { fontSize: 16, fontWeight: '600', color: '#555', marginLeft: 8 },
   emptyText: { fontSize: 16, color: '#888', marginTop: 10 },
-  resetBtn: { marginTop: 20, padding: 12, backgroundColor: '#f44336', borderRadius: 6 },
+
+  // NEW styles for the switch button
+  switchBtn: {
+    marginTop: 16,
+    padding: 12,
+    backgroundColor: '#0066cc',
+    borderRadius: 6,
+  },
+  switchText: { color: 'white', textAlign: 'center', fontWeight: '600' },
+
+  // Existing reset button
+  resetBtn: {
+    marginTop: 12,
+    padding: 12,
+    backgroundColor: '#f44336',
+    borderRadius: 6,
+  },
   resetText: { color: 'white', textAlign: 'center' },
 });

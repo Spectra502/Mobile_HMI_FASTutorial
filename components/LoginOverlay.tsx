@@ -1,18 +1,20 @@
 // components/LoginOverlay.tsx
 import React, { useState } from 'react';
 import {
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useProfile } from '../context/ProfileContext';
 
 type Page = 'question' | 'create' | 'login' | 'success';
+
+const PRIMARY_LABEL = 'Weiter'; // <— change this once to rename the blue button
 
 export default function LoginOverlay({
   visible,
@@ -32,33 +34,22 @@ export default function LoginOverlay({
     setAlertText('');
   };
 
-  // Create a new profile
   async function handleCreate() {
     const cleanCode = code.trim();
     if (!cleanCode) return;
-    console.log('📝 Trying to create profile:', cleanCode);
-    console.log('📦 Current profiles before create:', profiles);
-
     try {
       await createProfile(cleanCode);
-      console.log('✅ After create, profiles:', profiles);
       setSuccessText('Ihr Profil wurde erfolgreich erstellt!');
       setPage('success');
     } catch (err) {
-      console.warn('⛔ createProfile error:', err);
       setAlertText(`Profil mit Code "${cleanCode}" existiert bereits.`);
     }
   }
 
-  // Log in to an existing profile
   async function handleLogin() {
     const cleanCode = code.trim();
     if (!cleanCode) return;
-    console.log('📝 Trying to login with code:', cleanCode);
-    console.log('📦 Current profiles for login:', profiles);
-
     const ok = await loadProfile(cleanCode);
-    console.log('🔍 loadProfile result:', ok, 'activeProfile:', activeProfile);
     if (ok) {
       setSuccessText('Willkommen zurück!');
       setPage('success');
@@ -75,7 +66,7 @@ export default function LoginOverlay({
             <Text style={styles.title}>Haben Sie schon ein Profil?</Text>
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.btn}
+                style={[styles.btn, styles.half]}
                 onPress={() => {
                   clean();
                   setPage('login');
@@ -84,7 +75,7 @@ export default function LoginOverlay({
                 <Text style={styles.btnText}>Ja</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.btn}
+                style={[styles.btn, styles.half]}
                 onPress={() => {
                   clean();
                   setPage('create');
@@ -95,6 +86,7 @@ export default function LoginOverlay({
             </View>
           </>
         );
+
       case 'create':
         return (
           <>
@@ -105,11 +97,13 @@ export default function LoginOverlay({
               value={code}
               onChangeText={setCode}
               autoCapitalize="none"
+              returnKeyType="done"
+              onSubmitEditing={handleCreate} // Enter submits
             />
             {alertText ? <Text style={styles.alert}>{alertText}</Text> : null}
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.back}
+                style={[styles.back, styles.half]}
                 onPress={() => {
                   clean();
                   setPage('question');
@@ -117,16 +111,23 @@ export default function LoginOverlay({
               >
                 <Text style={styles.backText}>Zurück</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
-                style={styles.btn}
+                style={[
+                  styles.btn,
+                  styles.half,
+                  !code.trim() && styles.btnDisabled, // dim when disabled
+                ]}
                 onPress={handleCreate}
                 disabled={!code.trim()}
+                accessibilityLabel={PRIMARY_LABEL}
               >
-                <Text style={styles.btnText}>Erstellen</Text>
+                <Text style={styles.btnText}>{PRIMARY_LABEL}</Text>
               </TouchableOpacity>
             </View>
           </>
         );
+
       case 'login':
         return (
           <>
@@ -137,11 +138,13 @@ export default function LoginOverlay({
               value={code}
               onChangeText={setCode}
               autoCapitalize="none"
+              returnKeyType="done"
+              onSubmitEditing={handleLogin} // Enter submits
             />
             {alertText ? <Text style={styles.alert}>{alertText}</Text> : null}
             <View style={styles.row}>
               <TouchableOpacity
-                style={styles.back}
+                style={[styles.back, styles.half]}
                 onPress={() => {
                   clean();
                   setPage('question');
@@ -149,16 +152,23 @@ export default function LoginOverlay({
               >
                 <Text style={styles.backText}>Zurück</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
-                style={styles.btn}
+                style={[
+                  styles.btn,
+                  styles.half,
+                  !code.trim() && styles.btnDisabled,
+                ]}
                 onPress={handleLogin}
                 disabled={!code.trim()}
+                accessibilityLabel={PRIMARY_LABEL}
               >
-                <Text style={styles.btnText}>Login</Text>
+                <Text style={styles.btnText}>{PRIMARY_LABEL}</Text>
               </TouchableOpacity>
             </View>
           </>
         );
+
       case 'success':
         return (
           <>
@@ -173,8 +183,9 @@ export default function LoginOverlay({
                 setPage('question');
                 onDismiss();
               }}
+              accessibilityLabel={PRIMARY_LABEL}
             >
-              <Text style={styles.btnText}>OK</Text>
+              <Text style={styles.btnText}>{PRIMARY_LABEL}</Text>
             </TouchableOpacity>
           </>
         );
@@ -232,8 +243,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  back: {
+  half: {
     flex: 1,
+  },
+  back: {
     marginRight: 8,
     padding: 12,
     backgroundColor: '#eee',
@@ -242,12 +255,14 @@ const styles = StyleSheet.create({
   },
   backText: { color: '#333' },
   btn: {
-    flex: 1,
     marginLeft: 8,
     padding: 12,
     backgroundColor: '#007aff',
     borderRadius: 8,
     alignItems: 'center',
+  },
+  btnDisabled: {
+    opacity: 0.5, // keep label visible while preventing press
   },
   btnText: {
     color: '#fff',

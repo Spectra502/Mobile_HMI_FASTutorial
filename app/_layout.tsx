@@ -9,7 +9,7 @@ import 'react-native-reanimated';
 import { ProfileProvider } from '@/context/ProfileContext';
 import { QuizServiceProvider } from '@/context/QuizServiceContext';
 import { useColorScheme } from '@/hooks/useColorScheme';
-//import LoginOverlay from '../components/LoginOverlay';
+import LoginOverlay from '../components/LoginOverlay';
 
 export default function RootLayout() {
   const [loginVisible, setLoginVisible] = useState(true);
@@ -26,12 +26,10 @@ export default function RootLayout() {
   return (
     <ProfileProvider>
       {/* show login until a profile is active */}
-      {/*}
       <LoginOverlay
         visible={loginVisible}
         onDismiss={() => setLoginVisible(false)}
       />
-      */}
       <QuizServiceProvider>
         <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
           <Stack>

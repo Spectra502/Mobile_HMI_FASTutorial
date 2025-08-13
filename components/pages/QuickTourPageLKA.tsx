@@ -1,11 +1,11 @@
 import { useProfile } from '@/context/ProfileContext';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import lkaGIF2 from '@/assets/GIFs/10-1.gif';
-import lkaGIF1 from '@/assets/GIFs/6-1.gif';
+import ampGIF1 from '@/assets/HMI_GIFs/4neu1.gif';
+import ampGIF2 from '@/assets/HMI_GIFs/4neu2.gif';
 
 export default function QuickTourPageLKA() {
   const profile = useProfile();
@@ -17,19 +17,18 @@ export default function QuickTourPageLKA() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>
-        Wenn das <Text style={styles.green}>LKA-Symbol</Text> im Display{' '}
-        <Text style={styles.green}>grün</Text> aufleuchtet, ist der Spurhalteassistent aktiviert.
+        Das Fahrzeug erkennt Ampeln und bremst bei roten Ampeln automatisch bis zum Stillstand ab.
       </TextWithSidebar>
 
-      <PlaceholderImage source={lkaGIF1} />
+      <PlaceholderImage source={ampGIF1} />
 
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Das Fahrzeug hält dann automatisch die Spur.
+        Im Stillstand müssen Sie übernehmen und manuell anfahren. Das teilautomatisierte Fahren kann wieder aktiviert werden, sobald das Symbol weiß im Display aufleuchtet.
       </TextWithSidebar>
 
-      <PlaceholderImage source={lkaGIF2} />
+      <PlaceholderImage source={ampGIF2} />
     </ScrollView>
   );
 }

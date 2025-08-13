@@ -4,9 +4,9 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import accGIF1 from '@/assets/GIFs/1-1.gif';
-import accGIF2 from '@/assets/GIFs/1-2.gif';
-import accGIF3 from '@/assets/GIFs/1-3.gif';
+import accGIF2 from '@/assets/HMI_GIFs/3-2.gif';
+import accGIF3 from '@/assets/HMI_GIFs/3-3.gif';
+import accGIF1 from '@/assets/HMI_GIFs/3neu1.gif';
 
 export default function QuickTourPageACC() {
   const profile = useProfile();
@@ -22,7 +22,7 @@ export default function QuickTourPageACC() {
         falls nötig.
       </TextWithSidebar>
 
-      <PlaceholderImage source={accGIF1}/>
+      <PlaceholderImage source={accGIF2}/>
 
       <View style={styles.divider} />
 
@@ -31,7 +31,7 @@ export default function QuickTourPageACC() {
         erhöhen (rechts) oder zu verringern (links).
       </TextWithSidebar>
 
-      <PlaceholderImage source={accGIF2}/>
+      <PlaceholderImage source={accGIF3}/>
 
       <View style={styles.divider} />
 
@@ -40,7 +40,7 @@ export default function QuickTourPageACC() {
         visualisieren den Abstand – je mehr Striche, desto größer der eingestellte Abstand.
       </TextWithSidebar>
 
-      <PlaceholderImage source={accGIF3}/>
+      <PlaceholderImage source={accGIF1}/>
     </ScrollView>
   );
 }

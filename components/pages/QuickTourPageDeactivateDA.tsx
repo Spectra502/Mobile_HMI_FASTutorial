@@ -4,10 +4,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import decGIF1 from '@/assets/GIFs/1-2.gif';
-import decGIF3 from '@/assets/GIFs/9-2.gif';
-import decGIF2 from '@/assets/GIFs/9-3.gif';
-import decGIF4 from '@/assets/GIFs/9-4.gif';
+import decGIF1 from '@/assets/HMI_GIFs/1neu2.gif';
+import decGIF3 from '@/assets/HMI_GIFs/9-2.gif';
+import decGIF2 from '@/assets/HMI_GIFs/9-3.gif';
+import decGIF4 from '@/assets/HMI_GIFs/9-4.gif';
 
 export default function QuickTourPageDeactivateDA() {
   const profile = useProfile();
@@ -28,7 +28,7 @@ export default function QuickTourPageDeactivateDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Er wird auch beendet, wenn Sie lenken oder das Bremspedal drücken.
+        Es wird auch beendet, wenn Sie manuell Lenken oder das Bremspedal drücken.
       </TextWithSidebar>
 
       <PlaceholderImage source={decGIF2} style={styles.imageFill} />
@@ -38,8 +38,8 @@ export default function QuickTourPageDeactivateDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Bei erfolgreicher Deaktivierung erlöschen die Lenkradlichter und das Symbol{' '}
-        <Text style={styles.highlight}>DRIVING ASSIST</Text> im Display.
+        Bei erfolgreicher Deaktivierung, erlöschen die Lenkradlichter und das Automationssymbol im 
+        Display erscheint wieder weiß. 
       </TextWithSidebar>
 
       <PlaceholderImage source={decGIF4} />

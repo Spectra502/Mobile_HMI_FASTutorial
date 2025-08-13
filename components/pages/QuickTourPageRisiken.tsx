@@ -6,8 +6,9 @@ import TextWithSidebar from '../TextWithSidebar';
 
 import riskGIF2 from '@/assets/GIFs/10-2.gif';
 import riskGIF3 from '@/assets/GIFs/10-3.gif';
-import { default as riskGIF4, default as riskIMG } from '@/assets/GIFs/10-4.gif';
-import riskGIF1 from '@/assets/GIFs/6-2.gif';
+import riskGIF4 from '@/assets/GIFs/10-4.gif';
+import riskGIF1 from '@/assets/HMI_GIFs/10-1.gif';
+import riskIMG from '@/assets/HMI_GIFs/10-1.png';
 
 export default function QuickTourPageRisiken() {
   const profile = useProfile();
@@ -31,8 +32,10 @@ export default function QuickTourPageRisiken() {
       <TextWithSidebar>
         Es kann jedoch vorkommen, dass das Fahrzeug Fehler macht, ohne vorher zu warnen. Achten Sie
         deshalb immer auf den Verkehr und die Umgebung. Sie müssen jederzeit sofort eingreifen
-        können.{'\n'}Im Folgenden einige Beispiele für mögliche Fehler:
+        können.{'\n'}{'\n'}Im Folgenden einige Beispiele für mögliche Fehler:
       </TextWithSidebar>
+
+      <View style={styles.divider} />
 
       <TextWithSidebar>
         Das Fahrzeug erkennt einen Kreisverkehr nicht und lenkt falsch.

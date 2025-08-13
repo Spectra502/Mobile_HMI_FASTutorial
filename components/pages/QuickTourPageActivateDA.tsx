@@ -4,12 +4,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import daGIF1 from '@/assets/GIFs/1-1.gif';
-import daGIF2 from '@/assets/GIFs/1-2.gif';
-import daGIF3 from '@/assets/GIFs/1-3.gif';
-import daGIF4 from '@/assets/GIFs/1-4.gif';
-import daGIF6 from '@/assets/GIFs/1-6.gif';
-import daIMG5 from '@/assets/TourPage/1-5.imageset/1-5.jpg';
+import daGIF1 from '@/assets/HMI_GIFs/1neu1.gif';
+import daGIF2 from '@/assets/HMI_GIFs/1neu2.gif';
+import daGIF3 from '@/assets/HMI_GIFs/1neu3.gif';
+
 
 export default function QuickTourPageDA() {
   const profile = useProfile();
@@ -34,7 +32,7 @@ export default function QuickTourPageDA() {
         Bei Bedingungen, wie zum Beispiel schlechtem Wetter, kann es unter Umständen nicht verfügbar sein.
       </TextWithSidebar>
 
-      <PlaceholderImage source={daGIF2} />
+      <PlaceholderImage source={daGIF1} />
 
       <View style={styles.divider} />
 
@@ -42,7 +40,7 @@ export default function QuickTourPageDA() {
         Drücken Sie die <Text style={styles.highlight}>Aktivierungstaste</Text>, um das teilautomatisierte Fahren zu aktivieren.
       </TextWithSidebar>
 
-      <PlaceholderImage source={daGIF3} />
+      <PlaceholderImage source={daGIF2} />
 
       <View style={styles.divider} />
 
@@ -50,7 +48,7 @@ export default function QuickTourPageDA() {
         Bei erfolgreicher Aktivierung, leuchtet das Automationssymbol <Text style={styles.green}>grün.</Text> im Display auf.
       </TextWithSidebar>
 
-      <PlaceholderImage source={daGIF4} />
+      <PlaceholderImage source={daGIF3} />
 
       <View style={styles.divider} />
 
@@ -58,7 +56,7 @@ export default function QuickTourPageDA() {
         Zudem leuchten die Lenkradlichter <Text style={styles.green}>grün.</Text>
       </TextWithSidebar>
 
-      <PlaceholderImage source={daGIF6} />
+      <PlaceholderImage source={daGIF3} />
 
       <View style={styles.divider} />
 
@@ -67,7 +65,7 @@ export default function QuickTourPageDA() {
         Richten Sie Ihren Blick weiterhin auf die Straße und nehmen Sie die Füße von den Pedalen. Ihre Hände können Sie während der automatisierten Fahrt vom Lenkrad nehmen oder am Lenkrad belassen, ohne zu lenken.
       </TextWithSidebar>
 
-      <PlaceholderImage source={daIMG5} />
+      <PlaceholderImage source={daGIF3} />
     </ScrollView>
   );
 }

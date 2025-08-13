@@ -24,7 +24,7 @@ export default function ProfileScreen() {
   // when `selectedChapter` is set, navigate to QuickTour modal
   if (selectedChapter) {
     router.push({
-      pathname: '/quick-tour',
+      pathname: '/quick-tour/[chapter]',
       params: { chapter: selectedChapter, showOverlay: 'false' },
     });
     setSelectedChapter(null);

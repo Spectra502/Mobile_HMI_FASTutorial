@@ -22,8 +22,8 @@ export default function QuickTourPageDA() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>
-        Wenn das <Text style={styles.highlight}>DRIVING ASSIST READY</Text> weiß im Display
-        aufleuchtet, ist das teilautomatisierte Fahren verfügbar.
+        Der Status der Automation wird durch das Automationssymbol im Display angezeigt. 
+        Erscheint das Symbol grau, ist das teilautomatisierte Fahren <Text style={styles.highlight}>nicht</Text> verfügbar.
       </TextWithSidebar>
 
       <PlaceholderImage source={daGIF1} />
@@ -31,9 +31,8 @@ export default function QuickTourPageDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Bei Bedingungen, wie zum Beispiel schlechtem Wetter, kann es unter Umständen nicht
-        verfügbar sein. Drücken Sie die <Text style={styles.highlight}>Aktivierungstaste</Text>,
-        um den DRIVING ASSIST zu aktivieren.
+        Wenn das Automationssymbol weiß im Display aufleuchtet, ist das teilautomatisierte Fahren verfügbar. 
+        Bei Bedingungen, wie zum Beispiel schlechtem Wetter, kann es unter Umständen nicht verfügbar sein.
       </TextWithSidebar>
 
       <PlaceholderImage source={daGIF2} />
@@ -41,8 +40,7 @@ export default function QuickTourPageDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Bei erfolgreicher Aktivierung leuchtet DRIVING ASSIST{' '}
-        <Text style={styles.green}>grün</Text> im Display auf.
+        Drücken Sie die <Text style={styles.highlight}>Aktivierungstaste</Text>, um das teilautomatisierte Fahren zu aktivieren.
       </TextWithSidebar>
 
       <PlaceholderImage source={daGIF3} />
@@ -50,7 +48,7 @@ export default function QuickTourPageDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Zudem leuchten die Lenkradlichter <Text style={styles.green}>grün.</Text>
+        Bei erfolgreicher Aktivierung, leuchtet das Automationssymbol <Text style={styles.green}>grün.</Text> im Display auf.
       </TextWithSidebar>
 
       <PlaceholderImage source={daGIF4} />
@@ -58,16 +56,19 @@ export default function QuickTourPageDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Es sind nun alle Fahrerassistenzsysteme aktiv und das Fahrzeug fährt teilautomatisiert.
-        Ihre Hände müssen während der automatisierten Fahrt am Lenkrad bleiben, ohne zu lenken.
-        Ihre Füße müssen Sie von den Pedalen nehmen.
+        Zudem leuchten die Lenkradlichter <Text style={styles.green}>grün.</Text>
       </TextWithSidebar>
 
-      <PlaceholderImage source={daIMG5} />
+      <PlaceholderImage source={daGIF6} />
 
       <View style={styles.divider} />
 
-      <PlaceholderImage source={daGIF6} />
+      <TextWithSidebar>
+        Es sind nun <Text style={styles.highlight}>alle</Text> Fahrerassistenzsysteme aktiv und das Fahrzeug fährt <Text style={styles.highlight}>teilautomatisiert</Text>. 
+        Richten Sie Ihren Blick weiterhin auf die Straße und nehmen Sie die Füße von den Pedalen. Ihre Hände können Sie während der automatisierten Fahrt vom Lenkrad nehmen oder am Lenkrad belassen, ohne zu lenken.
+      </TextWithSidebar>
+
+      <PlaceholderImage source={daIMG5} />
     </ScrollView>
   );
 }

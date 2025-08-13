@@ -53,7 +53,7 @@ export default function HomeSection({
             //console.log('Jumping to chapter', ch);
             router.push({
               pathname: '/quick-tour/[chapter]',
-              params: { chapter: ch, showOverlay: 'true' },
+              params: { chapter: ch, showOverlay: 'false' },
             });
           }
 

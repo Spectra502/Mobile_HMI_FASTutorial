@@ -19,8 +19,8 @@ export default function QuickTourPageACC() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>
-        Wenn das <Text style={styles.highlight}>ACC-Symbol</Text> im Display grün aufleuchtet,
-        ist der Abstandsassistent aktiviert.
+        Das Fahrzeug hält den Abstand zum Vorderfahrzeug automatisch. Es bremst oder beschleunigt, 
+        falls nötig.
       </TextWithSidebar>
 
       <PlaceholderImage source={accGIF1}/>
@@ -28,8 +28,8 @@ export default function QuickTourPageACC() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Das Fahrzeug hält dann den Abstand zum Vorderfahrzeug automatisch.
-        Es bremst oder beschleunigt, falls nötig.
+        Drücken Sie die <Text style={styles.highlight}>Abstandstasten</Text>, um den Abstand zum Vorderfahrzeug individuell zu 
+        erhöhen (rechts) oder zu verringern (links).
       </TextWithSidebar>
 
       <PlaceholderImage source={accGIF2}/>
@@ -37,8 +37,8 @@ export default function QuickTourPageACC() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Drücken Sie die <Text style={styles.highlight}>Abstandstasten</Text> um den Abstand
-        individuell anzupassen.
+        Der individuell eingestellte Abstand wird im Display symbolisch angezeigt. Die Striche vor dem Fahrzeug 
+        visualisieren den Abstand – je mehr Striche, desto größer der eingestellte Abstand.
       </TextWithSidebar>
 
       <PlaceholderImage source={accGIF3}/>

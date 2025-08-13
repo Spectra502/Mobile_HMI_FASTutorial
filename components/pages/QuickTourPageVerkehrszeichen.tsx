@@ -28,8 +28,8 @@ export default function QuickTourPageVerkehrszeichen() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Das erkannte Tempolimit wird im Display angezeigt. Bei einem neuen Tempolimit wird die erkannte Geschwindigkeit
-        automatisch übernommen.
+        Das erkannte Tempolimit wird im Display angezeigt. Bei einem neuen Tempolimit wird die 
+        erkannte Geschwindigkeit automatisch übernommen.
       </TextWithSidebar>
 
       <PlaceholderImage source={vzGIF2} />
@@ -37,9 +37,8 @@ export default function QuickTourPageVerkehrszeichen() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Drücken Sie den <Text style={styles.highlight}>Hebel</Text> bei einem Tempolimit,
-        um die erkannte Geschwindigkeit zu übernehmen.{'\n'}Das Fahrzeug passt sich dann der
-        Geschwindigkeit an.
+        Drücken Sie den <Text style={styles.highlight}>Hebel</Text> nach oben oder unten, 
+        um die Geschwindigkeit individuell zu erhöhen (oben) oder zu verringern (unten)
       </TextWithSidebar>
 
       <PlaceholderImage source={vzGIF3} />
@@ -47,8 +46,7 @@ export default function QuickTourPageVerkehrszeichen() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Drücken Sie den <Text style={styles.highlight}>Hebel</Text> nach oben oder unten,
-        um die Geschwindigkeit individuell zu erhöhen (oben) oder zu verringern (unten).
+        Ihre individuell eingestellte Geschwindigkeit wird im Display angezeigt.
       </TextWithSidebar>
 
       <PlaceholderImage source={vzGIF4} />

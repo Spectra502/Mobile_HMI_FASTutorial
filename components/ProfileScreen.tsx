@@ -1,9 +1,9 @@
 // components/ProfileScreen.tsx
-import { TourChapter } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
+import { useQuizService } from '@/context/QuizServiceContext'; // <-- add this
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -17,18 +17,9 @@ import AssistantButton from './AssistantButton';
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const profile = useProfile();
+  const quiz = useQuizService();                     // <-- use the hook
   const router = useRouter();
-  const [selectedChapter, setSelectedChapter] = useState<TourChapter | null>(null);
-  const bookmarks = profile.activeProfile?.bookmarkedChapters ?? []
-
-  // when `selectedChapter` is set, navigate to QuickTour modal
-  if (selectedChapter) {
-    router.push({
-      pathname: '/quick-tour/[chapter]',
-      params: { chapter: selectedChapter, showOverlay: 'false' },
-    });
-    setSelectedChapter(null);
-  }
+  const bookmarks = profile.activeProfile?.bookmarkedChapters ?? [];
 
   return (
     <ScrollView
@@ -55,13 +46,18 @@ export default function ProfileScreen() {
           <Text style={styles.savedTitle}>Gespeichert</Text>
         </View>
 
-        {profile.activeProfile?.bookmarkedChapters.length ? (
-          profile.activeProfile.bookmarkedChapters.map((chapter) => (
+        {bookmarks.length ? (
+          bookmarks.map((chapter) => (
             <AssistantButton
               key={chapter}
               chapter={chapter}
               style="tutorial"
-              onPress={() => setSelectedChapter(chapter)}
+              onPress={() =>
+                router.push({
+                  pathname: '/quick-tour/[chapter]',
+                  params: { chapter, showOverlay: 'false' },
+                })
+              }
             />
           ))
         ) : (
@@ -70,10 +66,17 @@ export default function ProfileScreen() {
           </Text>
         )}
 
+        {/* DEV-only Reset */}
         {__DEV__ && (
-        <TouchableOpacity
+          <TouchableOpacity
             style={styles.resetBtn}
-            onPress={() => profile.resetProfiles()}
+            onPress={async () => {
+              // both resets — profile & quiz answers
+              if (typeof profile.resetProfiles === 'function') {
+                await profile.resetProfiles();
+              }
+              quiz.resetAll();
+            }}
           >
             <Text style={styles.resetText}>🗑️ Reset Profiles</Text>
           </TouchableOpacity>
@@ -84,58 +87,14 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingBottom: 40,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  avatar: {
-    width: 90,
-    height: 90,
-    tintColor: '#007AFF',
-    marginBottom: 8,
-  },
-  profileCode: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  savedSection: {
-    marginBottom: 40,
-  },
-  savedHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 6,
-  },
-  bookmarkIcon: {
-    width: 24,
-    height: 24,
-    marginRight: 8,
-  },
-  savedTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#555',
-    marginLeft: 8,
-  },
-  emptyText: {
-    fontSize: 16,
-    color: '#888',
-    marginTop: 10,
-  },
-  resetBtn: {
-    marginTop: 20,
-    padding: 12,
-    backgroundColor: '#f44336',
-    borderRadius: 6,
-  },
+  container: { paddingBottom: 40, backgroundColor: '#fff' },
+  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 20 },
+  header: { alignItems: 'center', marginBottom: 40 },
+  profileCode: { fontSize: 20, fontWeight: '600' },
+  savedSection: { marginBottom: 40 },
+  savedHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
+  savedTitle: { fontSize: 16, fontWeight: '600', color: '#555', marginLeft: 8 },
+  emptyText: { fontSize: 16, color: '#888', marginTop: 10 },
+  resetBtn: { marginTop: 20, padding: 12, backgroundColor: '#f44336', borderRadius: 6 },
   resetText: { color: 'white', textAlign: 'center' },
 });

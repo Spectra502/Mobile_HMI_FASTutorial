@@ -2,6 +2,7 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -21,12 +22,10 @@ export default function QuizScreen() {
   const insets = useSafeAreaInsets();
   const profile = useProfile();
   const router  = useRouter();
-  //const quiz    = useQuizService();
   const quiz = useQuizService();
   const totalQ = quiz.totalQuestions();
   const correct = quiz.totalCorrectAnswers();
 
-  // mimic the SwiftUI tab selection
   const [selectedTab, setSelectedTab] = useState<'test' | 'fahrpunkte'>('test');
 
   //console.log('allChapters:', allChapters)
@@ -79,10 +78,37 @@ export default function QuizScreen() {
             <TouchableOpacity
               style={styles.startButton}
               onPress={() => {
+                // 1) Must finish all tutorials first
+                if (!profile.areAllChaptersFinished()) {
+                  Alert.alert(
+                    'Erst Tutorial abschließen',
+                    'Sie müssen zuerst alle Seiten des Tutorials absolvieren, bevor Sie das Quiz starten können!',
+                    [{ text: 'OK' }],
+                  );
+                  return;
+                }
+
+                // 2) Compute remaining questions (unanswered OR incorrect)
+                const remaining = quiz.questions.filter(
+                  (q) => q.userAnswerIndex == null || !quiz.isAnsweredCorrectly(q.id)
+                );
+
+                if (remaining.length === 0) {
+                  Alert.alert(
+                    'Test abgeschlossen!',
+                    'Sie haben bereits alle Fragen richtig beantwortet.',
+                    [{ text: 'OK' }],
+                  );
+                  return;
+                }
+
+                // 3) Start at the first remaining question's chapter
+                const firstChapter = remaining[0].chapter;
+
                 router.push({
                   pathname: '/quiz/[chapter]',
                   params: {
-                    chapter: allChapters[0],
+                    chapter: firstChapter,
                     onlyChapter: 'false',
                   },
                 });

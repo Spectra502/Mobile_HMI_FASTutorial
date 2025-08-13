@@ -25,6 +25,7 @@ export interface ProfileStore {
   isChapterFinished: (ch: TourChapter) => boolean;
   areAllChaptersFinished: () => boolean;
   markPopupAsSeen: (type: 'tutorial' | 'quiz') => void;
+  resetProfiles: () => Promise<void>;
 }
 
 const STORAGE_KEY = 'ProfileStore.profiles';

@@ -4,10 +4,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import decGIF1 from '@/assets/HMI_GIFs/1neu2.gif';
+import decGIF1 from '@/assets/HMI_GIFs/1-2.gif';
+import decGIF4 from '@/assets/HMI_GIFs/7neu1.gif';
 import decGIF3 from '@/assets/HMI_GIFs/9-2.gif';
 import decGIF2 from '@/assets/HMI_GIFs/9-3.gif';
-import decGIF4 from '@/assets/HMI_GIFs/9-4.gif';
 
 export default function QuickTourPageDeactivateDA() {
   const profile = useProfile();
@@ -32,6 +32,8 @@ export default function QuickTourPageDeactivateDA() {
       </TextWithSidebar>
 
       <PlaceholderImage source={decGIF2} style={styles.imageFill} />
+
+      <View style={styles.divider} />
 
       <PlaceholderImage source={decGIF3} />
 

@@ -4,11 +4,11 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import riskGIF2 from '@/assets/GIFs/10-2.gif';
-import riskGIF3 from '@/assets/GIFs/10-3.gif';
-import riskGIF4 from '@/assets/GIFs/10-4.gif';
-import riskGIF1 from '@/assets/HMI_GIFs/10-1_anim.gif';
-import riskIMG from '@/assets/HMI_GIFs/10-1_img.png';
+import riskGIF3 from '@/assets/GIFs/10-2.gif';
+import riskGIF4 from '@/assets/GIFs/10-3.gif';
+import riskGIF5 from '@/assets/GIFs/10-4.gif';
+import riskGIF2 from '@/assets/HMI_GIFs/10-1_anim.gif';
+import riskGIF1 from '@/assets/HMI_GIFs/8neu1.gif';
 
 export default function QuickTourPageRisiken() {
   const profile = useProfile();
@@ -25,7 +25,7 @@ export default function QuickTourPageRisiken() {
         abdecken. Kommt das System an seine Grenzen, warnt es Sie und fordert zur Übernahme auf.
       </TextWithSidebar>
 
-      <PlaceholderImage source={riskIMG} />
+      <PlaceholderImage source={riskGIF1} />
 
       <View style={styles.divider} />
 
@@ -40,28 +40,28 @@ export default function QuickTourPageRisiken() {
       <TextWithSidebar>
         Das Fahrzeug erkennt einen Kreisverkehr nicht und lenkt falsch.
       </TextWithSidebar>
-      <PlaceholderImage source={riskGIF1} />
+      <PlaceholderImage source={riskGIF2} />
 
       <View style={styles.divider} />
 
       <TextWithSidebar>
         Das Fahrzeug erkennt die Fahrspur nicht wegen einer Baustelle.
       </TextWithSidebar>
-      <PlaceholderImage source={riskGIF2} />
+      <PlaceholderImage source={riskGIF3} />
 
       <View style={styles.divider} />
 
       <TextWithSidebar>
         Das Fahrzeug bremst bei einer roten Ampel trotz Betätigung der SET-Taste nicht ab.
       </TextWithSidebar>
-      <PlaceholderImage source={riskGIF3} />
+      <PlaceholderImage source={riskGIF4} />
 
       <View style={styles.divider} />
 
       <TextWithSidebar>
         Das Fahrzeug erkennt beim Spurwechsel umliegende Fahrzeuge nicht.
       </TextWithSidebar>
-      <PlaceholderImage source={riskGIF4} />
+      <PlaceholderImage source={riskGIF5} />
     </ScrollView>
   );
 }

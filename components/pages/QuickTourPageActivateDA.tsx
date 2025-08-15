@@ -4,10 +4,11 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
+import daGIF2 from '@/assets/HMI_GIFs/1-2.gif';
+import daGIF4 from '@/assets/HMI_GIFs/1-4.gif';
 import daGIF1 from '@/assets/HMI_GIFs/1neu1.gif';
-import daGIF2 from '@/assets/HMI_GIFs/1neu2.gif';
 import daGIF3 from '@/assets/HMI_GIFs/1neu3.gif';
-
+import daJPG5 from '@/assets/HMI_GIFs/4-3.jpg';
 
 export default function QuickTourPageDA() {
   const profile = useProfile();
@@ -56,7 +57,7 @@ export default function QuickTourPageDA() {
         Zudem leuchten die Lenkradlichter <Text style={styles.green}>grün.</Text>
       </TextWithSidebar>
 
-      <PlaceholderImage source={daGIF3} />
+      <PlaceholderImage source={daGIF4} />
 
       <View style={styles.divider} />
 
@@ -65,7 +66,7 @@ export default function QuickTourPageDA() {
         Richten Sie Ihren Blick weiterhin auf die Straße und nehmen Sie die Füße von den Pedalen. Ihre Hände können Sie während der automatisierten Fahrt vom Lenkrad nehmen oder am Lenkrad belassen, ohne zu lenken.
       </TextWithSidebar>
 
-      <PlaceholderImage source={daGIF3} />
+      <PlaceholderImage source={daJPG5} />
     </ScrollView>
   );
 }

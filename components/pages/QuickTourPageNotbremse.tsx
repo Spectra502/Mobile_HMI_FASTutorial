@@ -4,8 +4,8 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
-import nbGIF2 from '@/assets/HMI_GIFs/8-2.gif';
-import nbGIF1 from '@/assets/HMI_GIFs/8neu1.gif';
+import nbGIF2 from '@/assets/HMI_GIFs/6neu1.gif';
+import nbGIF1 from '@/assets/HMI_GIFs/8-2.gif';
 
 export default function QuickTourPageNotbremse() {
   const profile = useProfile();
@@ -25,7 +25,7 @@ export default function QuickTourPageNotbremse() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Im Stillstand müssen Sie übernehmen und manuell anfahren. Das teilautomatisierte Fahren kann wieder ---------
+        Im Stillstand müssen Sie übernehmen und manuell anfahren. Das teilautomatisierte Fahren kann wieder
         aktiviert werden, sobald das Symbol weiß im Display aufleuchtet.
       </TextWithSidebar>
 

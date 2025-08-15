@@ -15,7 +15,7 @@ export default function PlaceholderImage({
   return (
     <Image
       source={source}
-      style={[{ width: '100%', aspectRatio: 16 / 9, borderRadius: 8 }, style]}
+      style={[{ width: '100%', aspectRatio: 16 / 9, borderRadius: 18 }, style]}
       contentFit={contentFit}
       // nice-to-haves:
       transition={200}

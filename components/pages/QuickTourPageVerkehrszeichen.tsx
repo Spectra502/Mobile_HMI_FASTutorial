@@ -4,9 +4,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
+import vzGIF3 from '@/assets/HMI_GIFs/2-4.gif';
 import vzGIF1 from '@/assets/HMI_GIFs/2neu1.gif';
 import vzGIF2 from '@/assets/HMI_GIFs/2neu2.gif';
-import vzGIF3 from '@/assets/HMI_GIFs/2neu3.gif';
+import vzGIF4 from '@/assets/HMI_GIFs/2neu3.gif';
 
 export default function QuickTourPageVerkehrszeichen() {
   const profile = useProfile();
@@ -39,7 +40,7 @@ export default function QuickTourPageVerkehrszeichen() {
         um die Geschwindigkeit individuell zu erhöhen (oben) oder zu verringern (unten)
       </TextWithSidebar>
 
-      <PlaceholderImage source={vzGIF2} />
+      <PlaceholderImage source={vzGIF3} />
 
       <View style={styles.divider} />
 
@@ -47,7 +48,7 @@ export default function QuickTourPageVerkehrszeichen() {
         Ihre individuell eingestellte Geschwindigkeit wird im Display angezeigt.
       </TextWithSidebar>
 
-      <PlaceholderImage source={vzGIF3} />
+      <PlaceholderImage source={vzGIF4} />
     </ScrollView>
   );
 }

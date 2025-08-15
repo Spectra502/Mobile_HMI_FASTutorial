@@ -4,8 +4,9 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import PlaceholderImage from '../PlaceholderImage';
 import TextWithSidebar from '../TextWithSidebar';
 
+import spGIF2 from '@/assets/HMI_GIFs/1-2.gif';
 import spGIF1 from '@/assets/HMI_GIFs/6-2.gif';
-import spGIF2 from '@/assets/HMI_GIFs/7-1.gif';
+import spGIF3 from '@/assets/HMI_GIFs/9-3.gif';
 
 export default function QuickTourPageSpurwechsel() {
   const profile = useProfile();
@@ -32,8 +33,11 @@ export default function QuickTourPageSpurwechsel() {
       <View style={styles.row}>
         <PlaceholderImage source={spGIF2} style={styles.imageRow} />
       </View>
-
       <View style={styles.divider} />
+      <View style={styles.row}>
+        <PlaceholderImage source={spGIF3} style={styles.imageRow} />
+      </View>
+
       
     </ScrollView>
   );

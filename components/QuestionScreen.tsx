@@ -20,6 +20,7 @@ interface Params {
 }
 
 export default function QuestionScreen() {
+  const overlayTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { chapter: chapParam, onlyChapter } = useLocalSearchParams<Params>();
   const router = useRouter();
   const quiz = useQuizService();
@@ -56,6 +57,23 @@ export default function QuestionScreen() {
   // --- Feedback overlay
   const [showOverlay, setOverlay] = useState(false);
   const [lastCorrect, setLastCorrect] = useState(false);
+
+  // auto-advance after 2s when the overlay is visible
+  useEffect(() => {
+    if (showOverlay) {
+      overlayTimer.current = setTimeout(() => {
+        overlayTimer.current = null;
+        next(); // reuse your existing navigation logic
+      }, 1000);
+    }
+    // cleanup when overlay hides or component unmounts
+    return () => {
+      if (overlayTimer.current) {
+        clearTimeout(overlayTimer.current);
+        overlayTimer.current = null;
+      }
+    };
+  }, [showOverlay]);
 
   // Keep current within bounds if data changes for any reason
   useEffect(() => {
@@ -189,7 +207,15 @@ export default function QuestionScreen() {
           <Text style={styles.overlayText}>
             {lastCorrect ? 'Richtig!' : 'Falsch!'}
           </Text>
-          <TouchableOpacity onPress={next}>
+          <TouchableOpacity
+            onPress={() => {
+              if (overlayTimer.current) {
+                clearTimeout(overlayTimer.current);
+                overlayTimer.current = null;
+              }
+              next();
+            }}
+          >
             <Text style={styles.overlayButton}>OK</Text>
           </TouchableOpacity>
         </View>
@@ -201,7 +227,7 @@ export default function QuestionScreen() {
           <View className="card" style={styles.doneCard}>
             <Text style={styles.doneTitle}>Herzlichen Glückwunsch! 🎉</Text>
             <Text style={styles.doneBody}>
-              Sie haben alle Fragen korrekt beantwortet.
+              Sie haben alle Fragen des Kapitels korrekt beantwortet.
             </Text>
             <TouchableOpacity
               style={styles.doneButton}

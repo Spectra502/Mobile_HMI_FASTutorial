@@ -7,8 +7,8 @@ import TextWithSidebar from '../TextWithSidebar';
 import riskGIF2 from '@/assets/GIFs/10-2.gif';
 import riskGIF3 from '@/assets/GIFs/10-3.gif';
 import riskGIF4 from '@/assets/GIFs/10-4.gif';
-import riskGIF1 from '@/assets/HMI_GIFs/10-1.gif';
-import riskIMG from '@/assets/HMI_GIFs/10-1.png';
+import riskGIF1 from '@/assets/HMI_GIFs/10-1_anim.gif';
+import riskIMG from '@/assets/HMI_GIFs/10-1_img.png';
 
 export default function QuickTourPageRisiken() {
   const profile = useProfile();

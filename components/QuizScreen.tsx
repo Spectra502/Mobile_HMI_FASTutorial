@@ -1,6 +1,6 @@
 // components/QuizScreen.tsx
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   ScrollView,
@@ -31,6 +31,31 @@ export default function QuizScreen() {
   //console.log('allChapters:', allChapters)
   //console.log('totalQuestions:', quiz.totalQuestions())
   //console.log('totalCorrectAnswers:', quiz.totalCorrectAnswers())
+
+  // Show a one-time "100% complete" message when all questions are correct
+  useEffect(() => {
+    if (selectedTab !== 'test') return;
+    if (totalQ <= 0) return;
+    const alreadySeen = profile.activeProfile?.hasSeenQuizFinishedPopup;
+    if (correct === totalQ && !alreadySeen) {
+      Alert.alert(
+        'Herzlichen Glückwunsch! 🎉',
+        'Sie haben alle Quiz-Kapitel erfolgreich abgeschlossen.',
+        [
+          {
+            text: 'OK',
+            onPress: () => profile.markPopupAsSeen('quiz'),
+          },
+        ],
+      );
+    }
+  }, [
+    selectedTab,
+    totalQ,
+    correct,
+    profile.activeProfile?.hasSeenQuizFinishedPopup,
+    profile,
+  ]);
 
 
   return (

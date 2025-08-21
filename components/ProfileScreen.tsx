@@ -47,7 +47,7 @@ export default function ProfileScreen() {
       <View style={styles.savedSection}>
         <View style={styles.savedHeader}>
           <Ionicons name="bookmark-outline" size={24} />
-          <Text style={styles.savedTitle}>Saved chapters</Text>
+          <Text style={styles.savedTitle}>Gespeichert</Text>
         </View>
 
         {bookmarks.length ? (
@@ -66,7 +66,7 @@ export default function ProfileScreen() {
           ))
         ) : (
           <Text style={styles.emptyText}>
-            You have no saved chapters.
+            Sie haben noch keine Seiten gespeichert.
           </Text>
         )}
 
@@ -74,7 +74,7 @@ export default function ProfileScreen() {
         {profile.profiles.length > 1 && (
           <View style={{ marginTop: 12 }}>
             <Text style={{ fontSize: 18, marginBottom: 8, color: '#666', fontWeight: '600' }}>
-              Change Profile
+              Profile wechseln
             </Text>
             {profile.profiles.map(p => (
               <TouchableOpacity
@@ -83,7 +83,7 @@ export default function ProfileScreen() {
                 onPress={() => profile.loadProfile(p.profileCode)}
               >
                 <Text style={{fontSize: 18, color: p.id === profile.activeProfile?.id ? '#007aff' : '#333' }}>
-                  {p.profileCode}{p.id === profile.activeProfile?.id ? ' (active)' : ''}
+                  {p.profileCode}{p.id === profile.activeProfile?.id ? ' (aktiv)' : ''}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -94,7 +94,7 @@ export default function ProfileScreen() {
           style={styles.switchBtn}
           onPress={() => setSwitchVisible(true)}
         >
-          <Text style={styles.switchText}>Change Profile</Text>
+          <Text style={styles.switchText}>Profil wechseln</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -102,12 +102,12 @@ export default function ProfileScreen() {
           onPress={() => {
             const code = profile.activeProfile?.profileCode ?? '';
             Alert.alert(
-              'Delete Profile',
-              `Are you sure you want to delete the profile "${code}"?`,
+              'Profil löschen',
+              `Möchten Sie das Profil "${code}" wirklich löschen?`,
               [
-                { text: 'Cancel', style: 'cancel' },
+                { text: 'Abbrechen', style: 'cancel' },
                 {
-                  text: 'Delete',
+                  text: 'Löschen',
                   style: 'destructive',
                   onPress: async () => {
                     await profile.deleteActiveProfile();
@@ -119,7 +119,7 @@ export default function ProfileScreen() {
             );
           }}
         >
-          <Text style={styles.deleteText}>Delete current profile</Text>
+          <Text style={styles.deleteText}>Aktuelles Profil löschen</Text>
         </TouchableOpacity>
 
 

@@ -187,19 +187,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionHeader: {
-  fontSize: 16,
+  fontSize: 18,
   fontWeight: '600',
   color: '#333',
   marginHorizontal: 20,
-  marginBottom: 12,
+  marginBottom: 0,
+  marginTop: 5,
 },
   tabSelected: {
     backgroundColor: '#fff',
     borderBottomWidth: 2,
     borderBottomColor: '#007aff',
   },
-  tabText: { color: '#666', fontWeight: '600' },
-  tabTextSel: { color: '#007aff', fontWeight: '700' },
+  tabText: { color: '#666', fontWeight: '600', fontSize: 16 },
+  tabTextSel: { color: '#007aff', fontWeight: '700', fontSize: 16 },
   content: { padding: 20 },
   progressWrapper: {
     backgroundColor: '#f5f5f5',
@@ -216,8 +217,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 30,
   },
-  startText: { fontSize: 24, color: '#fff', fontWeight: '600' },
+  startText: { fontSize: 18, color: '#fff', fontWeight: '600' },
   section: { marginTop: 24 },
-  desc:  { fontSize: 22, marginVertical: 12 },
+  desc:  { fontSize: 18, marginVertical: 12 },
 });
 

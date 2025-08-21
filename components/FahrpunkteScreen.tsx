@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     color: '#4CAF50',
   },
   statusSub: {
-    fontSize: 14,
+    fontSize: 18,
     color: 'black',
   },
   sectionHeader: {
@@ -86,11 +86,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
   },
   sectionSub: {
-    fontSize: 12,
+    fontSize: 16,
     color: '#666',
     marginTop: 4,
   },
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   eventDate: {
-    fontSize: 12,
+    fontSize: 16,
     color: '#999',
     marginLeft: 8,
   },

@@ -44,7 +44,7 @@ export default function RootLayout() {
             <Stack.Screen
               name="quiz/[chapter]"
               options={{
-                presentation: 'modal',
+                presentation: 'fullScreenModal',
                 headerShown: false,
               }}
             />

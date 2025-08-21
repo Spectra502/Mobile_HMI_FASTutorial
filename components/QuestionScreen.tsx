@@ -119,7 +119,16 @@ export default function QuestionScreen() {
     }
 
     // Everything answered correctly — we’re done 🎉
-    setQuizDone(true);
+    //setQuizDone(true);
+    // Everything answered correctly — we’re done 🎉
+    if (justThisChapter) {
+      // for chapter-only: jump straight back to the Quiz tab
+      // (use replace so we don’t leave a blank modal behind)
+      setTimeout(() => router.replace('/quiz'), 100);
+    } else {
+      // full quiz flow keeps the congrats dialog
+      setQuizDone(true);
+    }
   }
 
   const currentQuestion = all[current];
@@ -253,13 +262,13 @@ const BUTTON_HEIGHT = 48;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
-  header: { textAlign: 'center', fontSize: 18, fontWeight: '600', marginBottom: 12 },
+  header: { textAlign: 'center', fontSize: 24, fontWeight: '600', marginBottom: 12, marginTop: 20 },
   page: { paddingHorizontal: 20, paddingBottom: BUTTON_HEIGHT + 40 },
-  question: { fontSize: 18, marginBottom: 24 },
+  question: { fontSize: 22, marginBottom: 24, fontWeight: '600', marginTop: 18 },
   answerRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee' },
   radio: { width: RADIO_SIZE, height: RADIO_SIZE, borderRadius: RADIO_SIZE / 2, borderWidth: 2, borderColor: '#888', marginRight: 12 },
   radioSelected: { backgroundColor: '#007aff', borderColor: '#007aff' },
-  answerText: { fontSize: 16, color: '#111' },
+  answerText: { fontSize: 18, color: '#111', width: '90%' },
   answerTextSelected: { fontWeight: '600', color: '#007aff' },
   pagerIndicator: { alignItems: 'center', paddingVertical: 6 },
   pagerText: { color: '#666' },

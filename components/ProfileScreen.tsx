@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0066cc',
     borderRadius: 6,
   },
-  switchText: { color: 'white', textAlign: 'center', fontWeight: '600' },
+  switchText: { color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 18 },
 
   // Existing reset button
   resetBtn: {
@@ -181,6 +181,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#d32f2f',
     borderRadius: 6,
   },
-  deleteText: { color: 'white', textAlign: 'center', fontWeight: '600' },
+  deleteText: { color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 18 },
 
 });

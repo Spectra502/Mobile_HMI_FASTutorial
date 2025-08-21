@@ -192,7 +192,7 @@ const s = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: { flex: 1, fontSize: 20, color: colors.light.textPrimary },
+  title: { flex: 1, fontSize: 18, color: colors.light.textPrimary },
 
   statusCircle: {
     width: 28,

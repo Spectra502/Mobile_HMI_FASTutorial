@@ -130,7 +130,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
             color={profile.isBookmarked(currentChapter) ? '#007aff' : '#000'}
           />
         </TouchableOpacity>
-        <Text style={[styles.navTitle, { fontSize: font(24) }]}>{currentChapter}</Text>
+        <Text style={[styles.navTitle, { fontSize: font(22) }]}>{currentChapter}</Text>
         <TouchableOpacity onPress={onDone} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name="close" size={24} />
         </TouchableOpacity>
@@ -140,7 +140,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
         <StepProgressBar
           steps={allChapters.length}
           currentStep={index + 1} // 1-based for display
-          style={{ paddingHorizontal: 16 }}
+          style={{ paddingHorizontal: 16, marginBottom: 10 }}
         />
       )}
 
@@ -165,8 +165,8 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
       {/* Actions */}
       {showOverlay && (
         <View style={[styles.actions, { paddingBottom: insets.bottom + 10 }]}>
-          <TouchableOpacity onPress={goBack} disabled={index === 0} style={[styles.actionBtn, index === 0 && styles.disabled]}>
-            <Text style={styles.actionText}>Zurück</Text>
+          <TouchableOpacity onPress={goBack} disabled={index === 0} style={[styles.actionBtnDimmed, index === 0 && styles.disabled]}>
+            <Text style={styles.actionTextDimmed}>Zurück</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={goNext} style={styles.actionBtn}>
             <Text style={styles.actionText}>{index === allChapters.length - 1 ? 'Fertig' : 'Weiter'}</Text>
@@ -192,10 +192,12 @@ const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: '#fff' },
   navbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'rgba(255,255,255,0.8)', padding: 12 },
   navTitle: { fontSize: 18, fontWeight: '600' },
-  pager: { flex: 1},
+  pager: { flex: 1 },
   actions: { flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10 },
   actionBtn: { width: 120, height: 44, borderRadius: 22, borderWidth: 2, borderColor: '#007aff', justifyContent: 'center', alignItems: 'center', backgroundColor: '#007aff' },
+  actionBtnDimmed: { width: 120, height: 44, borderRadius: 22, borderWidth: 2, borderColor: '#868686ff', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' },
   actionText: { fontSize: 20, fontWeight: '600', color: '#fff' },
+  actionTextDimmed: { fontSize: 20, fontWeight: '600', color: '#868686ff' },
   disabled: { opacity: 0.5 },
 });
 

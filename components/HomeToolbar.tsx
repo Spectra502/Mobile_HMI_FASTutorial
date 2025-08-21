@@ -46,7 +46,7 @@ const s = StyleSheet.create({
   },
   bookmark: {
     width: 36, height: 36,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e7e7e7ff',
     borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
@@ -55,7 +55,7 @@ const s = StyleSheet.create({
   searchBox: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e7e7e7ff',
     borderRadius: 16,
     paddingHorizontal: 10,
     alignItems: 'center',

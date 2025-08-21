@@ -112,8 +112,8 @@ export default function StepProgressBar({
   );
 }
 
-const SIZE = 28;
-const INNER = 24;
+const SIZE = 30;
+const INNER = 32;
 
 const styles = StyleSheet.create({
   container: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    fontSize: 12,
+    fontSize: 16,
     color: colors.light.icon,
   },
   labelActive: {

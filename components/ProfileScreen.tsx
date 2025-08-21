@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react'; // ← add useState
 import {
-  ScrollView,
+  Alert, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -47,7 +47,7 @@ export default function ProfileScreen() {
       <View style={styles.savedSection}>
         <View style={styles.savedHeader}>
           <Ionicons name="bookmark-outline" size={24} />
-          <Text style={styles.savedTitle}>Gespeichert</Text>
+          <Text style={styles.savedTitle}>Saved chapters</Text>
         </View>
 
         {bookmarks.length ? (
@@ -66,15 +66,15 @@ export default function ProfileScreen() {
           ))
         ) : (
           <Text style={styles.emptyText}>
-            Sie haben noch keine Seiten gespeichert.
+            You have no saved chapters.
           </Text>
         )}
 
         {/* NEW: Switch profile button (above reset) */}
         {profile.profiles.length > 1 && (
           <View style={{ marginTop: 12 }}>
-            <Text style={{ marginBottom: 8, color: '#666', fontWeight: '600' }}>
-              Profile wechseln
+            <Text style={{ fontSize: 18, marginBottom: 8, color: '#666', fontWeight: '600' }}>
+              Change Profile
             </Text>
             {profile.profiles.map(p => (
               <TouchableOpacity
@@ -82,8 +82,8 @@ export default function ProfileScreen() {
                 style={{ paddingVertical: 8 }}
                 onPress={() => profile.loadProfile(p.profileCode)}
               >
-                <Text style={{ color: p.id === profile.activeProfile?.id ? '#007aff' : '#333' }}>
-                  {p.profileCode}{p.id === profile.activeProfile?.id ? ' (aktiv)' : ''}
+                <Text style={{fontSize: 18, color: p.id === profile.activeProfile?.id ? '#007aff' : '#333' }}>
+                  {p.profileCode}{p.id === profile.activeProfile?.id ? ' (active)' : ''}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -94,8 +94,34 @@ export default function ProfileScreen() {
           style={styles.switchBtn}
           onPress={() => setSwitchVisible(true)}
         >
-          <Text style={styles.switchText}>Profil wechseln</Text>
+          <Text style={styles.switchText}>Change Profile</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.deleteBtn}
+          onPress={() => {
+            const code = profile.activeProfile?.profileCode ?? '';
+            Alert.alert(
+              'Delete Profile',
+              `Are you sure you want to delete the profile "${code}"?`,
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Delete',
+                  style: 'destructive',
+                  onPress: async () => {
+                    await profile.deleteActiveProfile();
+                    // Optional: wipe quiz answers if you keep them per-profile
+                    quiz.resetAll?.();
+                  },
+                },
+              ],
+            );
+          }}
+        >
+          <Text style={styles.deleteText}>Delete current profile</Text>
+        </TouchableOpacity>
+
 
         {/* DEV-only Reset */}
         {__DEV__ && (
@@ -124,13 +150,13 @@ export default function ProfileScreen() {
 
 const styles = StyleSheet.create({
   container: { paddingBottom: 40, backgroundColor: '#fff' },
-  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 20 },
+  title: { fontSize: 30, fontWeight: 'bold', marginBottom: 20 },
   header: { alignItems: 'center', marginBottom: 40 },
-  profileCode: { fontSize: 20, fontWeight: '600' },
+  profileCode: { fontSize: 32, fontWeight: '600' },
   savedSection: { marginBottom: 40 },
   savedHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
-  savedTitle: { fontSize: 16, fontWeight: '600', color: '#555', marginLeft: 8 },
-  emptyText: { fontSize: 16, color: '#888', marginTop: 10 },
+  savedTitle: { fontSize: 20, fontWeight: '600', color: '#555', marginLeft: 8 },
+  emptyText: { fontSize: 18, color: '#888', marginTop: 10 },
 
   // NEW styles for the switch button
   switchBtn: {
@@ -149,4 +175,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   resetText: { color: 'white', textAlign: 'center' },
+    deleteBtn: {
+    marginTop: 12,
+    padding: 12,
+    backgroundColor: '#d32f2f',
+    borderRadius: 6,
+  },
+  deleteText: { color: 'white', textAlign: 'center', fontWeight: '600' },
+
 });

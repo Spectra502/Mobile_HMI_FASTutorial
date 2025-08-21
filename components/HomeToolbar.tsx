@@ -61,6 +61,7 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
+    fontSize: 16,
     flex: 1,
     marginLeft: 8,
     height: 36,

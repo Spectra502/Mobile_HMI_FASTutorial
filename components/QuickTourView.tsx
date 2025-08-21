@@ -8,6 +8,7 @@ import {
 import PagerView from 'react-native-pager-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useResponsive } from '@/constants/responsive';
 import { TourChapter, allChapters } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
 import StepProgressBar from './StepProgressBar';
@@ -55,6 +56,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
   const pagerRef = useRef<PagerView>(null);
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const { container, font, spacing } = useResponsive();
 
   const profile = useProfile();
   const startIndex = allChapters.indexOf(initialChapter);
@@ -120,7 +122,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
   return (
     <View style={styles.fill}>
       {/* Top nav + progress */}
-      <View style={[styles.navbar, { paddingTop: insets.top }]}>
+      <View style={[styles.navbar, container, { paddingTop: insets.top }]}>
         <TouchableOpacity onPress={() => profile.toggleBookmark(currentChapter)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons
             name={profile.isBookmarked(currentChapter) ? 'bookmark' : 'bookmark-outline'}
@@ -128,7 +130,7 @@ export default function QuickTourView({ initialChapter, showOverlay, onDone }: P
             color={profile.isBookmarked(currentChapter) ? '#007aff' : '#000'}
           />
         </TouchableOpacity>
-        <Text style={styles.navTitle}>{currentChapter}</Text>
+        <Text style={[styles.navTitle, { fontSize: font(24) }]}>{currentChapter}</Text>
         <TouchableOpacity onPress={onDone} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
           <Ionicons name="close" size={24} />
         </TouchableOpacity>
@@ -190,10 +192,10 @@ const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: '#fff' },
   navbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'rgba(255,255,255,0.8)', padding: 12 },
   navTitle: { fontSize: 18, fontWeight: '600' },
-  pager: { flex: 1 },
+  pager: { flex: 1},
   actions: { flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10 },
   actionBtn: { width: 120, height: 44, borderRadius: 22, borderWidth: 2, borderColor: '#007aff', justifyContent: 'center', alignItems: 'center', backgroundColor: '#007aff' },
-  actionText: { fontSize: 17, fontWeight: '600', color: '#fff' },
+  actionText: { fontSize: 20, fontWeight: '600', color: '#fff' },
   disabled: { opacity: 0.5 },
 });
 
@@ -201,7 +203,7 @@ const dlgStyles = StyleSheet.create({
   backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' },
   card: { width: '80%', backgroundColor: '#fff', borderRadius: 12, padding: 20, elevation: 8, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10 },
   title: { fontSize: 18, fontWeight: '600', marginBottom: 12, textAlign: 'center' },
-  body: { fontSize: 14, lineHeight: 20, marginBottom: 24, textAlign: 'center' },
+  body: { fontSize: 16, lineHeight: 20, marginBottom: 24, textAlign: 'center' },
   actions: { flexDirection: 'row', justifyContent: 'space-between' },
   primaryBtn: { backgroundColor: '#007aff', padding: 12, borderRadius: 6 },
   primaryText: { color: '#fff', fontWeight: '600' },

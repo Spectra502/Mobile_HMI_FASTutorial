@@ -89,5 +89,5 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   content:   { flex: 1, paddingHorizontal: 16 },
   header:    { marginTop: 17, marginBottom: 12 },
-  headerText:{ fontSize: 24, fontWeight: 'bold' },
+  headerText:{ fontSize: 34, fontWeight: 'bold' },
 });

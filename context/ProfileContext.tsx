@@ -26,6 +26,7 @@ export interface ProfileStore {
   areAllChaptersFinished: () => boolean;
   markPopupAsSeen: (type: 'tutorial' | 'quiz') => void;
   resetProfiles: () => Promise<void>;
+  deleteActiveProfile: () => Promise<void>;
 }
 
 const STORAGE_KEY = 'ProfileStore.profiles';
@@ -180,6 +181,32 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
     setActiveProfile(null)
   }
 
+  const deleteActiveProfile = async () => {
+    if (!activeProfile) return;
+
+    const toDelete = activeProfile;
+    const remaining = profiles.filter(p => p.id !== toDelete.id);
+
+    // Persist remaining list
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(remaining));
+
+    if (remaining.length > 0) {
+      // Pick the first remaining as new active
+      const next = remaining[0];
+      await AsyncStorage.setItem(CONTEXT_KEY, next.profileCode);
+      setProfiles(remaining);
+      setActiveProfile(next);
+    } else {
+      // No profiles left → clear and create a fresh guest
+      await AsyncStorage.removeItem(CONTEXT_KEY);
+      setProfiles([]);
+      setActiveProfile(null);
+      const guestCode = 'guest_' + uuidv4().slice(0, 6);
+      await createProfile(guestCode);
+    }
+  };
+
+
   return (
     <ProfileContext.Provider value={{
       profiles,
@@ -193,6 +220,7 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
       areAllChaptersFinished,
       markPopupAsSeen,
       resetProfiles,
+      deleteActiveProfile,
     }}>
       {children}
     </ProfileContext.Provider>

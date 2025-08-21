@@ -184,14 +184,15 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   startButton: {
+    fontSize: 30,
     marginTop: 12,
     backgroundColor: '#007aff',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 30,
   },
-  startText: { color: '#fff', fontWeight: '600' },
+  startText: { fontSize: 24, color: '#fff', fontWeight: '600' },
   section: { marginTop: 24 },
-  desc:  { fontSize: 14, marginVertical: 12 },
+  desc:  { fontSize: 22, marginVertical: 12 },
 });
 

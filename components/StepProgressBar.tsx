@@ -35,8 +35,8 @@ export default function StepProgressBar({
   return (
     <View style={[styles.container, style]}>
       {Array.from({ length: steps }).map((_, i) => {
-        const isDone   = i < currentStep;
-        const isActive = i === currentStep;
+        const isDone   = i < currentStep - 1;
+        const isActive = i === currentStep - 1;
 
         // circle colors
         const bgColor     = isActive
@@ -112,8 +112,8 @@ export default function StepProgressBar({
   );
 }
 
-const SIZE = 30;
-const INNER = 32;
+const SIZE = 32;
+const INNER = 35;
 
 const styles = StyleSheet.create({
   container: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    fontSize: 16,
+    fontSize: 18,
     color: colors.light.icon,
   },
   labelActive: {

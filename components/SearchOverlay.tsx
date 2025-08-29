@@ -53,7 +53,7 @@ export default function SearchOverlay({
       </TouchableOpacity>
 
       <Text style={styles.title}>Suchergebnisse</Text>
-      {/* you can even hide the subtitle if query is empty */}
+      {/* hide the subtitle if query is empty */}
       { trimmed.length > 0 && (
         <Text style={styles.subtitle}>"{query}"</Text>
       )}

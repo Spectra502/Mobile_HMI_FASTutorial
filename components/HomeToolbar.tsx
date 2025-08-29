@@ -57,13 +57,14 @@ const s = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#e7e7e7ff',
     borderRadius: 16,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     alignItems: 'center',
+    marginRight: 5,
   },
   input: {
     fontSize: 16,
     flex: 1,
     marginLeft: 8,
-    height: 36,
+    height: 40,
   },
 });

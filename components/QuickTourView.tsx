@@ -29,14 +29,14 @@ function CenteredDialog({ visible, onClose, onTest }: { visible: boolean; onClos
         <View style={dlgStyles.card}>
           <Text style={dlgStyles.title}>Sie haben alle Inhalte des Tutorials gesehen!</Text>
           <Text style={dlgStyles.body}>
-            Testen Sie nun das teilautomatisierte Fahren für mehr Sicherheit und Komfort! …
+            Testen Sie nun das teilautomatisierte Fahren für mehr Sicherheit und Komfort! Gerne können Sie Ihr Wissen zuvor nochmal testen. Viel Spaß!
           </Text>
           <View style={dlgStyles.actions}>
+            <TouchableOpacity style={dlgStyles.secondaryBtn} onPress={onClose}>
+              <Text style={dlgStyles.secondaryText}>Hauptmenü</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={dlgStyles.primaryBtn} onPress={onTest}>
               <Text style={dlgStyles.primaryText}>Wissen testen</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={dlgStyles.secondaryBtn} onPress={onClose}>
-              <Text style={dlgStyles.secondaryText}>Weiter</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -206,7 +206,7 @@ const dlgStyles = StyleSheet.create({
   card: { width: '80%', backgroundColor: '#fff', borderRadius: 12, padding: 20, elevation: 8, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 10 },
   title: { fontSize: 18, fontWeight: '600', marginBottom: 12, textAlign: 'center' },
   body: { fontSize: 16, lineHeight: 20, marginBottom: 24, textAlign: 'center' },
-  actions: { flexDirection: 'row', justifyContent: 'space-between' },
+  actions: { flexDirection: 'row', justifyContent: 'center', gap: 30 },
   primaryBtn: { backgroundColor: '#007aff', padding: 12, borderRadius: 6 },
   primaryText: { color: '#fff', fontWeight: '600' },
   secondaryBtn: { borderWidth: 1, borderColor: '#007aff', padding: 12, borderRadius: 6 },

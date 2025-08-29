@@ -13,7 +13,7 @@ export function useResponsive() {
   const scale = shortest / base;
 
   // Font scaling: a touch more aggressive on tablets
-  const font = (size: number) => Math.round(size * (isTablet ? scale * 1.8 : scale));
+  const font = (size: number) => Math.round(size * (isTablet ? scale * 0.6 : scale));
 
   // Spacing scaling (more subtle than font scaling)
   const spacing = (n: number) => Math.round(n * (isTablet ? scale * 0.9 : scale * 0.85));

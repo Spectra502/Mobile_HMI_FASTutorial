@@ -64,7 +64,7 @@ export default function HomeScreen() {
                setSearchActive(false);
                router.push({
                  pathname: '/quick-tour/[chapter]',
-                 params: { chapter: ch, showOverlay: 'true' },
+                 params: { chapter: ch, showOverlay: 'false' },
                });
              }}
             onSelectQuiz={(ch) => {

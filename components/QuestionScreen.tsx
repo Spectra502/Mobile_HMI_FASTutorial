@@ -2,6 +2,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -118,13 +119,18 @@ export default function QuestionScreen() {
       return;
     }
 
-    // Everything answered correctly — we’re done 🎉
-    //setQuizDone(true);
-    // Everything answered correctly — we’re done 🎉
+    
     if (justThisChapter) {
-      // for chapter-only: jump straight back to the Quiz tab
-      // (use replace so we don’t leave a blank modal behind)
-      setTimeout(() => router.replace('/quiz'), 100);
+      Alert.alert(
+        'Kapitel abgeschlossen!',
+        `Sie haben alle Fragen für "${chapter}" richtig beantwortet.`,
+        [
+          {
+            text: 'OK',
+            onPress: () => router.replace('/quiz'), // Go back after alert
+          },
+        ],
+      );
     } else {
       // full quiz flow keeps the congrats dialog
       setQuizDone(true);

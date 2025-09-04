@@ -117,7 +117,8 @@ export default function QuizScreen() {
                 const remaining = quiz.questions.filter(
                   (q) => q.userAnswerIndex == null || !quiz.isAnsweredCorrectly(q.id)
                 );
-
+                
+                {/*
                 if (remaining.length === 0) {
                   Alert.alert(
                     'Test abgeschlossen!',
@@ -126,6 +127,7 @@ export default function QuizScreen() {
                   );
                   return;
                 }
+                */}
 
                 // 3) Start at the first remaining question's chapter
                 const firstChapter = remaining[0].chapter;

@@ -3,9 +3,9 @@ import { useProfile } from '@/context/ProfileContext';
 import { useQuizService } from '@/context/QuizServiceContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react'; // ← add useState
+import React, { useState } from 'react';
 import {
-  Alert, ScrollView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AssistantButton from './AssistantButton';
-import LoginOverlay from './LoginOverlay'; // ← import the overlay
+import CustomAlert from './CustomAlert'; // Import the new component
+import LoginOverlay from './LoginOverlay';
 
 export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
@@ -22,8 +23,8 @@ export default function ProfileScreen() {
   const router = useRouter();
   const bookmarks = profile.activeProfile?.bookmarkedChapters ?? [];
 
-  // NEW: modal visibility for switching/creating/logging into a profile
   const [switchVisible, setSwitchVisible] = useState(false);
+  const [isDeleteAlertVisible, setDeleteAlertVisible] = useState(false); // State for the alert
 
   return (
     <ScrollView
@@ -70,7 +71,6 @@ export default function ProfileScreen() {
           </Text>
         )}
 
-        {/* NEW: Switch profile button (above reset) */}
         {profile.profiles.length > 1 && (
           <View style={{ marginTop: 12 }}>
             <Text style={{ fontSize: 18, marginBottom: 8, color: '#666', fontWeight: '600' }}>
@@ -99,31 +99,11 @@ export default function ProfileScreen() {
 
         <TouchableOpacity
           style={styles.deleteBtn}
-          onPress={() => {
-            const code = profile.activeProfile?.profileCode ?? '';
-            Alert.alert(
-              'Profil löschen',
-              `Möchten Sie das Profil "${code}" wirklich löschen?`,
-              [
-                { text: 'Abbrechen', style: 'cancel' },
-                {
-                  text: 'Löschen',
-                  style: 'destructive',
-                  onPress: async () => {
-                    await profile.deleteActiveProfile();
-                    // Optional: wipe quiz answers if you keep them per-profile
-                    quiz.resetAll?.();
-                  },
-                },
-              ],
-            );
-          }}
+          onPress={() => setDeleteAlertVisible(true)} // Show the custom alert
         >
           <Text style={styles.deleteText}>Aktuelles Profil löschen</Text>
         </TouchableOpacity>
 
-
-        {/* DEV-only Reset */}
         {__DEV__ && (
           <TouchableOpacity
             style={styles.resetBtn}
@@ -139,10 +119,33 @@ export default function ProfileScreen() {
         )}
       </View>
 
-      {/* NEW: LoginOverlay reused for switching/creating/login */}
       <LoginOverlay
         visible={switchVisible}
         onDismiss={() => setSwitchVisible(false)}
+      />
+
+      {/* Delete confirmation alert */}
+      <CustomAlert
+        visible={isDeleteAlertVisible}
+        title="Profil löschen"
+        message={`Möchten Sie das Profil "${profile.activeProfile?.profileCode ?? ''}" wirklich löschen?`}
+        onClose={() => setDeleteAlertVisible(false)}
+        buttons={[
+          {
+            text: 'Abbrechen',
+            style: 'secondary',
+            onPress: () => setDeleteAlertVisible(false),
+          },
+          {
+            text: 'Löschen',
+            style: 'destructive',
+            onPress: async () => {
+              setDeleteAlertVisible(false);
+              await profile.deleteActiveProfile();
+              quiz.resetAll?.();
+            },
+          },
+        ]}
       />
     </ScrollView>
   );
@@ -157,8 +160,6 @@ const styles = StyleSheet.create({
   savedHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
   savedTitle: { fontSize: 20, fontWeight: '600', color: '#555', marginLeft: 8 },
   emptyText: { fontSize: 18, color: '#888', marginTop: 10 },
-
-  // NEW styles for the switch button
   switchBtn: {
     marginTop: 16,
     padding: 12,
@@ -166,8 +167,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   switchText: { color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 18 },
-
-  // Existing reset button
   resetBtn: {
     marginTop: 12,
     padding: 12,
@@ -182,5 +181,4 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   deleteText: { color: 'white', textAlign: 'center', fontWeight: '600', fontSize: 18 },
-
 });

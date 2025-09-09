@@ -11,11 +11,12 @@ interface Props {
 }
 
 export default function HomeToolbar({ value, onChange, onFocus, onBlur }: Props) {
+  const router = useRouter();
+  
   return (
     <View style={s.row}>
       <TouchableOpacity style={s.bookmark}
         onPress={() => {
-          const router = useRouter();
           router.push('/profile');
         }}
       >
@@ -27,6 +28,7 @@ export default function HomeToolbar({ value, onChange, onFocus, onBlur }: Props)
         <TextInput
           style={s.input}
           placeholder="Suche nach Schlüsselwörtern"
+          placeholderTextColor="#888" // Explicitly set placeholder color
           value={value}
           onChangeText={onChange}
           onFocus={onFocus}

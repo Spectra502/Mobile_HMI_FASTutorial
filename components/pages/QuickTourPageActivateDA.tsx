@@ -63,7 +63,7 @@ export default function QuickTourPageDA() {
       <View style={styles.divider} />
 
       <TextWithSidebar>
-        Es sind nun <Text style={styles.highlight}>alle</Text> Fahrerassistenzsysteme aktiv und das Fahrzeug fährt <Text style={styles.highlight}>teilautomatisiert</Text>. 
+        Es sind nun alle Fahrerassistenzsysteme aktiv und das Fahrzeug fährt teilautomatisiert. 
         Richten Sie Ihren Blick weiterhin auf die Straße und nehmen Sie die Füße von den Pedalen. Ihre Hände können Sie während der automatisierten Fahrt vom Lenkrad nehmen oder am Lenkrad belassen, ohne zu lenken.
       </TextWithSidebar>
 

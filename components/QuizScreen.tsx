@@ -2,7 +2,6 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import {
-  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -15,8 +14,17 @@ import { allChapters } from '@/constants/types';
 import { useProfile } from '@/context/ProfileContext';
 import { useQuizService } from '@/context/QuizServiceContext';
 import AssistantButton from './AssistantButton';
+import CustomAlert from './CustomAlert'; // Import the new component
 import CustomProgressBar from './CustomProgressBar';
 import FahrpunkteScreen from './FahrpunkteScreen';
+
+// Define a type for the alert state
+type AlertInfo = {
+  visible: boolean;
+  title: string;
+  message: string;
+  buttons: { text: string; style?: 'primary' | 'secondary'; onPress: () => void; }[];
+} | null;
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();
@@ -27,58 +35,50 @@ export default function QuizScreen() {
   const correct = quiz.totalCorrectAnswers();
 
   const [selectedTab, setSelectedTab] = useState<'test' | 'fahrpunkte'>('test');
+  const [alertInfo, setAlertInfo] = useState<AlertInfo>(null); // State for alerts
 
-  //console.log('allChapters:', allChapters)
-  //console.log('totalQuestions:', quiz.totalQuestions())
-  //console.log('totalCorrectAnswers:', quiz.totalCorrectAnswers())
-
-  // Show a one-time "100% complete" message when all questions are correct
   useEffect(() => {
-    if (selectedTab !== 'test') return;
+    if (selectedTab !== 'test' || !profile.activeProfile) return;
     if (totalQ <= 0) return;
-    const alreadySeen = profile.activeProfile?.hasSeenQuizFinishedPopup;
+    const alreadySeen = profile.activeProfile.hasSeenQuizFinishedPopup;
     if (correct === totalQ && !alreadySeen) {
-      Alert.alert(
-        'Herzlichen Glückwunsch! 🎉',
-        'Sie haben alle Quiz-Kapitel erfolgreich abgeschlossen.',
-        [
+      setAlertInfo({
+        visible: true,
+        title: 'Herzlichen Glückwunsch! 🎉',
+        message: 'Sie haben alle Quiz-Kapitel erfolgreich abgeschlossen.',
+        buttons: [
           {
             text: 'OK',
-            onPress: () => profile.markPopupAsSeen('quiz'),
+            onPress: () => {
+              profile.markPopupAsSeen('quiz');
+              setAlertInfo(null);
+            },
           },
         ],
-      );
+      });
     }
   }, [
     selectedTab,
     totalQ,
     correct,
-    profile.activeProfile?.hasSeenQuizFinishedPopup,
+    profile.activeProfile,
     profile,
   ]);
 
-
   return (
     <View style={[styles.fill, { paddingTop: insets.top }]}>
-      {/* Top Tab Selector */}
       <View style={styles.tabSelector}>
         <TouchableOpacity
-          style={[
-            styles.tabButton,
-            selectedTab === 'test' && styles.tabSelected,
-          ]}
+          style={[styles.tabButton, selectedTab === 'test' && styles.tabSelected]}
           onPress={() => setSelectedTab('test')}
         >
-          <Text style={selectedTab==='test'?styles.tabTextSel:styles.tabText}>Test</Text>
+          <Text style={selectedTab === 'test' ? styles.tabTextSel : styles.tabText}>Test</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[
-            styles.tabButton,
-            selectedTab === 'fahrpunkte' && styles.tabSelected,
-          ]}
+          style={[styles.tabButton, selectedTab === 'fahrpunkte' && styles.tabSelected]}
           onPress={() => setSelectedTab('fahrpunkte')}
         >
-          <Text style={selectedTab==='fahrpunkte'?styles.tabTextSel:styles.tabText}>Fahrpunkte</Text>
+          <Text style={selectedTab === 'fahrpunkte' ? styles.tabTextSel : styles.tabText}>Fahrpunkte</Text>
         </TouchableOpacity>
       </View>
 
@@ -88,57 +88,46 @@ export default function QuizScreen() {
           contentContainerStyle={{ flexGrow: 1, padding: 20 }}
           showsVerticalScrollIndicator={false}
         >
-          
-          {/* Progress Section */}
           <View style={styles.progressWrapper}>
             <Text style={styles.desc}>
               Füllen Sie 24 Fragen aus und testen Sie Ihr Wissen mit diesem Quiz!
             </Text>
-            <CustomProgressBar
-              progress={
-                correct/
-                Math.max(1, totalQ)
-              }
-            />
+            <CustomProgressBar progress={correct / Math.max(1, totalQ)} />
             <TouchableOpacity
               style={styles.startButton}
               onPress={() => {
-                // 1) Must finish all tutorials first
                 if (!profile.areAllChaptersFinished()) {
-                  Alert.alert(
-                    'Erst Tutorial abschließen',
-                    'Sie müssen zuerst alle Seiten des Tutorials absolvieren, bevor Sie das Quiz starten können!',
-                    [{ text: 'OK' }],
-                  );
+                  setAlertInfo({
+                    visible: true,
+                    title: 'Erst Tutorial abschließen',
+                    message: 'Sie müssen zuerst alle Seiten des Tutorials absolvieren, bevor Sie das Quiz starten können!',
+                    buttons: [{ text: 'OK', onPress: () => setAlertInfo(null) }],
+                  });
                   return;
                 }
 
-                // 2) Compute remaining questions (unanswered OR incorrect)
                 const remaining = quiz.questions.filter(
                   (q) => q.userAnswerIndex == null || !quiz.isAnsweredCorrectly(q.id)
                 );
-                
-                {/*
-                if (remaining.length === 0) {
-                  Alert.alert(
-                    'Test abgeschlossen!',
-                    'Sie haben bereits alle Fragen richtig beantwortet.',
-                    [{ text: 'OK' }],
-                  );
-                  return;
+
+                const firstRemainingQuestion = remaining[0];
+
+                if (firstRemainingQuestion) {
+                  router.push({
+                    pathname: '/quiz/[chapter]',
+                    params: {
+                      chapter: firstRemainingQuestion.chapter,
+                      onlyChapter: 'false',
+                    },
+                  });
+                } else {
+                  setAlertInfo({
+                    visible: true,
+                    title: 'Test abgeschlossen!',
+                    message: 'Sie haben bereits alle Fragen richtig beantwortet.',
+                    buttons: [{ text: 'OK', onPress: () => setAlertInfo(null) }],
+                  });
                 }
-                */}
-
-                // 3) Start at the first remaining question's chapter
-                const firstChapter = remaining[0].chapter;
-
-                router.push({
-                  pathname: '/quiz/[chapter]',
-                  params: {
-                    chapter: firstChapter,
-                    onlyChapter: 'false',
-                  },
-                });
               }}
             >
               <Text style={styles.startText}>Starten ▶</Text>
@@ -149,7 +138,6 @@ export default function QuizScreen() {
             Beantworten nach Kapiteln
           </Text>
 
-          {/* Chapter-by-chapter */}
           <View style={styles.section}>
             {allChapters.map((chap) => (
               <AssistantButton
@@ -170,11 +158,20 @@ export default function QuizScreen() {
       ) : (
         <FahrpunkteScreen />
       )}
+
+      {/* Render the custom alert if there is info for it */}
+      {alertInfo && (
+        <CustomAlert
+          visible={alertInfo.visible}
+          title={alertInfo.title}
+          message={alertInfo.message}
+          buttons={alertInfo.buttons}
+          onClose={() => setAlertInfo(null)}
+        />
+      )}
     </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   fill: { flex: 1, backgroundColor: '#fff' },
@@ -189,13 +186,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sectionHeader: {
-  fontSize: 18,
-  fontWeight: '600',
-  color: '#333',
-  marginHorizontal: 20,
-  marginBottom: 0,
-  marginTop: 5,
-},
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginHorizontal: 20,
+    marginBottom: 0,
+    marginTop: 5,
+  },
   tabSelected: {
     backgroundColor: '#fff',
     borderBottomWidth: 2,
@@ -203,7 +200,6 @@ const styles = StyleSheet.create({
   },
   tabText: { color: '#666', fontWeight: '600', fontSize: 16 },
   tabTextSel: { color: '#007aff', fontWeight: '700', fontSize: 16 },
-  content: { padding: 20 },
   progressWrapper: {
     backgroundColor: '#f5f5f5',
     borderRadius: 17,
@@ -223,4 +219,3 @@ const styles = StyleSheet.create({
   section: { marginTop: 24 },
   desc:  { fontSize: 18, marginVertical: 12 },
 });
-

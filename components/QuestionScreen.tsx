@@ -2,7 +2,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,6 +11,7 @@ import {
 import PagerView from 'react-native-pager-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useResponsive } from '@/constants/responsive';
 import { TourChapter } from '@/constants/types';
 import { useQuizService } from '@/context/QuizServiceContext';
 
@@ -21,6 +21,7 @@ interface Params {
 }
 
 export default function QuestionScreen() {
+  const { isTablet } = useResponsive();
   const overlayTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { chapter: chapParam, onlyChapter } = useLocalSearchParams<Params>();
   const router = useRouter();
@@ -30,12 +31,10 @@ export default function QuestionScreen() {
   const chapter = chapParam as TourChapter;
   const justThisChapter = onlyChapter === 'true';
 
-  // ---- 1) Freeze initial question IDs for this session
   const initialIds = useMemo(() => {
     if (justThisChapter) {
       return quiz.questions.filter(q => q.chapter === chapter).map(q => q.id);
     }
-    // full quiz: only remaining at start (unanswered OR incorrect)
     return quiz.questions
       .filter(q => q.userAnswerIndex == null || !quiz.isAnsweredCorrectly(q.id))
       .map(q => q.id);
@@ -44,30 +43,24 @@ export default function QuestionScreen() {
   const [ids, setIds] = useState<string[]>(initialIds);
   const [current, setCurrent] = useState(0);
   const [retryRound, setRetryRound] = useState(false);
-  const [pagerKey, setPagerKey] = useState(0); // force remount on dataset change
+  const [pagerKey, setPagerKey] = useState(0);
   const pagerRef = useRef<PagerView>(null);
 
-  // Project frozen IDs -> live question objects to reflect latest selections
   const all = ids
     .map(id => quiz.questions.find(q => q.id === id))
     .filter((q): q is NonNullable<typeof q> => !!q);
 
-  // Empty session? (e.g., full quiz but already all correct)
   const [quizDone, setQuizDone] = useState(all.length === 0);
-
-  // --- Feedback overlay
   const [showOverlay, setOverlay] = useState(false);
   const [lastCorrect, setLastCorrect] = useState(false);
 
-  // auto-advance after 2s when the overlay is visible
   useEffect(() => {
     if (showOverlay) {
       overlayTimer.current = setTimeout(() => {
         overlayTimer.current = null;
-        next(); // reuse your existing navigation logic
+        next();
       }, 1000);
     }
-    // cleanup when overlay hides or component unmounts
     return () => {
       if (overlayTimer.current) {
         clearTimeout(overlayTimer.current);
@@ -76,14 +69,12 @@ export default function QuestionScreen() {
     };
   }, [showOverlay]);
 
-  // Keep current within bounds if data changes for any reason
   useEffect(() => {
     if (current > all.length - 1) {
       setCurrent(Math.max(0, all.length - 1));
     }
   }, [all.length, current]);
 
-  // ----- Actions
   function onConfirm() {
     const q = all[current];
     if (!q || q.userAnswerIndex == null) return;
@@ -92,7 +83,6 @@ export default function QuestionScreen() {
   }
 
   function movePagerTo(idx: number) {
-    // Safety: if PagerView got remounted, setPage might race; guard with setTimeout
     requestAnimationFrame(() => pagerRef.current?.setPage(idx));
   }
 
@@ -104,37 +94,21 @@ export default function QuestionScreen() {
       return;
     }
 
-    // End of this round — check if we need a retry round
     const incorrectIds = ids.filter(id => {
       const q = quiz.questions.find(x => x.id === id);
       return !!q && q.userAnswerIndex != null && !quiz.isAnsweredCorrectly(id);
     });
 
     if (incorrectIds.length > 0) {
-      // Start retry round with only incorrect ones
       setRetryRound(true);
       setIds(incorrectIds);
       setCurrent(0);
-      setPagerKey(k => k + 1); // <-- force PagerView remount with new children
+      setPagerKey(k => k + 1);
       return;
     }
 
-    
-    if (justThisChapter) {
-      Alert.alert(
-        'Kapitel abgeschlossen!',
-        `Sie haben alle Fragen für "${chapter}" richtig beantwortet.`,
-        [
-          {
-            text: 'OK',
-            onPress: () => router.replace('/quiz'), // Go back after alert
-          },
-        ],
-      );
-    } else {
-      // full quiz flow keeps the congrats dialog
-      setQuizDone(true);
-    }
+    // --- FIX 1: Show the completion dialog for both single chapter and full quiz.
+    setQuizDone(true);
   }
 
   const currentQuestion = all[current];
@@ -146,17 +120,15 @@ export default function QuestionScreen() {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* Header */}
       <Text style={styles.header}>{headerTitle}</Text>
 
-      {/* Pager */}
       <PagerView
-        key={pagerKey}              // <-- remount when ids change
+        key={pagerKey}
         ref={pagerRef}
         style={{ flex: 1 }}
         initialPage={0}
         onPageSelected={(e) => setCurrent(e.nativeEvent.position)}
-        scrollEnabled={false}       // advance via overlay "OK"; prevents weird swipes
+        scrollEnabled={false}
       >
         {all.map((q) => (
           <ScrollView
@@ -180,6 +152,7 @@ export default function QuestionScreen() {
                 <Text
                   style={[
                     styles.answerText,
+                    isTablet && { fontSize: 24 },
                     q.userAnswerIndex === i && styles.answerTextSelected,
                   ]}
                 >
@@ -191,14 +164,12 @@ export default function QuestionScreen() {
         ))}
       </PagerView>
 
-      {/* Pager indicator */}
       <View style={styles.pagerIndicator}>
         <Text style={styles.pagerText}>
           {all.length === 0 ? 0 : Math.min(current + 1, all.length)}/{all.length}
         </Text>
       </View>
 
-      {/* Action row */}
       <View style={[styles.actions, { paddingBottom: insets.bottom || 12 }]}>
         <TouchableOpacity style={styles.cancelBtn} onPress={() => router.back()}>
           <Text style={styles.cancelText}>Abbrechen</Text>
@@ -215,7 +186,6 @@ export default function QuestionScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Feedback overlay */}
       {showOverlay && (
         <View style={styles.overlay}>
           <Text style={styles.overlayIcon}>{lastCorrect ? '✅' : '❌'}</Text>
@@ -236,22 +206,20 @@ export default function QuestionScreen() {
         </View>
       )}
 
-      {/* Finished dialog (shown when ALL questions are correct) */}
       {quizDone && (
         <View style={styles.doneBackdrop}>
           <View className="card" style={styles.doneCard}>
             <Text style={styles.doneTitle}>Herzlichen Glückwunsch! 🎉</Text>
             <Text style={styles.doneBody}>
-              Sie haben alle Fragen des Kapitels korrekt beantwortet.
+              {justThisChapter
+                ? 'Sie haben alle Fragen des Kapitels korrekt beantwortet.'
+                : 'Sie haben alle Quiz-Fragen korrekt beantwortet.'}
             </Text>
             <TouchableOpacity
               style={styles.doneButton}
               onPress={() => {
-                // optional: reset local state so re-enter recomputes remaining
-                setIds([]);
-                setRetryRound(false);
-                setQuizDone(false);
-                router.push('/quiz');
+                // --- FIX 2: Use router.back() to dismiss the modal screen.
+                router.back();
               }}
             >
               <Text style={styles.doneButtonText}>OK</Text>

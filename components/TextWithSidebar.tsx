@@ -1,10 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function TextWithSidebar({ children }: { children: React.ReactNode }) {
+export default function TextWithSidebar({ 
+  children,
+  barColor = '#007aff' 
+}: { 
+  children: React.ReactNode,
+  barColor?: string,
+}) {
   return (
     <View style={styles.row}>
-      <View style={styles.bar} />
+      <View style={[styles.bar, { backgroundColor: barColor }]} />
       <Text style={styles.text}>{children}</Text>
     </View>
   );
@@ -13,15 +19,14 @@ export default function TextWithSidebar({ children }: { children: React.ReactNod
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    alignItems: 'flex-start', // This applies to all children by default
+    alignItems: 'flex-start',
     marginBottom: 16,
   },
   bar: {
     width: 10,
-    backgroundColor: '#007aff',
     marginRight: 8,
     borderRadius: 2,
-    alignSelf: 'stretch', // ✨ This is the fix!
+    alignSelf: 'stretch',
   },
   text: {
     flex: 1,

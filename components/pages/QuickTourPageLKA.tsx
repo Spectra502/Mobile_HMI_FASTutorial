@@ -10,10 +10,6 @@ import ampGIF2 from '@/assets/HMI_GIFs/4neu2.gif';
 export default function QuickTourPageLKA() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.LKA);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

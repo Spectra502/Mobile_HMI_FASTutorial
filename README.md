@@ -36,19 +36,19 @@ project-root/
 │       └── profile.tsx              ← ProfileScreen route
 │
 ├── app/quick-tour/
-│   └── [chapter].tsx                ← QuickTourRoute: uses `useLocalSearchParams` → QuickTourView
+│   └── [chapter].tsx                ← QuickTourRoute: uses useLocalSearchParams → QuickTourView
 │
 ├── app/quiz/
-│   └── [chapter].tsx                ← QuizRoute: uses `useLocalSearchParams` → QuestionScreen
+│   └── [chapter].tsx                ← QuizRoute: uses useLocalSearchParams → QuestionScreen
 │
 ├── components/                      ← Reusable UI components & screens
 │   ├── HomeScreen.tsx               ← Home wrapper; renders toolbar, QuickTourCard, HomeSection, launch buttons
 │   ├── HomeToolbar.tsx              ← Top search/bookmark bar
 │   ├── SearchOverlay.tsx            ← Full-screen search modal
 │   ├── HomeSection.tsx              ← Tutorial list + progress bar
-│   ├── QuickTourCard.tsx            ← “Tutorial starten” card (handles its own `router.push`)
+│   ├── QuickTourCard.tsx            ← “Tutorial starten” card (handles its own router.push)
 │   ├── QuickTourView.tsx            ← PagerView carousel + nav + actions
-│   ├── QuickTourPage*.tsx           ← One file per tour page (order must match `allChapters`)
+│   ├── QuickTourPage*.tsx           ← One file per tour page (order must match allChapters)
 │   ├── StepProgressBar.tsx          ← Top-of-screen step indicator
 │   ├── TextWithSidebar.tsx          ← Sidebar-style annotated text helper
 │   ├── PlaceholderImage.tsx         ← Stub for GIFs/illustrations
@@ -60,21 +60,20 @@ project-root/
 │   └── AssistantButton.tsx          ← Chapter button (tutorial & quiz variants)
 │
 ├── context/
-│   ├── ProfileContext.tsx           ← Port of your Swift `ProfileStore`
-│   └── QuizServiceContext.tsx       ← Port of Swift `QuizService` (questions, answers, correctness)
+│   ├── ProfileContext.tsx           ← Port of your Swift ProfileStore
+│   └── QuizServiceContext.tsx       ← Port of Swift QuizService (questions, answers, correctness)
 │
 ├── hooks/
-│   └── useHomeViewModel.ts          ← Port of Swift `HomeViewModel` (currentCar, quick-tour flag)
+│   └── useHomeViewModel.ts          ← Port of Swift HomeViewModel (currentCar, quick-tour flag)
 │
 ├── constants/
 │   ├── colors.ts
 │   ├── spacing.ts
-│   └── types.ts                     ← `enum TourChapter`, `allChapters: TourChapter[]`, CarModel, etc.
+│   └── types.ts                     ← enum TourChapter, allChapters: TourChapter[], CarModel, etc.
 │
 ├── assets/                          ← Images, fonts, media
-├── app.json / tsconfig.json         ← Expo config, path aliases (`@/` → `project-root`)
+├── app.json / tsconfig.json         ← Expo config, path aliases (@/ → project-root)
 └── README.md                        ← ← this file
-
 
 ## 2. File-Based Routing
 app/_layout.tsx
@@ -107,24 +106,21 @@ headerShown: false removes the default header
 
 Route files (index.tsx, quiz.tsx, profile.tsx) simply render the corresponding screen component.
 
-
 ## 3. Navigation & Modals
-
 Home → QuickTour and Quiz → Question use router.push() to open dynamic routes:
 router.push({
-  pathname: '/quick-tour/[chapter]',
-  params: { chapter: TourChapter.ACC, showOverlay: 'true' },
+pathname: '/quick-tour/[chapter]',
+params: { chapter: TourChapter.ACC, showOverlay: 'true' },
 });
 
 Modals (SwiftUI’s fullScreenCover) are implemented by registering the dynamic route in the root Stack with presentation: 'modal':
 
 <Stack.Screen
-  name="quick-tour/[chapter]"
-  options={{ presentation: 'modal', headerShown: false }}
+name="quick-tour/[chapter]"
+options={{ presentation: 'modal', headerShown: false }}
 />
 
 ## 4. Context & State Management
-
 ProfileContext.tsx
 Tracks finished chapters, bookmarks, profile code
 
@@ -153,7 +149,6 @@ Mirrors Swift's HomeViewModel
 Exposes currentCar and (formerly) a show-tour flag (now handled via navigation)
 
 ## 5. UI Components & Styling
-
 Theming
 ThemeProvider from React Navigation for light/dark themes
 
@@ -186,8 +181,7 @@ Quiz
 Helpers
 <AssistantButton />, <TextWithSidebar />, <PlaceholderImage />, etc.
 
-##  6. How It All Runs
-
+## 6. How It All Runs
 App Launch
 app/_layout.tsx loads fonts, wraps in providers, sets theme, instantiates <Stack>.
 

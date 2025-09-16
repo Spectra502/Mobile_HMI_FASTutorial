@@ -109,7 +109,7 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
   };
 
   const createProfile = async (code: string) => {
-    const cleanCode = code.trim(); // Good practice to clean the code
+    const cleanCode = code.trim();
     console.log('➕ createProfile with code:', cleanCode);
     console.log('📦 before create, profiles:', profiles);
 
@@ -129,7 +129,7 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
       hasSeenQuizFinishedPopup: false,
     };
 
-    upsert(newProf); // Add the new profile to your collection/storage
+    upsert(newProf); // Add the new profile to collection/storage
     console.log('✅ profile created, now profiles:', [...profiles, newProf]);
   };
 
@@ -169,7 +169,7 @@ export const ProfileProvider: React.FC<React.PropsWithChildren<{}>> = ({ childre
     upsert(cur);
   };
 
-  // Don’t provide the context until we’ve loaded from storage
+  // Don’t provide the context until loaded from storage
   if (!loaded) {
     return null; // or a splash / ActivityIndicator
   }

@@ -80,7 +80,6 @@ export default function StepProgressBar({
               </Animated.View>
             </View>
 
-            {/* 2) Connector (skip after the last circle) */}
             {i < steps - 1 && (
               <View style={styles.connectorContainer}>
                 {/* filled portion */}

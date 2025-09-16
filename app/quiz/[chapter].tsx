@@ -12,7 +12,6 @@ export default function QuizChapterModal() {
   const router = useRouter();
 
   if (!chapter) {
-    // malformed URL? just close
     router.back();
     return null;
   }

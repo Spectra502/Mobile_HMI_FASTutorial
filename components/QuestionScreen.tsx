@@ -106,8 +106,6 @@ export default function QuestionScreen() {
       setPagerKey(k => k + 1);
       return;
     }
-
-    // --- FIX 1: Show the completion dialog for both single chapter and full quiz.
     setQuizDone(true);
   }
 
@@ -218,7 +216,6 @@ export default function QuestionScreen() {
             <TouchableOpacity
               style={styles.doneButton}
               onPress={() => {
-                // --- FIX 2: Use router.back() to dismiss the modal screen.
                 router.back();
               }}
             >

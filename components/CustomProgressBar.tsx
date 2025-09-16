@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 12,
     overflow: 'hidden',
-    backgroundColor: '#EEE', // light grey track
-    marginVertical: 12,      // or pull from spacing.ts
+    backgroundColor: '#EEE',
+    marginVertical: 12,      
   },
   fill: {
-    backgroundColor: '#2196f3', // primary color 
+    backgroundColor: '#2196f3', 
     justifyContent: 'center',
     alignItems: 'flex-end',
-    paddingHorizontal: 4,       // gives breathing room around the “%”
+    paddingHorizontal: 4,       
   },
   empty: {
     backgroundColor: 'transparent',

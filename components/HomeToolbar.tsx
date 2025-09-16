@@ -28,7 +28,7 @@ export default function HomeToolbar({ value, onChange, onFocus, onBlur }: Props)
         <TextInput
           style={s.input}
           placeholder="Suche nach Schlüsselwörtern"
-          placeholderTextColor="#888" // Explicitly set placeholder color
+          placeholderTextColor="#888" 
           value={value}
           onChangeText={onChange}
           onFocus={onFocus}

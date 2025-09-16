@@ -116,7 +116,7 @@ export default function AssistantButton({ chapter, style, onPress, disabled }: P
 
     const correct = qs.filter(q => typeof q.userAnswerIndex === 'number' && quiz.isAnsweredCorrectly(q.id)).length;
 
-    // ▶ If you prefer "answered progress" (selected != null) instead of "correct progress", use:
+    // If "answered progress" prefered (selected != null) instead of "correct progress", use:
     // const answered = qs.filter(q => q.userAnswerIndex != null).length;
     // const prog = answered / total;
     const prog = correct / total;

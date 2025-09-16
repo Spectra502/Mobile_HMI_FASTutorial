@@ -12,10 +12,6 @@ import staIMG3 from '@/assets/TourPage/4-3.imageset/4-3.jpg';
 export default function QuickTourPageStauassistent() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.ACC);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

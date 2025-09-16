@@ -30,7 +30,6 @@ export default function HomeScreen() {
         onChange={setSearchText}
         
         onFocus={() => setSearchActive(true)}
-        // we’ll only close via the overlay’s × button
         onBlur={() => {}}
       />
 
@@ -49,11 +48,8 @@ export default function HomeScreen() {
             onSeeAll={() => {/* scroll or expand logic */}}
             onChapter={(chapter) => {
               setShowQuickTour(true);
-              // store selected chapter in state if you need it
             }}
           />
-        
-          {/* you can add an invisible anchor after to scroll-to-bottom */}
         </ScrollView>
 
         {/* Search overlay */}

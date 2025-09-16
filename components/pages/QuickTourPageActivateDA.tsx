@@ -14,10 +14,6 @@ import daJPG5 from '@/assets/HMI_GIFs/4-3.jpg';
 export default function QuickTourPageDA() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.ActivateDA);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

@@ -11,10 +11,6 @@ import spGIF3 from '@/assets/HMI_GIFs/9-3.gif';
 export default function QuickTourPageSpurwechsel() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.Spurwechsel);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

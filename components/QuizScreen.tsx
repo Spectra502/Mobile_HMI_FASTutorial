@@ -18,7 +18,6 @@ import CustomAlert from './CustomAlert'; // Import the new component
 import CustomProgressBar from './CustomProgressBar';
 import FahrpunkteScreen from './FahrpunkteScreen';
 
-// Define a type for the alert state
 type AlertInfo = {
   visible: boolean;
   title: string;
@@ -159,7 +158,6 @@ export default function QuizScreen() {
         <FahrpunkteScreen />
       )}
 
-      {/* Render the custom alert if there is info for it */}
       {alertInfo && (
         <CustomAlert
           visible={alertInfo.visible}

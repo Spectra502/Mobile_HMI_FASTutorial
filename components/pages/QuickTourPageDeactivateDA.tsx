@@ -12,10 +12,6 @@ import decGIF2 from '@/assets/HMI_GIFs/9-3.gif';
 export default function QuickTourPageDeactivateDA() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.Deaktivierung);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

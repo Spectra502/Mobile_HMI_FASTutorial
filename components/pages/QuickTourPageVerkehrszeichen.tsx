@@ -12,10 +12,6 @@ import vzGIF4 from '@/assets/HMI_GIFs/2neu3.gif';
 export default function QuickTourPageVerkehrszeichen() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.Verkehrszeichen);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

@@ -10,10 +10,6 @@ import nbGIF1 from '@/assets/HMI_GIFs/8-2.gif';
 export default function QuickTourPageNotbremse() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.Notbremse);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>

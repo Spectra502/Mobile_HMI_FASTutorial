@@ -13,9 +13,6 @@ import riskGIF1 from '@/assets/HMI_GIFs/8neu1.gif';
 export default function QuickTourPageRisiken() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.Risiken);
-  }, []);*/
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

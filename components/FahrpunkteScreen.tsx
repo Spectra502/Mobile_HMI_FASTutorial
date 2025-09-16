@@ -53,7 +53,6 @@ export default function FahrpunkteScreen() {
           <Text style={styles.eventSub}>Profil erstellt</Text>
         </View>
         <Text style={styles.eventPoints}>+{value}</Text>
-        {/* <Text style={styles.eventDate}>31.07.2025</Text> */}
       </View>
     </ScrollView>
   );

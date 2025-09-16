@@ -18,8 +18,7 @@ export default {
     // Backgrounds
     background: '#FFFFFF',
     cardBackground: '#F5F5F5',          // background for cards / sections
-    tutorialCardBackground: '#FFEAEA',  // your pinkish tutorial card
-
+    tutorialCardBackground: '#FFEAEA',  
     // Icons & tints
     icon:   '#687076',
     tint:   tintColorLight,

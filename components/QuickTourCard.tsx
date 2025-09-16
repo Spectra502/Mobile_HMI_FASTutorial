@@ -11,7 +11,7 @@ export default function QuickTourCard() {
     router.push({
       pathname: '/quick-tour/[chapter]',
       params: {
-        chapter: TourChapter.ActivateDA, // or whichever chapter you’d like to start
+        chapter: TourChapter.ActivateDA, // chapter to start with
         showOverlay: 'true',
       },
     });

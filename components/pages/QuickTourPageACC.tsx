@@ -11,10 +11,6 @@ import accGIF1 from '@/assets/HMI_GIFs/3neu1.gif';
 export default function QuickTourPageACC() {
   const profile = useProfile();
 
-  /*useEffect(() => {
-    profile.markChapterFinished(TourChapter.ACC);
-  }, []);*/
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextWithSidebar>
